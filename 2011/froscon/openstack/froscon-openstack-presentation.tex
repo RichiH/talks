@@ -1,0 +1,362 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{From Zero to OpenStack}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+rh@globalways.net}
+\institute{Globalways AG}
+\date{August 20, 2011}
+
+
+
+\begin{document}
+
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+
+\section{Quick intro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Who am I?}
+	\begin{itemize}
+		\item Project \& Network Operations Manager at Globalways AG
+		\item Passionate about FLOSS
+		\item freenode staff
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is Globalways?}
+	\begin{itemize}
+		\item ISP \& ICTP
+		\item German-wide DSL network
+		\item Own DC in Stuttgart
+		\item Total of six POPs in Frankfurt, Stuttgart \& Reutlingen
+		\item Connected via redundant dark fibers, wavelengths \& leased lines
+		\item Several high-profile government and industry clients
+		\item Almost all services virtualized with Debian on Xen
+		\item Always looking for new people...
+	\end{itemize}
+\end{frame}
+
+
+\section{Current situation}
+
+\begin{frame}
+	\frametitle{What is the cloud?}
+	\begin{itemize}
+		\item Common buzz-word
+		\item On-demand services
+		\item Dynamic and elastic; assumption of unlimited resources
+		\item Pay-as-you-go
+		\item Different layers of magic
+		\begin{itemize}
+			\item Physical infrastructure
+			\item Software
+			\item Business processes
+			\item End-user interaction
+		\end{itemize}
+		\item Everything-as-a-Service
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with existing solutions}
+	\begin{itemize}
+		\item Expensive once you reach certain thresholds of usage
+		\item Vendor lock-in
+		\item You can not deploy a cloud solution used by a third-party, yourself
+		\item Thus, no possibility to mix your own cloud with identical third-party cloud seamlessly
+		\item No private cloud unless you are a huge customer (government, etc)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with existing solutions, contd.}
+	\begin{itemize}
+		\item No true QoS in the back-bone
+		\item No guarantee for minimum IOPS
+		\item No on-site, in-person verification of compliance (locked cages, access control, etc)
+		\item You may be breaking European/German simply by using any cloud service provided by a US company or any of its subsidiaries, without being aware of it... (PATRIOT Act)
+	\end{itemize}
+\end{frame}
+
+
+\section{What is OpenStack?}
+
+\begin{frame}
+	\frametitle{How does OpenStack solve this?}
+	\begin{itemize}
+		\item It's FLOSS
+		\item Open collaboration, everyone is welcome
+		\item Your data stays yours; just export here and import there
+		\item You can create your own cloud, use a third-party, or a mix thereof
+		\item Picking from a wide array of service providers allows you to choose based on the features you need, e.g. compliance, QoS, etc.
+		\item European providers are not subject to the PATRIOT Act!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How does OpenStack solve this?}
+	\begin{itemize}
+		\item Modular design; pick and mix the OpenStack projects you want \& need
+		\item Heavy use of sharding
+		\item Highly asynchronous design
+		\item Eventual consistency is considered acceptable
+		\item Emphasis on reliability and error-avoidance
+		\item Blueprints, unit tests \& continuous integration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Design goals of all OpenStack projects}
+	\begin{itemize}
+		\item Highly modularized: Add new functionality easily and quickly
+		\item High availability: Scale to high workloads without failing
+		\item Fault tolerance: Isolate faults automatically to minimize effects and cascades
+		\item Recoverable: Diagnose, debug, \& rectify faults quickly
+		\item Transparent \& public governance
+		\item Open standards: Community-driven, RESTful API
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{History of OpenStack}
+	\begin{itemize}
+		\item 2010-03: Rackspace decides to open source Rackspace Cloud
+		\item 2010-05: NASA opens Nebula to the public
+		\item 2010-07: Formal launch of the project \& first design summit in Austin
+		\item 2010-10: Release of Austin
+		\item 2011-02: Release of Bexar
+		\item 2011-04: Release of Cactus
+		\item 2011-08: Over 100 developers working on OpenStack
+		\item Young, aggressive, efficient project
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Projects within OpenStack}
+	\begin{itemize}
+		\item Core
+		\begin{itemize}
+			\item Glance: Manage virtual machine images
+			\item Nova: Manage virtualization solutions, e.g. Xen, KVM, UML, LXC, VMWare...
+			\item Swift: Object storage
+		\end{itemize}
+		\item Incubation
+		\begin{itemize}
+			\item Keystone: Authentication frame-work
+			\item Dashboard: web UI
+		\end{itemize}
+		\item More to come...
+	\end{itemize}
+\end{frame}
+
+
+\section{OpenStack: Swift}
+
+\begin{frame}
+	\frametitle{Swift}
+	\begin{itemize}
+		\item Object storage
+		\item No inherent limit on object sizes
+		\item Supports striped transfers to increase speed
+		\item Built-in redundancy
+		\item Compability layer to emulate Amazon S3
+		\item Scales extremely well
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layout of Swift components}
+	\begin{itemize}
+		\item Auth nodes (obvious...)
+		\item Proxy nodes
+		\begin{itemize}
+			\item Central gateway for access control, etc
+			\item Handles most faults within Swift
+			\item Does not cache data, forwards only
+			\item Optional rate-limiting capability
+		\end{itemize}
+		\item Storage nodes
+		\begin{itemize}
+			\item Store accounts, containers and objects
+			\item Main part of Swift
+		\end{itemize}
+		\item Ring
+		\begin{itemize}
+			\item Keeps everything together
+			\item Distributed hash; determines storage locations
+			\item Partitioned to keep memory foot-print small
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layout of Swift components}
+	\begin{itemize}
+		\item Replicators
+		\begin{itemize}
+			\item DB replicator
+			\begin{itemize}
+				\item Hash-based synchronization
+				\item Resynchronisation via trivial high-water mark
+				\item Simply looks at DB uid, DB-local id, timestamp and hash
+				\item Initial seed to new machines via plain rsync!
+			\end{itemize}
+			\item Storage replicator
+			\begin{itemize}
+				\item Hash-based, as well
+				\item Synchronization based on rsync
+				\item Use of partitioned rings keeps directory indices small and thus rsync fast
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layout of Swift components}
+	\begin{itemize}
+		\item Account Reaper
+		\begin{itemize}
+			\item Asynchronous
+			\item Allows for lazy deletion!
+		\end{itemize}
+		\item Auditor
+		\begin{itemize}
+			\item Asynchronous
+			\item Trawls the complete storage network
+			\item Quarantines and replaces bad objects automagically
+			\item Absolute must; failed disks are easy, bit rot is hard!
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Initial deployment}
+	\begin{itemize}
+		\item Simply install Ubuntu LTS 10.04 and add the OpenStack repository
+		\item Debian packages coming along, as well
+		\item Dell's Crowbar is looking very promising to automate most of deployment; based on Opscode's Chef Server
+		\item URLs with detailed instructions at the end of this presentation :)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Deployment best practices}
+	\begin{itemize}
+		\item Five or more fully separate zones
+			\begin{itemize}
+				\item Physical location
+				\item Power and backup power
+				\item Network connectivity
+				\item WAN interconnects
+				\item You can start with one machine per zone; with proper planning, you can simply add machines to the zones to scale as you grow
+			\end{itemize}
+		\item Three or more copies of every object, at max one per zone
+		\item Even if you lose a whole zone, you can replicate from two zones to two others, essentially cutting replication time in half
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Deployment best practices, contd.}
+	\begin{itemize}
+		\item Separate management network from data network
+		\item VLANs are OK, two physical interfaces preferable
+		\item Never use RAID; failures should be known to Swift ASAP!
+		\item Contain maintenance, upgrades etc to one zone at a time
+		\item Quick replacement/repair? Just do it. Might take longer? Take disk/machine out of order so Swift can start to replicate in the background
+		\item Swift provides good fault detection \& handling; still monitor on top of that, yourself!
+		\begin{itemize}
+			\item OSSEC to aggregate \& parse log files
+			\item Zabbix, Nagios, Ganglia, etc. for everything you can think of (e.g. load, smart status, sensors, disk space, port status...)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Our deployment}
+	\begin{itemize}
+		\item Still in the testing phase, but looking very good
+		\item Five zones across three data centers
+		\item 1 Gbit/s switching within zones
+		\item Zones interconnected via MPLS over redundant 10 Gbit/s lines
+		\item Switching \& MPLS ensure line-rate speeds with minimal overhead
+	\end{itemize}
+\end{frame}
+
+
+\section{Conclusion}
+
+\begin{frame}
+	\frametitle{Is it worth it?}
+	\begin{itemize}
+		\item Short answer: Yes
+		\item Yet, OpenStack is still somewhat intimidating
+		\item The next release, Diablo, is scheduled for September and considered ready for general consumption
+		\item Working with a well-designed product is fun
+		\item You know the people who build and use OpenStack care about your data
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{More resources}
+	\begin{itemize}
+		\item \url{http://www.openstack.org}
+		\item \url{http://wiki.openstack.org}
+		\item \url{http://glance.openstack.org}
+		\item \url{http://nova.openstack.org}
+		\item \url{http://swift.openstack.org}
+		\item \url{http://tinyurl.com/openstack-releases}
+		\item \url{http://tinyurl.com/openstack-admin-cactus}
+		\item \url{https://github.com/dellcloudedge/crowbar}
+		\item \url{http://www.opscode.com}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+	\begin{itemize}
+		\item I hope you had fun listening to this talk
+		\item Feel free to contact me with questions
+	\end{itemize}
+\end{frame}
+
+
+
+\end{document}
