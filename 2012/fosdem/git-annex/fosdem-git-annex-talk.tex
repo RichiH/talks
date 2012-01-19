@@ -64,7 +64,7 @@ richih.mailinglist@gmail.com}
 		\item Version control system
 		\item Distributed
 		\item Currently the best version control system available
-		\item (SHA1 was a stupid idea from day one)
+		\item (git using SHA1 was a stupid idea from day one)
 	\end{itemize}
 \end{frame}
 
@@ -81,20 +81,59 @@ richih.mailinglist@gmail.com}
 \section{Use cases}
 
 \begin{frame}
-	\frametitle{}
+	\frametitle{Archiving}
 	\begin{itemize}
-		\item 
+		\item Put data into git-annex
+		\item Distribute data among any number of drives / tapes / etc
+		\item Store offline media in a save place
+		\item Maintain full information about number and location of all copies
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Media consumption}
+	\begin{itemize}
+		\item Import podcasts / videos / slides
+		\item Sync to consumption devices
+		\item Consume media
+		\item Drop consumed media from annex
+		\item Deletion will propagate through all repos
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nomad}
+	\begin{itemize}
+		\item Keep copies of data on the Internet
+		\item Add data locally and/or remotely while on the road
+		\item Sync data between local and remote once at an Internet cafe or similar
+		\item Perfect for photos during travel
+	\end{itemize}
+\end{frame}
+
+\section{Technical details}
+
+\begin{frame}
+	\frametitle{How does git-annex store data?}
+	\begin{itemize}
+		\item Several backends
 		\begin{itemize}
-			\item 
-			\item 
+			\item WORM
+			\item SHA family
+			\item SHA with suffix
 		\end{itemize}
-		\item 
+		\item Moves files into .git/annex/objects (details depend on backend)
+		\item Makes them read-only
+		\item Puts symlink in place of file
+		\item Stores location data in branch git-annex
+		\item User add symlinks to normal git repo (usually the master branch)
 	\end{itemize}
 \end{frame}
 
 % web links / packages / etc 
 
 % thanks
+
 
 
 \end{document}
