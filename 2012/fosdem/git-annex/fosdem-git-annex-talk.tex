@@ -73,7 +73,8 @@ richih.mailinglist@gmail.com}
 	\frametitle{What is git-annex}
 	\begin{itemize}
 		\item Based on git
-		\item Does not need to check files into git
+		\item Does not need to check files into git (neat, huh?)
+		\item Still able to maintain full history
 		\item Allows for various workflows
 	\end{itemize}
 \end{frame}
@@ -82,7 +83,7 @@ richih.mailinglist@gmail.com}
 \section{Use cases}
 
 \begin{frame}
-	\frametitle{Archiving}
+	\frametitle{The Archivist}
 	\begin{itemize}
 		\item Put data into git-annex
 		\item Distribute data among any number of drives / tapes / etc
@@ -103,12 +104,13 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nomad}
+	\frametitle{The Nomad}
 	\begin{itemize}
 		\item Keep copies of data on the Internet
+		\item Optionally sync between several local devices for backup
 		\item Add data locally and/or remotely while on the road
 		\item Sync data between local and remote once at an Internet cafe or similar
-		\item Perfect for photos during travel
+		\item Perfect for photos while travelling!
 	\end{itemize}
 \end{frame}
 
@@ -121,14 +123,14 @@ richih.mailinglist@gmail.com}
 		\item Several backends
 		\begin{itemize}
 			\item WORM
-			\item SHA family
+			\item SHA family (default)
 			\item SHA with suffix
 		\end{itemize}
 		\item Moves files into .git/annex/objects (details depend on backend)
-		\item Makes them read-only
+		\item Makes them read-only (important to how git-annex works)
 		\item Puts symlink in place of file
 		\item Stores location data in branch git-annex
-		\item User add symlinks to normal git repo (usually the master branch)
+		\item User adds and commits symlinks to normal git repo (usually the master branch)
 	\end{itemize}
 \end{frame}
 
