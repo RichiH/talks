@@ -64,7 +64,12 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Version control system
 		\item Distributed
-		\item Currently the best version control system available
+		\begin{itemize}
+			\item Does not need a central repository
+			\item Allows you to commit while offline
+		\end{itemize}
+		\item Requires you to have the \textbf{complete} history of all files in every checkout
+		\item Currently the best version control system available (imo...)
 		\item (git using SHA1 was a stupid idea from day one)
 	\end{itemize}
 \end{frame}
@@ -74,8 +79,9 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Based on git
 		\item Does not need to check files into git (neat, huh?)
-		\item Still able to maintain full history
-		\item Allows for various workflows
+		\item Still allows you to check files into git if you want to
+		\item Able to maintain full history, but does not do so by default
+		\item Enables various workflows
 	\end{itemize}
 \end{frame}
 
@@ -120,12 +126,6 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{How does git-annex store data?}
 	\begin{itemize}
-		\item Several backends
-		\begin{itemize}
-			\item WORM
-			\item SHA family (default)
-			\item SHA with suffix
-		\end{itemize}
 		\item Moves files into .git/annex/objects (details depend on backend)
 		\item Makes them read-only (important to how git-annex works)
 		\item Puts symlink in place of file
@@ -134,9 +134,49 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
-% web links / packages / etc 
+% min copies
+% sha256/512
+\begin{frame}
+	\frametitle{Special remotes}
+	\begin{itemize}
+		\item Allow you to store data in non-git remotes
+		\item All special remotes other than web support encryption
+		\item Hook system which lets you write to and read from arbitrary remotes
+		\item Amazon S3
+		\item bup
+		\item directory (basically an export option)
+		\item rsync
+		\item Tahoe-LAFS (cloud-based, distributed file system)
+		\item web (great for talks, slides, project Gutenberg, or archive.org)
+	\end{itemize}
+\end{frame}
 
-% thanks
+% web links / packages / etc 
+\begin{frame}
+	\frametitle{Where to get it}
+	\begin{itemize}
+		\item \texttt{cabal install git-annex --bindir=\$HOME/bin}
+		\item Native packages for
+		\begin{itemize}
+			\item Debian
+			\item Ubuntu
+			\item FreeBSD
+			\item Arch Linux
+			\item NixOS
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+	\begin{itemize}
+		\item Thanks for listening; I hope you had fun and maybe learned something
+		\item Feel free to contact me with questions
+		\item RichiH @ \{freenode,OFTC,IRCnet\}.net
+		\item richih.mailinglist@gmail.com
+	\end{itemize}
+\end{frame}
+
 
 
 
