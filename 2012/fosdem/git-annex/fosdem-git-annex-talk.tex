@@ -23,10 +23,11 @@
 
 
 \title{git-annex}
+\subtitle{manage files with git, without checking their contents in}
 \author{Richard Hartmann,\\
 RichiH@\{freenode,OFTC,IRCnet\},\\
 richih.mailinglist@gmail.com}
-\date{\today}
+\date{2012-02-05}
 
 
 
@@ -56,11 +57,12 @@ richih.mailinglist@gmail.com}
 		\item Project \& Network Operations Manager at Globalways AG
 		\item freenode \& OFTC staff
 		\item Passionate about FLOSS
+		\item I am not the author of git-annex, but an interested early adopter
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{What is git}
+	\frametitle{What is git?}
 	\begin{itemize}
 		\item Version control system
 		\item Distributed
@@ -75,10 +77,10 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{What is git-annex}
+	\frametitle{What is git-annex?}
 	\begin{itemize}
 		\item Based on git
-		\item Does not need to check files into git (neat, huh?)
+		\item Does not need to check files into git
 		\item Still allows you to check files into git if you want to
 		\item Able to maintain full history, but does not do so by default
 		\item Enables various workflows
@@ -89,10 +91,15 @@ richih.mailinglist@gmail.com}
 \section{Use cases}
 
 \begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
 	\frametitle{The Archivist}
 	\begin{itemize}
 		\item Put data into git-annex
-		\item Distribute data among any number of drives / tapes / etc
+		\item Distribute data among any number of drives, tapes, remotes, etc
 		\item Store offline media in a save place
 		\item Maintain full information about number and location of all copies
 	\end{itemize}
@@ -101,11 +108,11 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Media consumption}
 	\begin{itemize}
-		\item Import podcasts / videos / slides
-		\item Sync to consumption devices
+		\item Import podcasts, videos, and slides
+		\item Sync or export to consumption devices
 		\item Consume media
 		\item Drop consumed media from annex
-		\item Deletion will propagate through all repos
+		\item Deletion will propagate through all annexes over time
 	\end{itemize}
 \end{frame}
 
@@ -124,34 +131,76 @@ richih.mailinglist@gmail.com}
 \section{Technical details}
 
 \begin{frame}
-	\frametitle{How does git-annex store data?}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Internal workings 1/2}
 	\begin{itemize}
-		\item Moves files into .git/annex/objects (details depend on backend)
+		\item Written in Haskell, so strong typing etc internally
+		\item Moves files into \texttt{.git/annex/objects}
 		\item Makes them read-only (important to how git-annex works)
 		\item Puts symlink in place of file
-		\item Stores location data in branch git-annex
+		\item Stores location data ("this file is in annex foo") in branch \texttt{git-annex}
 		\item User adds and commits symlinks to normal git repo (usually the master branch)
 	\end{itemize}
 \end{frame}
 
-% min copies
-% sha256/512
 \begin{frame}
-	\frametitle{Special remotes}
+	\frametitle{Internal workings 2/2}
+	\begin{itemize}
+		\item Read-only files force you to \texttt{git annex unlock} prior to changing them
+		\item Ensures that you will \texttt{git annex add} all unlocked files
+		\item git-annex can then discard or keep old data, depending on setup
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Special remotes 1/2}
 	\begin{itemize}
 		\item Allow you to store data in non-git remotes
-		\item All special remotes other than web support encryption
+		\item git-annex still tracks all data in special remotes(!)
+		\item Support encryption for storage on untrusted machines/media
 		\item Hook system which lets you write to and read from arbitrary remotes
-		\item Amazon S3
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Special remotes 2/2}
+	\begin{itemize}
+		\item Amazon S3 (and compatible, like OpenStack Swift)
 		\item bup
-		\item directory (basically an export option)
+		\item directory (basically exports your data)
 		\item rsync
 		\item Tahoe-LAFS (cloud-based, distributed file system)
 		\item web (great for talks, slides, project Gutenberg, or archive.org)
 	\end{itemize}
 \end{frame}
 
-% web links / packages / etc 
+\begin{frame}
+	\frametitle{Data integrity}
+	\begin{itemize}
+		\item Allows you to set minimal number of required copies per suffix, directory, etc
+		\item Uses SHA1, SHA2-\{224,256,384,512\} to ensure integrity
+		\item All remotes and special remotes can be verified, as well
+		\begin{itemize}
+			\item remotes verify locally and transmit the result
+			\item special remotes need to transfer all data
+		\end{itemize}
+		\item Verification takes required amount of copies into account
+		\item \texttt{git fsck; git annex fsck}
+	\end{itemize}
+\end{frame}
+
+
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
 \begin{frame}
 	\frametitle{Where to get it}
 	\begin{itemize}
@@ -169,12 +218,15 @@ richih.mailinglist@gmail.com}
 
 \begin{frame}
 	\frametitle{Thanks!}
-	\begin{itemize}
-		\item Thanks for listening; I hope you had fun and maybe learned something
-		\item Feel free to contact me with questions
-		\item RichiH @ \{freenode,OFTC,IRCnet\}.net
-		\item richih.mailinglist@gmail.com
-	\end{itemize}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions? Follow me outside when my time-slot is over.
+			\vfill
+			See slide footer for further contact Information.
+			\vfill
+		\end{center}
 \end{frame}
 
 
