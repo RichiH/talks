@@ -67,12 +67,11 @@ richih.mailinglist@gmail.com}
 		\item Version control system
 		\item Distributed
 		\begin{itemize}
-			\item Does not need a central repository
-			\item Allows you to commit while offline
+			\item No need for central repository
+			\item Commit while offline
 		\end{itemize}
-		\item Requires you to have the \textbf{complete} history of all files in every checkout
-		\item Currently the best version control system available (imo...)
-		\item (git using SHA1 was a stupid idea from day one)
+		\item \textbf{Full} history of all files in every checkout
+		\item Best version control system available (imo...)
 	\end{itemize}
 \end{frame}
 
@@ -80,10 +79,10 @@ richih.mailinglist@gmail.com}
 	\frametitle{What is git-annex?}
 	\begin{itemize}
 		\item Based on git
-		\item Does not need to check files into git
-		\item Still allows you to check files into git if you want to
+		\item No need to check files into git
+		\item Still able to check files into git if you want
 		\item Able to maintain full history, but does not do so by default
-		\item Enables various workflows
+		\item Various work-flows
 	\end{itemize}
 \end{frame}
 
@@ -100,7 +99,7 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Put data into git-annex
 		\item Distribute data among any number of drives, tapes, remotes, etc
-		\item Store offline media in a save place
+		\item Store offline media in a safe place
 		\item Maintain full information about number and location of all copies
 	\end{itemize}
 \end{frame}
@@ -112,18 +111,18 @@ richih.mailinglist@gmail.com}
 		\item Sync or export to consumption devices
 		\item Consume media
 		\item Drop consumed media from annex
-		\item Deletion will propagate through all annexes over time
+		\item Deletion propagates through all annexes over time
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{The Nomad}
 	\begin{itemize}
-		\item Keep copies of data on the Internet
+		\item Keep copies of data on www
 		\item Optionally sync between several local devices for backup
 		\item Add data locally and/or remotely while on the road
-		\item Sync data between local and remote once at an Internet cafe or similar
-		\item Perfect for photos while travelling!
+		\item Sync data between local and remote once at an Internet café or similar
+		\item Perfect for photos while travelling
 	\end{itemize}
 \end{frame}
 
@@ -140,10 +139,10 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Written in Haskell, so strong typing etc internally
 		\item Moves files into \texttt{.git/annex/objects}
-		\item Makes them read-only (important to how git-annex works)
+		\item Makes files read-only
 		\item Puts symlink in place of file
-		\item Stores location data ("this file is in annex foo") in branch \texttt{git-annex}
-		\item User adds and commits symlinks to normal git repo (usually the master branch)
+		\item Stores location data in branch \texttt{git-annex}
+		\item User adds and commits symlinks to master branch
 	\end{itemize}
 \end{frame}
 
@@ -159,34 +158,34 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Special remotes 1/2}
 	\begin{itemize}
-		\item Allow you to store data in non-git remotes
-		\item git-annex still tracks all data in special remotes(!)
+		\item Store data in non-git remotes
+		\item Tracks all data stored in special remotes
 		\item Support encryption for storage on untrusted machines/media
-		\item Hook system which lets you write to and read from arbitrary remotes
+		\item Hook system lets you write to and read from arbitrary remotes
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Special remotes 2/2}
 	\begin{itemize}
-		\item Amazon S3 (and compatible, like OpenStack Swift)
+		\item S3, Swift, etc
 		\item bup
-		\item directory (basically exports your data)
+		\item directory
 		\item rsync
-		\item Tahoe-LAFS (cloud-based, distributed file system)
-		\item web (great for talks, slides, project Gutenberg, or archive.org)
+		\item Tahoe-LAFS
+		\item web (media.ccc.de, Project Gutenberg, archive.org, etc)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Data integrity}
 	\begin{itemize}
-		\item Allows you to set minimal number of required copies per suffix, directory, etc
-		\item Uses SHA1, SHA2-\{224,256,384,512\} to ensure integrity
-		\item All remotes and special remotes can be verified, as well
+		\item Set minimal number of required copies per suffix, directory, etc
+		\item SHA1, SHA2-\{224,256,384,512\} for integrity
+		\item All remotes and special remotes can be verified
 		\begin{itemize}
 			\item remotes verify locally and transmit the result
-			\item special remotes need to transfer all data
+			\item special remotes transfer all data to verify
 		\end{itemize}
 		\item Verification takes required amount of copies into account
 		\item \texttt{git fsck; git annex fsck}
