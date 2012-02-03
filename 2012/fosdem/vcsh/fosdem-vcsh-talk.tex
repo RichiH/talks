@@ -1,0 +1,204 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{vcsh}
+\subtitle{manage config files in \$HOME via fake bare git repositories}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih.mailinglist@gmail.com}
+\date{2012-02-04}
+
+
+
+\begin{document}
+
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+
+\section{Intro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Who am I?}
+	\begin{itemize}
+		\item Project \& Network Operations Manager at Globalways AG
+		\item freenode \& OFTC staff
+		\item Passionate about FLOSS
+		\item Author of vcsh
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is git?}
+	\begin{itemize}
+		\item Version control system
+		\item Distributed
+		\begin{itemize}
+			\item No need for central repository
+			\item Allows you to commit while offline
+		\end{itemize}
+		\item Full history in every checkout
+		\item Best version control system available (imo...)
+	\end{itemize}
+\end{frame}
+
+
+\section{Technical details}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is vcsh?}
+	\begin{itemize}
+		\item Based on git
+		\item git unable to maintain several working copies in one directory
+		\item Sucks if you want to keep your configs in git
+		\item vcsh uses fake bare git repositories to work around this
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{fake bare.. what?}
+	\begin{itemize}
+		\item Normal git repo:
+		\begin{itemize}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item \texttt{\$GIT\_WORK\_TREE/.git == \$GIT\_DIR}
+		\end{itemize}
+		\item Bare git repo:
+		\begin{itemize}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item no  \texttt{\$GIT\_WORK\_TREE}
+		\end{itemize}
+		\item Fake bare git repo:
+		\begin{itemize}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
+			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% mr integration
+% zsh integration
+% git-annex integration
+
+\section{Use cases}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Outlook}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Future work}
+	\begin{itemize}
+		\item More unit tests
+		\item Get vcsh into more distributions
+		\item Maybe extend support to subversion, mercurial, etc
+		\item Spread awareness to reach critical mass
+	\end{itemize}
+\end{frame}
+
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Where to get it}
+	\begin{itemize}
+		\item \texttt{git clone }
+		\item Native packages for
+		\begin{itemize}
+			\item Debian
+			\item Ubuntu
+			\item FreeBSD
+			\item Arch Linux
+			\item NixOS
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions? Follow me outside when my time-slot is over.
+			\vfill
+			See slide footer for further contact Information.
+			\vfill
+		\end{center}
+\end{frame}
+
+
+
+
+\end{document}
+
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
