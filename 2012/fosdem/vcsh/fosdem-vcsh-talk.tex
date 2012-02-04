@@ -86,10 +86,14 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{What is vcsh?}
 	\begin{itemize}
+		\item "version control shell" or "version control system \texttt{\$HOME}"
 		\item Based on git
-		\item git unable to maintain several working copies in one directory
-		\item Sucks if you want to keep your configs in git
+		\begin{itemize}
+			\item git unable to maintain several working copies in one directory
+			\item Sucks if you want to keep your configs in git
+		\end{itemize}
 		\item vcsh uses fake bare git repositories to work around this
+		\item Think of it as an extension of git
 	\end{itemize}
 \end{frame}
 
@@ -98,9 +102,8 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Normal git repo:
 		\begin{itemize}
-			\item git data in \texttt{\$GIT\_DIR}
 			\item working copy in \texttt{\$GIT\_WORK\_TREE}
-			\item \texttt{\$GIT\_WORK\_TREE/.git == \$GIT\_DIR}
+			\item git data in \texttt{\$GIT\_WORK\_TREE/.git} aka \texttt{\$GIT\_DIR}
 		\end{itemize}
 		\item Bare git repo:
 		\begin{itemize}
@@ -109,26 +112,42 @@ richih.mailinglist@gmail.com}
 		\end{itemize}
 		\item Fake bare git repo:
 		\begin{itemize}
-			\item git data in \texttt{\$GIT\_DIR}
 			\item working copy in \texttt{\$GIT\_WORK\_TREE}
-			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
+			\item git data in \texttt{\$GIT\_DIR}
 			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
+			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Why use vcsh?}
+	\frametitle{Problems with fake bare git repos}
 	\begin{itemize}
-		\item Several \texttt{\$GIT\_WORK\_TREE} in \texttt$HOME}
-		\item 
-		\item 
-		\item 
-		\item 
+		\item Fake bare repos are messy to set up and use
+		\item Reason why git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to context-dependency
+		\item Mistakes lead to confusion or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
+		\begin{itemize}
+			\item \texttt{git add}
+			\item \texttt{git reset --hard HEAD~1}
+			\item \texttt{git checkout -- *}
+			\item \texttt{git clean -f}
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Solution: vcsh}
+	\begin{itemize}
+		\item Wraps around git
+		\item Hides complexity and does sanity checks
+		\item Several git repos checked out into \texttt{\$HOME} at once
+		\begin{itemize}
+			\item One repo for zsh, vim, mplayer, etc
+			\item Enables specific subsets of repos per host
+		\end{itemize}
+		\item Manages complete repo life-cycle
+	\end{itemize}
+\end{frame}
 
 \section{Using vcsh}
 
@@ -138,21 +157,42 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Cloning a repo}
-	\begin{itemize}
-		\item 
-		\item 
-		\item 
-		\item 
-		\item 
-	\end{itemize}
+	\frametitle{Create new repo}
+	\texttt{ \\
+		\# create new repo \\
+		vcsh init vim \\
+		\# add files to it \\
+		vcsh run vim git add .vim .vimrc \\
+		\# commit using shorthand form \\
+		vcsh vim commit \\
+		\# push using longhand form \\
+		vcsh run vim git push
+	}
 \end{frame}
 
-% mr integration
-% zsh integration
-% git-annex integration
+\begin{frame}
+	\frametitle{Made-up life-cycle}
+	\texttt{ \\
+		\# clone repo into new name zsh \\
+		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
+		\# display all files managed by this repo \\
+		vcsh run zsh git ls-files \\
+		\# rename repo just because \\
+		vcsh rename zsh zshrc \\
+		\# delete repo \\
+		vcsh delete zshrc
+	}
+\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Playing nice with others}
+	\begin{itemize}
+		\item shells can display exported \texttt{ENV} in \texttt{\$PROMPT}
+		\item mr via plugin, mainline soon
+		\item git-annex to manage non-configuration files
+		\item Simple but powerful hook system
+	\end{itemize}
+\end{frame}
 
 
 \section{Outlook}
@@ -187,11 +227,14 @@ richih.mailinglist@gmail.com}
 		\begin{itemize}
 			\item Debian
 			\item Ubuntu
-			\item Arch Linux
+			\item Arch Linux (AUR)
 		\end{itemize}
 		\item Small bug in README.md, use v0.20120203 or git
 	\end{itemize}
 \end{frame}
+
+% link to buildPS1?
+% link to mr
 
 \begin{frame}
 	\frametitle{Thanks!}
