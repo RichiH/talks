@@ -82,6 +82,7 @@ richih.mailinglist@gmail.com}
 		\item No need to check files into git
 		\item Still able to check files into git if you want
 		\item Able to maintain full history, but does not do so by default
+		\item Written with low bandwidth and flaky connections in mind
 		\item Various work-flows
 	\end{itemize}
 \end{frame}
@@ -138,6 +139,7 @@ richih.mailinglist@gmail.com}
 	\frametitle{Internal workings 1/2}
 	\begin{itemize}
 		\item Written in Haskell, so strong typing etc internally
+		\item Uses rsync to transfer data
 		\item Moves files into \texttt{.git/annex/objects}
 		\item Makes files read-only
 		\item Puts symlink in place of file
@@ -173,9 +175,9 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Special remotes 1/2}
 	\begin{itemize}
-		\item Store data in non-git remotes
+		\item Stores data in non-git-annex remotes
 		\item Tracks all data stored in special remotes
-		\item Support encryption for storage on untrusted machines/media
+		\item Supports encryption for storage on untrusted machines/media
 		\item Hook system lets you write to and read from arbitrary remotes
 	\end{itemize}
 \end{frame}
@@ -183,10 +185,10 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Special remotes 2/2}
 	\begin{itemize}
-		\item S3, Swift, etc
 		\item bup
 		\item directory
 		\item rsync
+		\item S3, Swift, etc
 		\item Tahoe-LAFS
 		\item web (media.ccc.de, Project Gutenberg, archive.org, etc)
 	\end{itemize}
