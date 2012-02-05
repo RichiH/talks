@@ -156,6 +156,21 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
+	\frametitle{Data integrity}
+	\begin{itemize}
+		\item Set minimal number of required copies per suffix, directory, etc
+		\item SHA1, SHA2-\{224,256,384,512\} for integrity
+		\item All remotes and special remotes can be verified
+		\begin{itemize}
+			\item remotes verify locally and transmit the result
+			\item special remotes transfer all data to verify
+		\end{itemize}
+		\item Verification takes required amount of copies into account
+		\item \texttt{git fsck; git annex fsck}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Special remotes 1/2}
 	\begin{itemize}
 		\item Store data in non-git remotes
@@ -174,21 +189,6 @@ richih.mailinglist@gmail.com}
 		\item rsync
 		\item Tahoe-LAFS
 		\item web (media.ccc.de, Project Gutenberg, archive.org, etc)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Data integrity}
-	\begin{itemize}
-		\item Set minimal number of required copies per suffix, directory, etc
-		\item SHA1, SHA2-\{224,256,384,512\} for integrity
-		\item All remotes and special remotes can be verified
-		\begin{itemize}
-			\item remotes verify locally and transmit the result
-			\item special remotes transfer all data to verify
-		\end{itemize}
-		\item Verification takes required amount of copies into account
-		\item \texttt{git fsck; git annex fsck}
 	\end{itemize}
 \end{frame}
 
@@ -216,6 +216,15 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
+	\frametitle{Further reading}
+	\begin{itemize}
+		\item \url{https://github.com/RichiH/talks}
+		\item \url{http://git-annex.branchable.com/}
+		\item \url{http://www.slideshare.net/RichiH/}
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Thanks!}
 		\begin{center}
 			\vfill
@@ -227,7 +236,6 @@ richih.mailinglist@gmail.com}
 			\vfill
 		\end{center}
 \end{frame}
-
 
 
 
