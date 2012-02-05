@@ -94,7 +94,7 @@ richih.mailinglist@gmail.com}
 			\item Sucks if you want to keep your configs in git
 		\end{itemize}
 		\item vcsh uses fake bare git repositories to work around this
-		\item Think of it as an extension of git
+		\item Think of it as an extension to git
 	\end{itemize}
 \end{frame}
 
@@ -117,6 +117,7 @@ richih.mailinglist@gmail.com}
 			\item git data in \texttt{\$GIT\_DIR}
 			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
 			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
+			\item \texttt{core.bare = false}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -129,7 +130,7 @@ richih.mailinglist@gmail.com}
 		\item Mistakes lead to confusion or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
 		\begin{itemize}
 			\item \texttt{git add}
-			\item \texttt{git reset --hard HEAD~1}
+			\item \texttt{git reset --hard HEAD\~{}1}
 			\item \texttt{git checkout -- *}
 			\item \texttt{git clean -f}
 		\end{itemize}
@@ -176,6 +177,8 @@ richih.mailinglist@gmail.com}
 	\texttt{ \\
 		\# clone repo into new name zsh \\
 		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
+		\# optionally update legacy repos \\
+		vcsh setup zsh \\
 		\# display all files managed by this repo \\
 		vcsh run zsh git ls-files \\
 		\# rename repo just because \\
