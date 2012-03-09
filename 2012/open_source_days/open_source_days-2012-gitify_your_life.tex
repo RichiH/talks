@@ -76,6 +76,7 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
+
 \section{ikiwiki}
 
 \begin{frame}
@@ -83,13 +84,19 @@ richih.mailinglist@gmail.com}
 	\tableofcontents[currentsection]
 \end{frame}
 
+\subsection{Background}
+
 \begin{frame}
-	\frametitle{wiki, CMS, and blog}
+	\frametitle{What is ikiwiki?}
 	\begin{itemize}
 		\item Written in Perl
 		\item Can use git or subversion as its back-end
 		\item Offers web-based editing and push/pull
 		\item Parses various markup languages
+		\item Extensive templating and CSS support
+		\item Acts as Wiki, CMS, and blog
+		\item RSS and Atom feed for whole site, per page, per tag, etc
+		\item Supports OpenID
 	\end{itemize}
 \end{frame}
 
@@ -108,13 +115,46 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
-\section{vcsh}
-\subsection{Technical details}
+\begin{frame}
+	\frametitle{How does it work?}
+	\begin{itemize}
+		\item Save data into repository
+		\item Triggered by commit hook or web commit
+		\item Parses input files
+		\item Compiles into HTML, create new pages, updates RSS, etc
+		\item Commits compiled HTML into repository
+		\item User can then pull changes to local repository
+	\end{itemize}
+\end{frame}
 
+\subsection{Use cases}
+
+\begin{frame}
+	\frametitle{Adding/editing content}
+	\begin{itemize}
+		\item Web-based (useful, but boring)
+		\item CLI-based (awesome!)
+		\item GUI-based
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Advanced usage}
+	\begin{itemize}
+		\item Interface with source files, only
+		\item Maintain wiki and docs in the same repository as your source code
+		\item Separate staging or even preview branches
+	\end{itemize}
+\end{frame}
+
+
+\section{vcsh}
 \begin{frame}
 	\frametitle{Outline}
 	\tableofcontents[currentsection]
 \end{frame}
+
+\subsection{Technical details}
 
 \begin{frame}
 	\frametitle{What is vcsh?}
@@ -177,19 +217,19 @@ richih.mailinglist@gmail.com}
 		\item Hides complexity and does sanity checks
 		\item Several git repos checked out into \texttt{\$HOME} at once
 		\begin{itemize}
-			\item One repo for zsh, vim, mplayer, etc
+			\item One repo for zsh, Vim, mplayer, etc
 			\item Enables specific subsets of repos per host
 		\end{itemize}
 		\item Manages complete repo life-cycle
 	\end{itemize}
 \end{frame}
 
-\subsection{Using vcsh}
-
 \begin{frame}
 	\frametitle{Outline}
 	\tableofcontents[currentsection]
 \end{frame}
+
+\subsection{Using vcsh}
 
 \begin{frame}
 	\frametitle{Create new repo}
@@ -293,12 +333,12 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 
-\subsection{Use cases}
-
 \begin{frame}
 	\frametitle{Outline}
 	\tableofcontents[currentsection]
 \end{frame}
+
+\subsection{Use cases}
 
 \begin{frame}
 	\frametitle{The Archivist}
@@ -333,12 +373,12 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 
-\subsection{Technical details}
-
 \begin{frame}
 	\frametitle{Outline}
 	\tableofcontents[currentsection]
 \end{frame}
+
+\subsection{Technical details}
 
 \begin{frame}
 	\frametitle{Internal workings 1/2}
@@ -425,6 +465,7 @@ richih.mailinglist@gmail.com}
 
 \begin{frame}
 	\frametitle{Previous talks}
+	Previous talks, a bit more in-depth than this one:
 	\begin{itemize}
 		\item vcsh: \url{http://fosdem.org/2012/schedule/event/vcsh}
 		\item git-annex: \url{http://fosdem.org/2012/schedule/event/gitannex}
@@ -438,11 +479,12 @@ richih.mailinglist@gmail.com}
 			\vfill
 			Thanks for listening!\\
 			\vfill
-			Questions? Follow me outside when my time-slot is over.
+			Questions? Ask now or follow me outside once my time-slot is over.
 			\vfill
-			See slide footer for further contact Information.
-			\#vcs-home on irc.oftc.net
-%			vcs-home@
+			See slide footer for further contact information.\\
+			\vfill
+			\#vcs-home @ irc.oftc.net\\
+			vcs-home@lists.madduck.net
 			\vfill
 		\end{center}
 \end{frame}
