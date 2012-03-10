@@ -127,7 +127,7 @@ richih.mailinglist@gmail.com}
 		\item Triggered by commit hook or web commit
 		\item Parses input files
 		\item Compiles into HTML, create new pages, updates RSS, etc
-		\item Commits compiled HTML into repository
+		\item Commits MarkDown source for autocreated/-changed pages into repository
 		\item User can then pull changes to local repository
 	\end{itemize}
 \end{frame}
@@ -175,7 +175,8 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{In a word}
 	\begin{itemize}
-		\item Auto-commits /etc prior to and after all actions by dpkg
+		\item Auto-commits /etc prior to and after all actions by packet manager
+		\item Hooks into apt, yum, and cron
 		\item Allows manual commits
 		\item Various back-ends
 		\begin{itemize}
@@ -185,7 +186,6 @@ richih.mailinglist@gmail.com}
 			\item mercurial
 		\end{itemize}
 		\item Easy way to recover from failures, misconfiguration or to clone machines
-		\item Hooks into dpkg, yum, and cron
 	\end{itemize}
 \end{frame}
 
@@ -502,6 +502,7 @@ richih.mailinglist@gmail.com}
 	Most of these are packaged for the major distributions
 	\begin{itemize}
 		\item ikiwiki: \url{http://ikiwiki.info/}
+		\item etckeeper: \url{http://joey.kitenet.net/code/etckeeper/}
 		\item vcsh: \url{https://github.com/RichiH/vcsh}
 		\item git-annex: \url{http://git-annex.branchable.com/}
 		\item bup: \url{https://github.com/apenwarr/bup}
