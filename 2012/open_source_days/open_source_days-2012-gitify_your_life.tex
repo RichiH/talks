@@ -45,6 +45,7 @@ richih.mailinglist@gmail.com}
 	\tableofcontents
 \end{frame}
 
+
 \section{Intro}
 
 \begin{frame}
@@ -161,6 +162,7 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
+
 \section{etckeeper}
 
 \begin{frame}
@@ -183,14 +185,10 @@ richih.mailinglist@gmail.com}
 			\item mercurial
 		\end{itemize}
 		\item Easy way to recover from failures, misconfiguration or to clone machines
-		\item Works on all .deb-based systems
-		\item Easy to port to .rpm, .ebuild, etc (that means you!)
+		\item Hooks into dpkg, yum, and cron
 	\end{itemize}
 \end{frame}
 
-
-% TODO etckeeper
-% hooks for dpkg (others?)
 
 \section{vcsh}
 \begin{frame}
@@ -456,24 +454,19 @@ richih.mailinglist@gmail.com}
 	\tableofcontents[currentsection]
 \end{frame}
 
+\subsection{One-slide-overview}
 
 \begin{frame}
-	\frametitle{Background}
+	\frametitle{In a word...}
 	\begin{itemize}
 		\item Written in Python
-		\item 
-		\item 
-		\item 
-		\item 
+		\item Fast
+		\item Very space-efficient (reduced 120 GiB (rsnapshot) to 45 GiB)
+		\item Built-in de-duplication
+		\item Can be mounted as FUSE
+		\item Can not drop old data (yet)
 	\end{itemize}
 \end{frame}
-% still not ready for production use
-% can not delete old data
-% fast
-% space-efficient
-% built-in dedup
-% fuse-mount
-
 
 \section{mr}
 
@@ -483,6 +476,18 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 % sync all my digital life in five minutes
+\subsection{Too many repos...}
+
+\begin{frame}
+	\frametitle{Tying it all together}
+	\begin{itemize}
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+	\end{itemize}
+\end{frame}
 
 
 \section{Outro}
