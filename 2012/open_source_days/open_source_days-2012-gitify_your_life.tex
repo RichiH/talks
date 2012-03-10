@@ -52,6 +52,8 @@ richih.mailinglist@gmail.com}
 	\tableofcontents[currentsection]
 \end{frame}
 
+\subsection{Personal stuff}
+
 \begin{frame}
 	\frametitle{Who am I?}
 	\begin{itemize}
@@ -61,6 +63,8 @@ richih.mailinglist@gmail.com}
 		\item Author of vcsh
 	\end{itemize}
 \end{frame}
+
+\subsection{The basics}
 
 \begin{frame}
 	\frametitle{What is git?}
@@ -72,7 +76,7 @@ richih.mailinglist@gmail.com}
 			\item Allows you to commit while offline
 		\end{itemize}
 		\item Full history in every checkout
-		\item Best version control system available (imo...)
+		\item Best version control system available (imo...;)
 	\end{itemize}
 \end{frame}
 
@@ -90,8 +94,8 @@ richih.mailinglist@gmail.com}
 	\frametitle{What is ikiwiki?}
 	\begin{itemize}
 		\item Written in Perl
-		\item Can use git or subversion as its back-end
-		\item Offers web-based editing and push/pull
+		\item Can use git or subversion as back-end
+		\item Offers web-based editing and CLI push/pull
 		\item Parses various markup languages
 		\item Extensive templating and CSS support
 		\item Acts as Wiki, CMS, and blog
@@ -130,6 +134,16 @@ richih.mailinglist@gmail.com}
 \subsection{Use cases}
 
 \begin{frame}
+	\frametitle{Common uses}
+	\begin{itemize}
+		\item Public Wiki
+		\item Private notes
+		\item Blog
+		\item CMS
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Adding/editing content}
 	\begin{itemize}
 		\item Web-based (useful, but boring)
@@ -147,6 +161,36 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
+\section{etckeeper}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Minimal, quick overview}
+
+\begin{frame}
+	\frametitle{In a word}
+	\begin{itemize}
+		\item Auto-commits /etc prior to and after all actions by dpkg
+		\item Allows manual commits
+		\item Various back-ends
+		\begin{itemize}
+			\item bzr
+			\item darcs
+			\item git
+			\item mercurial
+		\end{itemize}
+		\item Easy way to recover from failures, misconfiguration or to clone machines
+		\item Works on all .deb-based systems
+		\item Easy to port to .rpm, .ebuild, etc (that means you!)
+	\end{itemize}
+\end{frame}
+
+
+% TODO etckeeper
+% hooks for dpkg (others?)
 
 \section{vcsh}
 \begin{frame}
@@ -215,7 +259,7 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Wraps around git
 		\item Hides complexity and does sanity checks
-		\item Several git repos checked out into \texttt{\$HOME} at once
+			\item Several git repos checked out into \texttt{\$HOME} at once
 		\begin{itemize}
 			\item One repo for zsh, Vim, mplayer, etc
 			\item Enables specific subsets of repos per host
@@ -296,29 +340,7 @@ richih.mailinglist@gmail.com}
 	\tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}
-	\frametitle{Who am I?}
-	\begin{itemize}
-		\item Project \& Network Operations Manager at Globalways AG
-		\item freenode \& OFTC staff
-		\item Passionate about FLOSS
-		\item I am not the author of git-annex, but an interested early adopter
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{What is git?}
-	\begin{itemize}
-		\item Version control system
-		\item Distributed
-		\begin{itemize}
-			\item No need for central repository
-			\item Commit while offline
-		\end{itemize}
-		\item \textbf{Full} history of all files in every checkout
-		\item Best version control system available (imo...)
-	\end{itemize}
-\end{frame}
+\subsection{Background}
 
 \begin{frame}
 	\frametitle{What is git-annex?}
@@ -326,69 +348,21 @@ richih.mailinglist@gmail.com}
 		\item Based on git
 		\item No need to check files into git
 		\item Still able to check files into git if you want
-		\item Able to maintain full history, but does not do so by default
+		\item Able to maintain complete data history; does not do so by default
 		\item Written with low bandwidth and flaky connections in mind
 		\item Various work-flows
 	\end{itemize}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-
-\subsection{Use cases}
-
-\begin{frame}
-	\frametitle{The Archivist}
-	\begin{itemize}
-		\item Put data into git-annex
-		\item Distribute data among any number of drives, tapes, remotes, etc
-		\item Store offline media in a safe place
-		\item Maintain full information about number and location of all copies
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Media consumption}
-	\begin{itemize}
-		\item Import podcasts, videos, and slides
-		\item Sync or export to consumption devices
-		\item Consume media
-		\item Drop consumed media from annex
-		\item Deletion propagates through all annexes over time
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{The Nomad}
-	\begin{itemize}
-		\item Keep copies of data on www
-		\item Optionally sync between several local devices for backup
-		\item Add data locally and/or remotely while on the road
-		\item Sync data between local and remote once at an Internet café or similar
-		\item Perfect for photos while travelling
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-
-\subsection{Technical details}
-
 \begin{frame}
 	\frametitle{Internal workings 1/2}
 	\begin{itemize}
-		\item Written in Haskell, so strong typing etc internally
+		\item Written in Haskell, so strong typing etc, internally
 		\item Uses rsync to transfer data
 		\item Moves files into \texttt{.git/annex/objects}
 		\item Makes files read-only
-		\item Puts symlink in place of file
 		\item Stores location data in branch \texttt{git-annex}
+		\item Puts symlink in place of file
 		\item User adds and commits symlinks to master branch
 	\end{itemize}
 \end{frame}
@@ -440,9 +414,51 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 
+\subsection{Use cases}
+
+\begin{frame}
+	\frametitle{The Archivist}
+	\begin{itemize}
+		\item Put data into git-annex
+		\item Distribute data among any number of drives, tapes, remotes, etc
+		\item Store offline media in a safe place
+		\item Maintain full information about number and location of all copies
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Media consumption}
+	\begin{itemize}
+		\item Import podcasts, videos, and slides
+		\item Sync or export to consumption devices
+		\item Consume media
+		\item Drop consumed media from annex
+		\item Deletion propagates through all annexes over time
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Nomad}
+	\begin{itemize}
+		\item Keep copies of data on www
+		\item Optionally sync between several local devices for backup
+		\item Add data locally and/or remotely while on the road
+		\item Sync data between local and remote once at an Internet café or similar
+		\item Perfect for photos while travelling
+	\end{itemize}
+\end{frame}
+
+
+
 \section{bup}
 
+% still not ready for production use
+% can not delete old data
+% 
+
 \section{mr}
+
+% sync all my digital life in five minutes
 
 \section{Outro}
 
