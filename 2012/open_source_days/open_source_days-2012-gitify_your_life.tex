@@ -123,12 +123,12 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{How does it work?}
 	\begin{itemize}
-		\item Save data into repository
-		\item Triggered by commit hook or web commit
+		\item User commits and pushes source files
+		\item Partial/Full rebuild triggered by commit hook or web commit
 		\item Parses input files
 		\item Compiles into HTML, create new pages, updates RSS, etc
 		\item Commits MarkDown source for autocreated/-changed pages into repository
-		\item User can then pull changes to local repository
+		\item User then pulls changes to local repository
 	\end{itemize}
 \end{frame}
 
@@ -175,8 +175,9 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{In a word}
 	\begin{itemize}
-		\item Auto-commits /etc prior to and after all actions by packet manager
-		\item Hooks into apt, yum, and cron
+		\item Implemented in POSIX shell
+		\item Auto-commits /etc prior to and after all actions by package manager
+		\item Hooks into apt, yum, pacman-g2, and cron
 		\item Allows manual commits
 		\item Various back-ends
 		\begin{itemize}
@@ -201,7 +202,7 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{What is vcsh?}
 	\begin{itemize}
-		\item Implemented in POSIX shell; portable
+		\item Implemented in POSIX shell
 		\item "version control shell" or "version control system \texttt{\$HOME}"
 		\item Based on git
 		\begin{itemize}
@@ -209,6 +210,7 @@ richih.mailinglist@gmail.com}
 			\item Sucks if you want to keep your configs in git
 		\end{itemize}
 		\item vcsh uses fake bare git repositories to work around this
+		\item Simple but powerful hook system
 		\item Think of it as an extension to git
 	\end{itemize}
 \end{frame}
@@ -266,11 +268,6 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-
 \subsection{Using vcsh}
 
 \begin{frame}
@@ -320,13 +317,13 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Playing nice with others}
+	\frametitle{Advanced usage}
 	\begin{itemize}
-		\item shells can display exported \texttt{ENV} in \texttt{\$PROMPT}
-		\item vcs\_info
-		\item mr via plugin, mainline soon
-		\item git-annex to manage non-configuration files
-		\item Simple but powerful hook system
+		\item Have your prompt display vcsh information
+		\item git-annex within vcsh to manage non-configuration files in \texttt{\$HOME}
+		\item Backups of .git
+		\item Floating backups in a working copy
+		\item Full backups of whole repositories
 	\end{itemize}
 \end{frame}
 
@@ -392,9 +389,9 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Special remotes 1/2}
 	\begin{itemize}
-		\item Stores data in non-git-annex remotes
-		\item Tracks all data stored in special remotes
-		\item Supports encryption for storage on untrusted machines/media
+		\item Store data in non-git-annex remotes
+		\item Track all data stored in special remotes
+		\item Support encryption for storage on untrusted machines/media
 		\item Hook system lets you write to and read from arbitrary remotes
 	\end{itemize}
 \end{frame}
@@ -463,10 +460,39 @@ richih.mailinglist@gmail.com}
 		\item Fast
 		\item Very space-efficient (reduced 120 GiB (rsnapshot) to 45 GiB)
 		\item Built-in de-duplication
-		\item Can be mounted as FUSE
-		\item Can not drop old data (yet)
+		\item Can be mounted via FUSE
+		\item Can not drop old data (there is a branch that supports this)
 	\end{itemize}
 \end{frame}
+
+
+\section{Zsh}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+% sync all my digital life in five minutes
+\subsection{That's not git-based?}
+
+
+\begin{frame}
+	\frametitle{No, it's not...}
+	\begin{itemize}
+		\item Extremely powerful tab completion for the tools in this talk (and others!)
+		\item Versatile left \emph{and right} prompts
+		\item vcs\_info
+		\begin{itemize}
+			\item Displays information about the working copy in \texttt{\$PWD} in prompt
+			\item Lots of customization options
+			\item Supports bazaar, codeville, cvs, darcs, fossil, git, GNU arch, mercurial, monotone, Perforce, svn, svk
+		\end{itemize}
+		\item Too many other reasons to list (literally...)
+		\item Can mimic Bash, Ksh, tcsh, etc; try it!
+	\end{itemize}
+\end{frame}
+
 
 \section{mr}
 
@@ -476,16 +502,16 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 % sync all my digital life in five minutes
-\subsection{Too many repos...}
+\subsection{Too many repos...?}
 
 \begin{frame}
 	\frametitle{Tying it all together}
 	\begin{itemize}
-		\item 
-		\item 
-		\item 
-		\item 
-		\item 
+		\item Written in Perl
+		\item Bulk pull, push, etc and custom commands all, some, or one of your repositories
+		\item Supports subversion, git, cvs, mercurial, bzr, darcs, cvs, vcsh, fossil, veracity, unison, and git-svn
+		\item Trivial to extend to support more VCSs
+		\item If you want to try all this, why not vcsh clone my mr repository template that will pull in my zsh config via mr \& vcsh?
 	\end{itemize}
 \end{frame}
 
@@ -497,8 +523,19 @@ richih.mailinglist@gmail.com}
 	\tableofcontents[currentsection]
 \end{frame}
 
+\subsection{Wrapping up}
+
 \begin{frame}
-	\frametitle{Resources}
+	\frametitle{The final pitch...}
+	\vfill
+	It takes literally less than five minutes of Internet access to sync my complete digital life while on the road.
+	\vfill
+\end{frame}
+
+\subsection{Further reading}
+
+\begin{frame}
+	\frametitle{Project websites}
 	Most of these are packaged for the major distributions
 	\begin{itemize}
 		\item ikiwiki: \url{http://ikiwiki.info/}
@@ -507,18 +544,20 @@ richih.mailinglist@gmail.com}
 		\item git-annex: \url{http://git-annex.branchable.com/}
 		\item bup: \url{https://github.com/apenwarr/bup}
 		\item mr: \url{http://kitenet.net/~joey/code/mr/}
+		\item Wiki around this topic: \url{http://vcs-home.branchable.com/}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Previous talks}
-	Previous talks, a bit more in-depth than this one:
+	Previous talks, a bit more in-depth than this one and available as video download:
 	\begin{itemize}
 		\item vcsh: \url{http://fosdem.org/2012/schedule/event/vcsh}
 		\item git-annex: \url{http://fosdem.org/2012/schedule/event/gitannex}
 	\end{itemize}
 \end{frame}
 
+\subsection{The End!}
 
 \begin{frame}
 	\frametitle{Thanks!}
