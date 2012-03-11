@@ -59,6 +59,7 @@ richih.mailinglist@gmail.com}
 	\frametitle{Who am I?}
 	\begin{itemize}
 		\item Richard "RichiH" Hartmann
+		\item Backbone and project manager at a German ISP
 		\item freenode \& OFTC staff
 		\item Passionate about FLOSS
 		\item Author of vcsh
@@ -76,8 +77,10 @@ richih.mailinglist@gmail.com}
 			\item No need for central repository
 			\item Allows you to commit while offline
 		\end{itemize}
+		\item Does not have a concept of files, only of diffs, internally
+		\item Light-weight branches
+		\item pre-/post-action hooks
 		\item Full history in every checkout
-		\item Best version control system available (imo...;)
 	\end{itemize}
 \end{frame}
 
@@ -321,9 +324,13 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Have your prompt display vcsh information
 		\item git-annex within vcsh to manage non-configuration files in \texttt{\$HOME}
-		\item Backups of .git
-		\item Floating backups in a working copy
-		\item Full backups of whole repositories
+		\item Floating backups in arbitrary working copies
+		\begin{itemize}
+			\item \texttt{.git/}
+			\item Working copy
+			\item Complete repository, including objects, etc
+		\end{itemize}
+		\item Use git on top of or in parallel to other VCSs
 	\end{itemize}
 \end{frame}
 
@@ -511,8 +518,25 @@ richih.mailinglist@gmail.com}
 		\item Bulk pull, push, etc and custom commands all, some, or one of your repositories
 		\item Supports subversion, git, cvs, mercurial, bzr, darcs, cvs, vcsh, fossil, veracity, unison, and git-svn
 		\item Trivial to extend to support more VCSs
-		\item If you want to try all this, why not vcsh clone my mr repository template that will pull in my zsh config via mr \& vcsh?
+		\item If you want to try all this, why not \texttt{vcsh clone} my mr repository template and run \texttt{mr up} to pull my zsh config via vcsh?
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Suggested mr layout}
+	\texttt{ \\
+		\% cat ~/.mrconfig \\
+		include = cat ~/.config/mr/config.d/* \\
+		\% ls .config/mr/available.d \\
+		mr.vcsh \\
+		zsh.vcsh \\
+		... \\
+		\% ls -l .config/mr/config.d \\
+		mr.vcsh -> ../available.d/mr.vcsh \\
+		zsh.vcsh -> ../available.d/zsh.vcsh \\
+		... \\
+		\%
+	}
 \end{frame}
 
 
@@ -528,7 +552,7 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{The final pitch...}
 	\vfill
-	It takes literally less than five minutes of Internet access to sync my complete digital life while on the road.
+	I need literally less than five minutes of Internet access to sync my entire digital life while on the road.
 	\vfill
 \end{frame}
 
