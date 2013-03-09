@@ -1,0 +1,716 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Gitify your life}
+\subtitle{web, blog, configs, data, and backups}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih.mailinglist@gmail.com}
+\date{2013-03-09}
+
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+
+\section{Intro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Personal stuff}
+
+\begin{frame}
+	\frametitle{Who am I?}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item Backbone and project manager at a German ISP
+		\item freenode \& OFTC staff
+		\item Passionate about FLOSS
+		\item Author of vcsh
+	\end{itemize}
+\end{frame}
+
+\subsection{The basics}
+
+\begin{frame}
+	\frametitle{What is git?}
+	\begin{itemize}
+		\item Version control system
+		\item Distributed
+		\begin{itemize}
+			\item No need for central repository
+			\item Allows you to commit while offline
+		\end{itemize}
+		\item Stores commits (parent commit reference, commit message, root tree object) and tree objects (blobs and other tree objects)
+		\item Light-weight branches
+		\item pre-/post-action hooks
+		\item Full history in every checkout
+	\end{itemize}
+\end{frame}
+
+
+\section{ikiwiki}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{ikiwiki}
+			\vfill
+			\textit{ikiwiki is a wiki compiler. It converts wiki pages into HTML pages suitable for publishing on a website}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Background}
+
+\begin{frame}
+	\frametitle{What is ikiwiki?}
+	\begin{itemize}
+		\item Written in Perl
+		\item Supported back-ends: git, bazaar, darcs, GNU Arch, mercurial, monotone, and subversion
+		\item Offers web-based editing and CLI push/pull
+		\item Parses various markup languages
+		\item Extensive templating and CSS support
+		\item Acts as Wiki, CMS, and blog
+		\item RSS and Atom feed for whole site, per page, per tag, etc
+		\item Supports OpenID
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Supported markup languages}
+	\begin{itemize}
+		\item MarkDown, extended to support
+		\begin{itemize}
+			\item WikiLink ([[LinkToArticle]])
+			\item directive ([[!tag talk/gitify]], [[!author RichiH]], etc)
+		\end{itemize}
+		\item WikiText
+		\item HTML
+		\item reStructuredText
+		\item Textile
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How does it work?}
+	\begin{itemize}
+		\item User commits and pushes source files
+		\item Partial/Full rebuild triggered by commit hook or web commit
+		\item Parses input files
+		\item Compiles into HTML, create new pages, updates RSS, etc
+		\item Commits MarkDown source for autocreated/-changed pages into repository
+		\item User then pulls changes to local repository
+	\end{itemize}
+\end{frame}
+
+\subsection{Use cases}
+
+\begin{frame}
+	\frametitle{Common uses}
+	\begin{itemize}
+		\item Public Wiki
+		\item Private notes
+		\item Blog
+		\item CMS
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Adding/editing content}
+	\begin{itemize}
+		\item Web-based text editing (useful, but boring)
+		\item Web-based WYSIWYG (via plugins/wmd)
+		\item CLI-based (awesome!)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Advanced usage}
+	\begin{itemize}
+		\item Interface with source files, only
+		\item Maintain wiki and docs in the same repository as your source code
+		\item Separate staging or even preview branches
+	\end{itemize}
+\end{frame}
+
+
+\section{etckeeper}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{etckeeper}
+			\vfill
+			\textit{etckeeper is a collection of tools to let /etc be stored in a git, mercurial, darcs, or bzr repository}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Minimal, quick overview}
+
+\begin{frame}
+	\frametitle{In a word}
+	\begin{itemize}
+		\item Implemented in POSIX shell
+		\item Auto-commits /etc prior to and after all actions by package manager
+		\item Hooks into apt, yum, pacman-g2, and cron
+		\item Allows manual commits
+		\item Various back-ends
+		\begin{itemize}
+			\item bazaar
+			\item darcs
+			\item git
+			\item mercurial
+		\end{itemize}
+		\item Easy way to recover from failures, misconfiguration or to clone machines
+	\end{itemize}
+\end{frame}
+
+
+\section{vcsh}
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{vcsh}
+			\vfill
+			\textit{manage config files in \$HOME via fake bare git repositories}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Technical details}
+
+\begin{frame}
+	\frametitle{What is vcsh?}
+	\begin{itemize}
+		\item Implemented in POSIX shell
+		\item "version control shell" or "version control system \texttt{\$HOME}"
+		\item Based on git
+		\begin{itemize}
+			\item git unable to maintain several working copies in one directory
+			\item Sucks if you want to keep your configs in git
+		\end{itemize}
+		\item vcsh uses fake bare git repositories to work around this
+		\item Simple but powerful hook system
+		\item Think of it as an extension to git
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{fake bare.. what?}
+	\begin{itemize}
+		\item Normal git repo:
+		\begin{itemize}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item git data in \texttt{\$GIT\_WORK\_TREE/.git} aka \texttt{\$GIT\_DIR}
+		\end{itemize}
+		\item Bare git repo:
+		\begin{itemize}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item no  \texttt{\$GIT\_WORK\_TREE}
+		\end{itemize}
+		\item Fake bare git repo:
+		\begin{itemize}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
+			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
+			\item \texttt{core.bare = false}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with fake bare git repos}
+	\begin{itemize}
+		\item Fake bare repos are messy to set up and use
+		\item Reason why git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to context-dependency
+		\item Mistakes lead to confusion or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
+		\begin{itemize}
+			\item \texttt{git add}
+			\item \texttt{git reset --hard HEAD\~{}1}
+			\item \texttt{git checkout -- *}
+			\item \texttt{git clean -f}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solution: vcsh}
+	\begin{itemize}
+		\item Wraps around git
+		\item Hides complexity and does sanity checks
+			\item Several git repos checked out into \texttt{\$HOME} at once
+		\begin{itemize}
+			\item One repo for zsh, Vim, mplayer, etc
+			\item Enables specific subsets of repos per host
+		\end{itemize}
+		\item Manages complete repo life-cycle
+	\end{itemize}
+\end{frame}
+
+\subsection{Using vcsh}
+
+\begin{frame}
+	\frametitle{Create new repo}
+	\texttt{ \\
+		\# create new repo \\
+		vcsh init vim \\
+		\# add files to it \\
+		vcsh run vim git add .vim .vimrc \\
+		\# commit using shorthand form \\
+		vcsh vim commit \\
+		\# push using longhand form \\
+		vcsh run vim git push
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Made-up life-cycle}
+	\texttt{ \\
+		\# clone repo into new name zsh \\
+		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
+		\# optionally update legacy repos (older than 2012)\\
+		vcsh setup zsh \\
+		\# display all files managed by this repo \\
+		vcsh run zsh git ls-files \\
+		\# rename repo just because \\
+		vcsh rename zsh zshrc \\
+		\# delete repo \\
+		vcsh delete zshrc
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{run vs enter}
+	\texttt{ \\
+		\# do everything from outside \\
+		vcsh run zsh git add .zshrc \\
+		vcsh run zsh git commit \\
+		vcsh run zsh git push \\
+		\# the same commands, but from within\\
+		vcsh enter zsh \\
+		git add .zshrc \\
+		git commit \\
+		git push \\
+		exit
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Advanced usage}
+	\begin{itemize}
+		\item Have your prompt display vcsh information
+		\item git-annex within vcsh to manage non-configuration files in \texttt{\$HOME}
+		\item Floating backups in arbitrary working copies
+		\begin{itemize}
+			\item \texttt{.git/}
+			\item Working copy
+			\item Complete repository, including objects, etc
+		\end{itemize}
+		\item Use git on top of or in parallel to other VCSs
+	\end{itemize}
+\end{frame}
+
+
+\section{git-annex}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{git-annex}
+			\vfill
+			\textit{manage files with git, without checking their contents in}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Background}
+
+\begin{frame}
+	\frametitle{What is git-annex?}
+	\begin{itemize}
+		\item Based on git
+		\item No need to check files into git
+		\item Still able to check files into git if you want
+		\item Able to maintain complete data history; does not do so by default
+		\item Written with low bandwidth and flaky connections in mind
+		\item Various work-flows
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Internal workings 1/2}
+	\begin{itemize}
+		\item Written in Haskell, so strong typing etc, internally
+		\item Uses rsync to transfer data
+		\item Moves files into \texttt{.git/annex/objects}
+		\item Makes files read-only
+		\item Stores location data in branch \texttt{git-annex}
+		\item Puts symlink in place of file
+		\item User adds and commits symlinks to master branch
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Internal workings 2/2}
+	\begin{itemize}
+		\item Read-only files force you to \texttt{git annex unlock} prior to changing them
+		\item Ensures that you will \texttt{git annex add} all unlocked files
+		\item git-annex can then discard or keep old data, depending on setup
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Data integrity}
+	\begin{itemize}
+		\item Set minimal number of required copies per suffix, directory, etc
+		\item SHA1, SHA2-\{224,256,384,512\} for integrity
+		\item All remotes and special remotes can be verified
+		\begin{itemize}
+			\item remotes verify locally and transmit the result
+			\item special remotes transfer all data to verify
+		\end{itemize}
+		\item Verification takes required amount of copies into account
+		\item \texttt{git fsck; git annex fsck}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Special remotes 1/2}
+	\begin{itemize}
+		\item Store data in non-git-annex remotes
+		\item Track all data stored in special remotes
+		\item Support encryption for storage on untrusted machines/media
+		\item Hook system lets you write to and read from arbitrary remotes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Special remotes 2/2}
+	\begin{itemize}
+		\item Amazon Glacier
+		\item Amazon S3
+		\item bup
+		\item directory
+		\item rsync
+		\item webdav
+		\item web (media.ccc.de, Project Gutenberg, archive.org, etc)
+		\item hook
+		\begin{itemize}
+			\item IMAP
+			\item Tahoe-LAFS
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{git-annex assistant}
+	\begin{itemize}
+		\item Financed via \url{kickstarter.com}
+		\item One year of dedicated programming by Joey Hess
+		\item Daemon that adds data to the repo and syncs it between other repos
+		\item Web GUI on localhost
+		\item Content notification via XMPP/Jabber
+		\item Advanced ruleset for content distribution
+		\item Direct mode, no symlinks (in beta phase)
+		\item Android port planned
+	\end{itemize}
+\end{frame}
+
+
+\subsection{Use cases}
+
+\begin{frame}
+	\frametitle{The Archivist}
+	\begin{itemize}
+		\item Put data into git-annex
+		\item Distribute data among any number of drives, tapes, remotes, etc
+		\item Store offline media in a safe place
+		\item Maintain full information about number and location of all copies
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Media consumption}
+	\begin{itemize}
+		\item Import podcasts, videos, and slides
+		\item Sync or export to consumption devices
+		\item Consume media
+		\item Drop consumed media from annex
+		\item Deletion propagates through all annexes over time
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Nomad}
+	\begin{itemize}
+		\item Keep copies of data on the Internet
+		\item Optionally sync between several local devices for backup
+		\item Add data locally and/or remotely while on the road
+		\item Sync data between local and remote once at an Internet café or similar
+		\item Perfect for photos while travelling
+	\end{itemize}
+\end{frame}
+
+
+\section{bup}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{bup}
+			\vfill
+			\textit{Highly efficient file backup system based on the git packfile format}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{One-slide-overview}
+
+\begin{frame}
+	\frametitle{In a word...}
+	\begin{itemize}
+		\item Written in Python
+		\item Fast
+		\item Very space-efficient (reduced 120 GiB (rsnapshot) to 45 GiB)
+		\item Built-in de-duplication
+		\item Can be mounted via FUSE
+		\item Can not drop old data (there is a branch that supports this)
+	\end{itemize}
+\end{frame}
+
+
+\section{Zsh}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{Zsh}
+			\vfill
+			\textit{Best shell available. Period.}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{That's not git-based?}
+
+\begin{frame}
+	\frametitle{No, it's not...}
+	\begin{itemize}
+		\item Extremely powerful tab completion for the tools in this talk (and others!)
+		\item Versatile left \emph{and right} prompts
+		\item vcs\_info
+		\begin{itemize}
+			\item Displays information about the working copy in \texttt{\$PWD} in prompt
+			\item Lots of customization options
+			\item Supports git, bazaar, codeville, cvs, darcs, fossil, GNU Arch, mercurial, monotone, Perforce, subversion, and svk
+		\end{itemize}
+		\item Too many other reasons to list (literally...)
+		\item Can mimic Bash, Ksh, tcsh, etc; try it!
+	\end{itemize}
+\end{frame}
+
+
+\section{mr}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{mr}
+			\vfill
+			\textit{Multiple Repository management tool}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Too many repos...?}
+
+\begin{frame}
+	\frametitle{Tying it all together}
+	\begin{itemize}
+		\item Written in Perl
+		\item Bulk pull, push, etc and custom commands all, some, or one of your repositories
+		\item Supports git, vcsh, bazaar, cvs, darcs, fossil, git-svn, mercurial, subversion, unison, and veracity
+		\item Trivial to extend to support more VCSs
+		\item If you want to try all this, why not \texttt{vcsh clone} my mr repository template and run \texttt{mr up} to pull my zsh config via vcsh?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Suggested mr layout}
+	\texttt{ \\
+		\% cat ~/.mrconfig \\
+		include = cat ~/.config/mr/config.d/* \\
+		\% ls .config/mr/available.d \\
+		mr.vcsh \\
+		zsh.vcsh \\
+		... \\
+		\% ls -l .config/mr/config.d \\
+		mr.vcsh -> ../available.d/mr.vcsh \\
+		zsh.vcsh -> ../available.d/zsh.vcsh \\
+		... \\
+		\%
+	}
+\end{frame}
+
+
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Wrapping up}
+
+\begin{frame}
+	\frametitle{The final pitch...}
+	\vfill
+	I need literally less than five minutes of Internet access to sync my entire digital life while on the road.
+	\vfill
+\end{frame}
+
+\subsection{Further reading}
+
+\begin{frame}
+	\frametitle{Project websites}
+	Most of these are packaged for the major distributions
+	\begin{itemize}
+		\item ikiwiki: \url{http://ikiwiki.info/}
+		\item etckeeper: \url{http://joey.kitenet.net/code/etckeeper/}
+		\item vcsh: \url{https://github.com/RichiH/vcsh}
+		\item git-annex: \url{http://git-annex.branchable.com/}
+		\item bup: \url{https://github.com/bup/bup}
+		\item mr: \url{http://kitenet.net/~joey/code/mr/}
+		\item Wiki around this topic: \url{http://vcs-home.branchable.com/}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Previous talks}
+	Previous talks, a bit more in-depth than this one and available as video download:
+	\begin{itemize}
+		\item vcsh: \\ \url{http://fosdem.org/2012/schedule/event/vcsh}
+		\item git-annex: \\ \url{http://fosdem.org/2012/schedule/event/gitannex}
+	\end{itemize}
+\end{frame}
+
+\subsection{The End!}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thank you for listening!\\
+			\vfill
+			Questions? Ask now or during dinner, both is fine.
+			\vfill
+			See slide footer for further contact information.\\
+			\vfill
+			\#vcs-home @ irc.oftc.net\\
+			vcs-home@lists.madduck.net
+			\vfill
+		\end{center}
+\end{frame}
+
+
+\end{document}
+
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
