@@ -429,15 +429,20 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Data integrity}
 	\begin{itemize}
-		\item Set minimal number of required copies per suffix, directory, etc
 		\item SHA1, SHA2-\{224,256,384,512\} for integrity
+		\item Set minimal number of required copies per suffix, directory, etc
 		\item All remotes and special remotes can be verified
 		\begin{itemize}
 			\item remotes verify locally and transmit the result
 			\item special remotes transfer all data to verify
 		\end{itemize}
 		\item Verification takes required amount of copies into account
-		\item \texttt{git fsck; git annex fsck}
+		\item You can \textit{always} get your data out of a broken annex
+		\begin{itemize}
+			\item All data is stored as normal files on disk
+			\item Symlinks work without git-annex
+			\item git-annex objects carry their own checksum in their filename
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
