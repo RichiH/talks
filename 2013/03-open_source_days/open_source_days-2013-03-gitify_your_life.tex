@@ -27,7 +27,7 @@
 \author{Richard Hartmann,\\
 RichiH@\{freenode,OFTC,IRCnet\},\\
 richih.mailinglist@gmail.com}
-\date{2013-03-09}
+\date{2013-03-10}
 
 
 
@@ -300,7 +300,7 @@ richih.mailinglist@gmail.com}
 		\item Hides complexity and does sanity checks
 			\item Several git repos checked out into \texttt{\$HOME} at once
 		\begin{itemize}
-			\item One repo for zsh, Vim, mplayer, etc
+			\item One repo for Zsh, Vim, mplayer, etc
 			\item Enables specific subsets of repos per host
 		\end{itemize}
 		\item Manages complete repo life-cycle
@@ -328,8 +328,6 @@ richih.mailinglist@gmail.com}
 	\texttt{ \\
 		\# clone repo into new name zsh \\
 		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
-		\# optionally update legacy repos (older than 2012)\\
-		vcsh setup zsh \\
 		\# display all files managed by this repo \\
 		vcsh run zsh git ls-files \\
 		\# rename repo just because \\
@@ -396,11 +394,10 @@ richih.mailinglist@gmail.com}
 	\frametitle{What is git-annex?}
 	\begin{itemize}
 		\item Based on git
-		\item No need to check files into git
-		\item Still able to check files into git if you want
-		\item Able to maintain complete data history; does not do so by default
+		\item Maintains metadata in git, actual files in the annex
+		\item Still allows you to check files into git if you want to
 		\item Written with low bandwidth and flaky connections in mind
-		\item Various work-flows
+		\item Various work-flows (more on that soon)
 	\end{itemize}
 \end{frame}
 
@@ -409,35 +406,53 @@ richih.mailinglist@gmail.com}
 	\begin{itemize}
 		\item Written in Haskell, so strong typing etc, internally
 		\item Uses rsync to transfer data
-		\item Moves files into \texttt{.git/annex/objects}
-		\item Makes files read-only
-		\item Stores location data in branch \texttt{git-annex}
-		\item Puts symlink in place of file
-		\item User adds and commits symlinks to master branch
+		\item Indirect mode
+		\begin{itemize}
+			\item Moves files into \texttt{.git/annex/objects}
+			\item Makes them read-only
+			\item Replaces them with symlinks
+			\item Forces you to \texttt{git annex unlock} and \texttt{git annex add}, leading to concious decisions about changes
+		\end{itemize}
+		\item Can either discard or keep old data, depending on setup
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Internal workings 2/2}
 	\begin{itemize}
-		\item Read-only files force you to \texttt{git annex unlock} prior to changing them
-		\item Ensures that you will \texttt{git annex add} all unlocked files
-		\item git-annex can then discard or keep old data, depending on setup
+		\item Uses UUIDs to identify each repository
+		\item Stores tracking information in \texttt{git-annex} branch
+		\item Gives every single repository full information about all files
+		\item Tracking information designed to work with union merge: \\
+			{\footnotesize \texttt{1361402708.089154s 1 0d39904f-de8d-1638-92af-ecd2cea783cb}} \\
+			{\footnotesize \texttt{1361402822.110498s 1 d1ffde43-f3d9-107b-aa2d-7e4e1ff88b46}}
+%		\item Neat tool: \texttt{git annex sync}
+%		\begin{itemize}
+%			\item \texttt{git commit}
+%			\item \texttt{git merge synced/master}
+%			\item \texttt{git union-merge git-annex origin/git-annex refs/heads/git-annex}
+%			\item \texttt{git push \$remote master:synced/master}
+%		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Data integrity}
 	\begin{itemize}
-		\item Set minimal number of required copies per suffix, directory, etc
 		\item SHA1, SHA2-\{224,256,384,512\} for integrity
+		\item Set minimal number of required copies per suffix, directory, etc
 		\item All remotes and special remotes can be verified
 		\begin{itemize}
 			\item remotes verify locally and transmit the result
 			\item special remotes transfer all data to verify
 		\end{itemize}
 		\item Verification takes required amount of copies into account
-		\item \texttt{git fsck; git annex fsck}
+		\item You can \textit{always} get your data out of a broken annex
+		\begin{itemize}
+			\item All data is stored as normal files on disk
+			\item Symlinks work without git-annex
+			\item git-annex objects carry their own checksum in their filename
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -478,8 +493,8 @@ richih.mailinglist@gmail.com}
 		\item Web GUI on localhost
 		\item Content notification via XMPP/Jabber
 		\item Advanced ruleset for content distribution
-		\item Direct mode, no symlinks (in beta phase)
-		\item Android port planned
+		\item Direct mode, no symlinks, especially useful for Mac OS X (in beta phase)
+		\item Android port (basic functionality, no GUI yet)
 	\end{itemize}
 \end{frame}
 
@@ -515,6 +530,20 @@ richih.mailinglist@gmail.com}
 		\item Add data locally and/or remotely while on the road
 		\item Sync data between local and remote once at an Internet café or similar
 		\item Perfect for photos while travelling
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pick and mix your own view}
+	\begin{itemize}
+		\item Sometimes, you disagree with other people about the best way to organize data
+		\item Different repositories can show a different view of the same data
+			\begin{itemize}
+				\item Completely delete some files or file types, for example RAW files
+				\item Rename files and directories
+			\end{itemize}
+		\item Maintain a rebasing branch on top of the remote: \\
+		\texttt{git config branch.master.rebase true}
 	\end{itemize}
 \end{frame}
 
@@ -619,7 +648,7 @@ richih.mailinglist@gmail.com}
 		\item Bulk pull, push, etc and custom commands all, some, or one of your repositories
 		\item Supports git, vcsh, bazaar, cvs, darcs, fossil, git-svn, mercurial, subversion, unison, and veracity
 		\item Trivial to extend to support more VCSs
-		\item If you want to try all this, why not \texttt{vcsh clone} my mr repository template and run \texttt{mr up} to pull my zsh config via vcsh?
+		\item If you want to try all this, why not \texttt{vcsh clone} my mr repository template and run \texttt{mr up} to pull my Zsh config via vcsh?
 	\end{itemize}
 \end{frame}
 
