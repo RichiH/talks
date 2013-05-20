@@ -85,6 +85,80 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 
+\section{etckeeper}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{etckeeper}
+			\vfill
+			\textit{etckeeper is a collection of tools to let /etc be stored in a Git, Mercurial, Darcs, or Bazaar repository}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Minimal, quick overview}
+
+\begin{frame}
+	\frametitle{In a word}
+	\begin{itemize}
+		\item Implemented in POSIX shell
+		\item Auto-commits /etc prior to and after all actions by package manager
+		\item Hooks into apt, yum, pacman-g2, and cron
+		\item Allows manual commits
+		\item Various back-ends
+		\begin{itemize}
+			\item Bazaar
+			\item Darcs
+			\item Git
+			\item Mercurial
+		\end{itemize}
+		\item Easy way to recover from failures, misconfiguration or to clone machines
+	\end{itemize}
+\end{frame}
+
+
+\section{bup}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{bup}
+			\vfill
+			\textit{Highly efficient file backup system based on the Git packfile format}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{One-slide-overview}
+
+\begin{frame}
+	\frametitle{In a word...}
+	\begin{itemize}
+		\item Written in Python
+		\item Fast
+		\item Very space-efficient (reduced 120 GiB (rsnapshot) to 45 GiB)
+		\item Built-in de-duplication
+		\item Can be mounted via FUSE
+		\item Can not drop old data (there is a branch that supports this)
+	\end{itemize}
+\end{frame}
+
+
 \section{ikiwiki}
 
 \begin{frame}
@@ -180,197 +254,6 @@ richih.mailinglist@gmail.com}
 		\item Interface with source files, only
 		\item Maintain wiki and docs in the same repository as your source code
 		\item Separate staging or even preview branches with output into different directories
-	\end{itemize}
-\end{frame}
-
-
-\section{etckeeper}
-
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-
-\begin{frame}
-		\begin{center}
-			\vfill
-			\vfill
-			\textbf{etckeeper}
-			\vfill
-			\textit{etckeeper is a collection of tools to let /etc be stored in a Git, Mercurial, Darcs, or Bazaar repository}
-			\vfill
-			\vfill
-		\end{center}
-\end{frame}
-
-\subsection{Minimal, quick overview}
-
-\begin{frame}
-	\frametitle{In a word}
-	\begin{itemize}
-		\item Implemented in POSIX shell
-		\item Auto-commits /etc prior to and after all actions by package manager
-		\item Hooks into apt, yum, pacman-g2, and cron
-		\item Allows manual commits
-		\item Various back-ends
-		\begin{itemize}
-			\item Bazaar
-			\item Darcs
-			\item Git
-			\item Mercurial
-		\end{itemize}
-		\item Easy way to recover from failures, misconfiguration or to clone machines
-	\end{itemize}
-\end{frame}
-
-
-\section{vcsh}
-\begin{frame}
-	\frametitle{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-
-\begin{frame}
-		\begin{center}
-			\vfill
-			\vfill
-			\textbf{vcsh}
-			\vfill
-			\textit{manage config files in \$HOME via fake bare Git repositories}
-			\vfill
-			\vfill
-		\end{center}
-\end{frame}
-
-\subsection{Technical details}
-
-\begin{frame}
-	\frametitle{What is vcsh?}
-	\begin{itemize}
-		\item Implemented in POSIX shell
-		\item "version control shell" or "version control system \texttt{\$HOME}"
-		\item Based on Git, but...
-		\begin{itemize}
-			\item Git is unable to maintain several working copies in one directory
-			\item Sucks if you want to keep your configs in Git
-		\end{itemize}
-		\item vcsh uses fake bare Git repositories to work around this
-		\item Powerful and extensible hook system
-		\item Think of it as an extension to Git
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{fake bare.. what?}
-	\begin{itemize}
-		\item Normal Git repository:
-		\begin{itemize}
-			\item working copy in \texttt{\$GIT\_WORK\_TREE}
-			\item Git data in \texttt{\$GIT\_WORK\_TREE/.git} aka \texttt{\$GIT\_DIR}
-		\end{itemize}
-		\item Bare Git repository:
-		\begin{itemize}
-			\item Git data in \texttt{\$GIT\_DIR}
-			\item no  \texttt{\$GIT\_WORK\_TREE}
-		\end{itemize}
-		\item Fake bare Git repository:
-		\begin{itemize}
-			\item working copy in \texttt{\$GIT\_WORK\_TREE}
-			\item Git data in \texttt{\$GIT\_DIR}
-			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
-			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
-			\item \texttt{core.bare = false}
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Problems with fake bare Git repos}
-	\begin{itemize}
-		\item Fake bare repos are messy to set up and use, but very easy to get wrong
-		\item Reason why Git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to context-dependency
-		\item Mistakes lead to confusion and/or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
-		\begin{itemize}
-			\item \texttt{git add}
-			\item \texttt{git reset --hard HEAD\~{}1}
-			\item \texttt{git checkout -- *}
-			\item \texttt{git clean -f}
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Solution: vcsh}
-	\begin{itemize}
-		\item Wraps around Git
-		\item Hides complexity and does sanity checks
-		\item Several Git repositories checked out into \texttt{\$HOME} at once
-		\begin{itemize}
-			\item One repository for Zsh, Vim, mplayer, etc
-			\item Allows specific subsets of repositories per host
-		\end{itemize}
-		\item Manages complete repository life-cycle
-	\end{itemize}
-\end{frame}
-
-\subsection{Using vcsh}
-
-\begin{frame}
-	\frametitle{Create new repository}
-	\texttt{ \\
-		\# Create new repository \\
-		vcsh init vim \\
-		\# Add files to it \\
-		vcsh run vim git add .vim .vimrc \\
-		\# Commit using shorthand form \\
-		vcsh vim commit \\
-		\# Push using longhand form \\
-		vcsh run vim git push
-	}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Made-up life-cycle}
-	\texttt{ \\
-		\# Clone repository into new name zsh \\
-		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
-		\# Display all files managed by this repository \\
-		vcsh run zsh git ls-files \\
-		\# Rename repository just because \\
-		vcsh rename zsh zshrc \\
-		\# Delete repository \\
-		vcsh delete zshrc
-	}
-\end{frame}
-
-\begin{frame}
-	\frametitle{run vs enter}
-	\texttt{ \\
-		\# Do everything from outside \\
-		vcsh run zsh git add .zshrc \\
-		vcsh run zsh git commit \\
-		vcsh run zsh git push \\
-		\# The same commands, but from within\\
-		vcsh enter zsh \\
-		git add .zshrc \\
-		git commit \\
-		git push \\
-		exit
-	}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Advanced usage}
-	\begin{itemize}
-		\item Have your prompt display vcsh information
-		\item git-annex within vcsh to manage non-configuration files in \texttt{\$HOME}
-		\item Floating backups in arbitrary working copies
-		\begin{itemize}
-			\item \texttt{.git/}
-			\item Working copy
-			\item Complete repository, including objects, etc
-		\end{itemize}
-		\item Use Git on top of or in parallel to other VCSs
 	\end{itemize}
 \end{frame}
 
@@ -555,7 +438,7 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 
-\section{bup}
+\section{vcsh}
 
 \begin{frame}
 	\frametitle{Outline}
@@ -566,63 +449,143 @@ richih.mailinglist@gmail.com}
 		\begin{center}
 			\vfill
 			\vfill
-			\textbf{bup}
+			\textbf{vcsh}
 			\vfill
-			\textit{Highly efficient file backup system based on the Git packfile format}
+			\textit{manage config files in \$HOME via fake bare Git repositories}
 			\vfill
 			\vfill
 		\end{center}
 \end{frame}
 
-\subsection{One-slide-overview}
+\subsection{Technical details}
 
 \begin{frame}
-	\frametitle{In a word...}
+	\frametitle{What is vcsh?}
 	\begin{itemize}
-		\item Written in Python
-		\item Fast
-		\item Very space-efficient (reduced 120 GiB (rsnapshot) to 45 GiB)
-		\item Built-in de-duplication
-		\item Can be mounted via FUSE
-		\item Can not drop old data (there is a branch that supports this)
+		\item Implemented in POSIX shell
+		\item "version control shell" or "version control system \texttt{\$HOME}"
+		\item Based on Git, but...
+		\begin{itemize}
+			\item Git is unable to maintain several working copies in one directory
+			\item Sucks if you want to keep your configs in Git
+		\end{itemize}
+		\item vcsh uses fake bare Git repositories to work around this
+		\item Powerful and extensible hook system
+		\item Think of it as an extension to Git
 	\end{itemize}
 \end{frame}
 
-
-\section{Zsh}
-
 \begin{frame}
-	\frametitle{Outline}
-	\tableofcontents[currentsection]
-\end{frame}
-
-\begin{frame}
-		\begin{center}
-			\vfill
-			\vfill
-			\textbf{Zsh}
-			\vfill
-			\textit{Best shell available. Period.}
-			\vfill
-			\vfill
-		\end{center}
-\end{frame}
-
-\subsection{Why is this in a Git talk?}
-
-\begin{frame}
-	\frametitle{Not based on Git, but makes your life easier}
+	\frametitle{fake bare.. what?}
 	\begin{itemize}
-		\item Extremely powerful tab completion for the tools in this talk (and others!)
-		\item Versatile left \emph{and right} prompts
-		\item \texttt{vcs\_info}
+		\item Normal Git repository:
 		\begin{itemize}
-			\item Displays information about the current VCS working copy in prompt
-			\item Lots of customization options
-			\item Supports Git, Bazaar, codeville, CVS, Darcs, fossil, GNU Arch, Mercurial, monotone, Perforce, Subversion, and svk
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item Git data in \texttt{\$GIT\_WORK\_TREE/.git} aka \texttt{\$GIT\_DIR}
 		\end{itemize}
-		\item Can mimic Bash, Ksh, tcsh, etc.
-		\item Too many other reasons to list (literally...)
+		\item Bare Git repository:
+		\begin{itemize}
+			\item Git data in \texttt{\$GIT\_DIR}
+			\item no  \texttt{\$GIT\_WORK\_TREE}
+		\end{itemize}
+		\item Fake bare Git repository:
+		\begin{itemize}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item Git data in \texttt{\$GIT\_DIR}
+			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
+			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
+			\item \texttt{core.bare = false}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with fake bare Git repos}
+	\begin{itemize}
+		\item Fake bare repos are messy to set up and use, but very easy to get wrong
+		\item Reason why Git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to context-dependency
+		\item Mistakes lead to confusion and/or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
+		\begin{itemize}
+			\item \texttt{git add}
+			\item \texttt{git reset --hard HEAD\~{}1}
+			\item \texttt{git checkout -- *}
+			\item \texttt{git clean -f}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solution: vcsh}
+	\begin{itemize}
+		\item Wraps around Git
+		\item Hides complexity and does sanity checks
+		\item Several Git repositories checked out into \texttt{\$HOME} at once
+		\begin{itemize}
+			\item One repository for Zsh, Vim, mplayer, etc
+			\item Allows specific subsets of repositories per host
+		\end{itemize}
+		\item Manages complete repository life-cycle
+	\end{itemize}
+\end{frame}
+
+\subsection{Using vcsh}
+
+\begin{frame}
+	\frametitle{Create new repository}
+	\texttt{ \\
+		\# Create new repository \\
+		vcsh init vim \\
+		\# Add files to it \\
+		vcsh run vim git add .vim .vimrc \\
+		\# Commit using shorthand form \\
+		vcsh vim commit \\
+		\# Push using longhand form \\
+		vcsh run vim git push
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Made-up life-cycle}
+	\texttt{ \\
+		\# Clone repository into new name zsh \\
+		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
+		\# Display all files managed by this repository \\
+		vcsh run zsh git ls-files \\
+		\# Rename repository just because \\
+		vcsh rename zsh zshrc \\
+		\# Delete repository \\
+		vcsh delete zshrc
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{run vs enter}
+	\texttt{ \\
+		\# Do everything from outside \\
+		vcsh run zsh git add .zshrc \\
+		vcsh run zsh git commit \\
+		vcsh run zsh git push \\
+		\# The same commands, but from within\\
+		vcsh enter zsh \\
+		git add .zshrc \\
+		git commit \\
+		git push \\
+		exit
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Advanced usage}
+	\begin{itemize}
+		\item Have your prompt display vcsh information
+		\item git-annex within vcsh to manage non-configuration files in \texttt{\$HOME}
+		\item Floating backups in arbitrary working copies
+		\begin{itemize}
+			\item \texttt{.git/}
+			\item Working copy
+			\item Complete repository, including objects, etc
+		\end{itemize}
+		\item Use Git on top of or in parallel to other VCSs
 	\end{itemize}
 \end{frame}
 
@@ -674,6 +637,44 @@ richih.mailinglist@gmail.com}
 		... \\
 		\%
 	}
+\end{frame}
+
+
+\section{Zsh}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{Zsh}
+			\vfill
+			\textit{Best shell available. Period.}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Why is this in a Git talk?}
+
+\begin{frame}
+	\frametitle{Not based on Git, but makes your life easier}
+	\begin{itemize}
+		\item Extremely powerful tab completion for the tools in this talk (and others!)
+		\item Versatile left \emph{and right} prompts
+		\item \texttt{vcs\_info}
+		\begin{itemize}
+			\item Displays information about the current VCS working copy in prompt
+			\item Lots of customization options
+			\item Supports Git, vcsh, Bazaar, codeville, CVS, Darcs, fossil, GNU Arch, Mercurial, monotone, Perforce, Subversion, and svk
+		\end{itemize}
+		\item Can mimic Bash, Ksh, tcsh, etc.
+		\item Too many other reasons to list (literally...)
+	\end{itemize}
 \end{frame}
 
 
