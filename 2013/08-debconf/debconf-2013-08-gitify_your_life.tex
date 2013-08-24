@@ -27,7 +27,7 @@
 \author{Richard Hartmann,\\
 RichiH@\{freenode,OFTC,IRCnet\},\\
 richih.mailinglist@gmail.com}
-\date{2013-05-22}
+\date{2013-08-16}
 
 
 
@@ -61,8 +61,9 @@ richih.mailinglist@gmail.com}
 		\item Richard "RichiH" Hartmann
 		\item Backbone and project manager at Globalways AG
 		\item freenode \& OFTC staff
+		\item Debian Developer for about a week (yay!)
 		\item Author of vcsh
-		\item Passionate about FLOSS
+%		\item Passionate about FLOSS
 	\end{itemize}
 \end{frame}
 
@@ -302,6 +303,8 @@ richih.mailinglist@gmail.com}
 			\item Replaces them with symlinks
 			\item Forces you to \texttt{git annex edit} and \texttt{git annex add}, leading to concious decisions about changes
 		\end{itemize}
+		\item Direct mode without symlinks; especially useful for \\
+			Mac OS X and Windows
 		\item Can either discard or keep old data, depending on setup
 	\end{itemize}
 \end{frame}
@@ -348,7 +351,7 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Special remotes 1/3}
+	\frametitle{Special remotes - 1/3}
 	\begin{itemize}
 		\item Stores data in non-git-annex remotes
 		\item Still tracks all data stored in special remotes
@@ -358,7 +361,7 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Built-in special remotes 2/3}
+	\frametitle{Built-ins - Special remotes 2/3}
 	\begin{itemize}
 		\item Amazon Glacier
 		\item Amazon S3
@@ -372,7 +375,7 @@ richih.mailinglist@gmail.com}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Hook-based special remotes 2/2}
+	\frametitle{Hook-based - Special remotes 3/3}
 	\begin{itemize}
 		\item archive.org via Amazon S3
 		\item IMAP
@@ -398,8 +401,6 @@ richih.mailinglist@gmail.com}
 		\item Content notification via XMPP/Jabber
 		\item Advanced ruleset for content distribution
 			%%%%%%%%% TODO extra slide with examples when talks' an hour in duration
-		\item Direct mode without symlinks; especially useful for \\
-			Mac OS X and Windows
 		\item Android \& Windows ports
 	\end{itemize}
 \end{frame}
@@ -420,10 +421,10 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Media consumption}
 	\begin{itemize}
-		\item Import podcasts, videos, and slides
+		\item Import podcasts (now with native podcatching), videos, and slides
 		\item Sync or export to consumption devices
 		\item Consume media
-		\item Drop consumed media from annex
+		\item Drop consumed media content from annex
 		\item Deletion propagates through all annexes over time
 	\end{itemize}
 \end{frame}
@@ -467,7 +468,7 @@ richih.mailinglist@gmail.com}
 			\vfill
 			\textbf{vcsh}
 			\vfill
-			\textit{manage config files in \$HOME via fake bare Git repositories}
+			\textit{Version Control System for \$HOME \\ (multiple Git repositories in \$HOME)}
 			\vfill
 			\vfill
 		\end{center}
@@ -479,15 +480,15 @@ richih.mailinglist@gmail.com}
 	\frametitle{What is vcsh?}
 	\begin{itemize}
 		\item Implemented in POSIX shell
-		\item "version control shell" or "version control system \texttt{\$HOME}"
 		\item Based on Git, but...
 		\begin{itemize}
 			\item Git is unable to maintain several working copies in one directory
-			\item Sucks if you want to keep your configs in Git
+			\item This is a safety feature...
+			\item ...which sucks if you want to keep your configs in Git
 		\end{itemize}
-		\item vcsh uses fake bare Git repositories to work around this
+		\item vcsh uses fake bare Git repositories to work around this limitation
+		\item Think of it as an extension to, or a wrapper around, Git
 		\item Powerful and extensible hook system
-		\item Think of it as an extension to Git
 	\end{itemize}
 \end{frame}
 
@@ -508,9 +509,12 @@ richih.mailinglist@gmail.com}
 		\begin{itemize}
 			\item working copy in \texttt{\$GIT\_WORK\_TREE}
 			\item Git data in \texttt{\$GIT\_DIR}
+			\item \texttt{core.bare = false}
+		\end{itemize}
+		\item vcsh default:
+		\begin{itemize}
 			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
 			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
-			\item \texttt{core.bare = false}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -519,11 +523,11 @@ richih.mailinglist@gmail.com}
 	\frametitle{Problems with fake bare Git repos}
 	\begin{itemize}
 		\item Fake bare repositories are messy to set up and use, and very easy to get wrong
-		\item Reason why Git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to context-dependency
+		\item Reason why Git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to sudden context-dependency
 		\item Mistakes lead to confusion and/or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
 		\begin{itemize}
 			\item \texttt{git add}
-			\item \texttt{git reset --hard HEAD\~{}1}
+			\item \texttt{git reset --hard HEAD}
 			\item \texttt{git checkout -- *}
 			\item \texttt{git clean -f}
 		\end{itemize}
@@ -551,43 +555,62 @@ richih.mailinglist@gmail.com}
 	\texttt{ \\
 		\# Create new repository \\
 		vcsh init vim \\
-		\# Add files to it \\
-		vcsh run vim git add .vim .vimrc \\
-		\# Commit using shorthand form \\
-		vcsh vim commit \\
-		\# Push using longhand form \\
-		vcsh run vim git push
+		\# Add files \\
+		vcsh vim add ~/.vimrc ~/.vim \\
+		\# Commit \\
+		vcsh vim commit -m 'Initial release' \\
+		\# Push \\
+		vcsh vim remote add origin <remote>
+		vcsh vim push -u origin master
 	}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Made-up life-cycle}
+	\frametitle{Life-cycle}
+	If all this looks almost exactly like vanilla Git, that's a deliberate design feature:
+	\vfill
 	\texttt{ \\
-		\# Clone repository into new name zsh \\
 		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
-		\# Display all files managed by this repository \\
-		vcsh run zsh git ls-files \\
-		\# Rename repository just because \\
-		vcsh rename zsh zshrc \\
-		\# Delete repository \\
-		vcsh delete zshrc
+		vcsh zsh ls-files \# Show all files in one repository \\
+		vcsh rename zsh zshrc \# rename repository \\
+		vcsh status \# Show status of all repositories \\
+		vcsh pull \# Pull from all repository remotes \\
+		vcsh push \# Push to all repository remotes \\
+		vcsh delete zshrc \# Delete repository if you want \\
 	}
+	\vfill
 \end{frame}
 
 \begin{frame}
-	\frametitle{run vs enter}
-	\texttt{ \\
-		\# Do everything from outside \\
-		vcsh run zsh git add .zshrc \\
-		vcsh run zsh git commit \\
-		vcsh run zsh git push \\
-		\# The same commands, but from within\\
-		vcsh enter zsh \\
-		git add .zshrc \\
-		git commit \\
-		git push \\
-		exit
-	}
+	\frametitle{The three modes of interaction}
+	\begin{itemize}
+		\item Default mode \\
+			\texttt{vcsh zsh commit .zshrc -m "Add foo()" \\
+				\# gitk not possible!
+		}
+		\item Run mode \\
+			\texttt{vcsh run zsh git commit .zshrc -m "Add foo()" \\
+				vcsh run zsh gitk
+			}
+		\item Enter mode \\
+			\texttt{vcsh enter zsh \\
+				git commit .zshrc -m "Add foo()" \\
+				gitk \\
+				exit
+			}
+	\end{itemize}
+%	\texttt{ \\
+%		\# Do everything from outside \\
+%		vcsh run zsh git add .zshrc \\
+%		vcsh run zsh git commit \\
+%		vcsh run zsh git push \\
+%		\# The same commands, but from within\\
+%		vcsh enter zsh \\
+%		git add .zshrc \\
+%		git commit \\
+%		git push \\
+%		exit
+%	}
 \end{frame}
 
 \begin{frame}
@@ -619,7 +642,7 @@ richih.mailinglist@gmail.com}
 			\vfill
 			\textbf{mr}
 			\vfill
-			\textit{Multiple Repository management tool}
+			\textit{a tool to manage all your version control repos}
 			\vfill
 			\vfill
 		\end{center}
