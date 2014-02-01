@@ -62,7 +62,7 @@ richih.mailinglist@gmail.com}
 		\item Backbone and project manager at Globalways AG
 		\item freenode \& OFTC staff
 		\item Debian Developer
-		\item Author of vcsh
+		\item Author of vcsh \& metamonger
 %		\item Passionate about FLOSS
 	\end{itemize}
 \end{frame}
@@ -421,10 +421,12 @@ richih.mailinglist@gmail.com}
 \begin{frame}
 	\frametitle{Media consumption}
 	\begin{itemize}
-		\item Import podcasts (now with native podcatching), videos, and slides
+		\item Import podcasts, videos, slides, and other media
+		\item Built-in podcatching client (very neat)
 		\item Sync or export to consumption devices
 		\item Consume media
 		\item Drop consumed media content from annex
+		\item (Feature to propagate deletions is upcoming)
 	\end{itemize}
 \end{frame}
 
@@ -453,6 +455,43 @@ richih.mailinglist@gmail.com}
 	\end{itemize}
 \end{frame}
 
+
+\section{metamonger}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{metamonger}
+			\vfill
+			\textit{Like metastore, but done right}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{One-slide summary}
+
+\begin{frame}
+	\frametitle{Why metamonger?}
+	\begin{itemize}
+		\item People don't seem to care about persistent file metadata enough to actually do something about it
+		\item See discussion on if to store \texttt{mtime} etc in Git...
+		\item \texttt{metastore} exists and was written to be used with Git, but
+		\begin{itemize}
+			\item Binary storage is not merge-safe
+			\item Author has no interest to fix this
+			\item ...
+			\end{itemize}
+		\item \texttt{metamonger} uses plain text (line-wise JSON) storage
+		\item Will always merge nicely and integrate well with Git
+	\end{itemize}
+\end{frame}
 
 \section{vcsh}
 
