@@ -1,0 +1,285 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{vcsh}
+\subtitle{manage config files in \$HOME via fake bare git repositories}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih.mailinglist@gmail.com}
+\date{2012-02-04}
+
+
+
+\begin{document}
+
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+
+\section{Intro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Who am I?}
+	\begin{itemize}
+		\item Project \& Network Operations Manager at Globalways AG
+		\item freenode \& OFTC staff
+		\item Passionate about FLOSS
+		\item Author of vcsh
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is git?}
+	\begin{itemize}
+		\item Version control system
+		\item Distributed
+		\begin{itemize}
+			\item No need for central repository
+			\item Allows you to commit while offline
+		\end{itemize}
+		\item Full history in every checkout
+		\item Best version control system available (imo...)
+	\end{itemize}
+\end{frame}
+
+
+\section{Technical details}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is vcsh?}
+	\begin{itemize}
+		\item Implemented in POSIX shell; portable
+		\item "version control shell" or "version control system \texttt{\$HOME}"
+		\item Based on git
+		\begin{itemize}
+			\item git unable to maintain several working copies in one directory
+			\item Sucks if you want to keep your configs in git
+		\end{itemize}
+		\item vcsh uses fake bare git repositories to work around this
+		\item Think of it as an extension to git
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{fake bare.. what?}
+	\begin{itemize}
+		\item Normal git repo:
+		\begin{itemize}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item git data in \texttt{\$GIT\_WORK\_TREE/.git} aka \texttt{\$GIT\_DIR}
+		\end{itemize}
+		\item Bare git repo:
+		\begin{itemize}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item no  \texttt{\$GIT\_WORK\_TREE}
+		\end{itemize}
+		\item Fake bare git repo:
+		\begin{itemize}
+			\item working copy in \texttt{\$GIT\_WORK\_TREE}
+			\item git data in \texttt{\$GIT\_DIR}
+			\item \texttt{\$GIT\_WORK\_TREE == \$HOME}
+			\item \texttt{\$GIT\_DIR == \$XDG\_CONFIG\_HOME/vcsh/repo.d/\$repo.vcsh}
+			\item \texttt{core.bare = false}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with fake bare git repos}
+	\begin{itemize}
+		\item Fake bare repos are messy to set up and use
+		\item Reason why git disallows shared \texttt{\$GIT\_WORK\_TREE}: complexity due to context-dependency
+		\item Mistakes lead to confusion or data loss; imagine \texttt{\$GIT\_WORK\_TREE} set and
+		\begin{itemize}
+			\item \texttt{git add}
+			\item \texttt{git reset --hard HEAD\~{}1}
+			\item \texttt{git checkout -- *}
+			\item \texttt{git clean -f}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solution: vcsh}
+	\begin{itemize}
+		\item Wraps around git
+		\item Hides complexity and does sanity checks
+		\item Several git repos checked out into \texttt{\$HOME} at once
+		\begin{itemize}
+			\item One repo for zsh, vim, mplayer, etc
+			\item Enables specific subsets of repos per host
+		\end{itemize}
+		\item Manages complete repo life-cycle
+	\end{itemize}
+\end{frame}
+
+\section{Using vcsh}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Create new repo}
+	\texttt{ \\
+		\# create new repo \\
+		vcsh init vim \\
+		\# add files to it \\
+		vcsh run vim git add .vim .vimrc \\
+		\# commit using shorthand form \\
+		vcsh vim commit \\
+		\# push using longhand form \\
+		vcsh run vim git push
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Made-up life-cycle}
+	\texttt{ \\
+		\# clone repo into new name zsh \\
+		vcsh clone git://github.com/RichiH/zshrc.git zsh \\
+		\# optionally update legacy repos \\
+		vcsh setup zsh \\
+		\# display all files managed by this repo \\
+		vcsh run zsh git ls-files \\
+		\# rename repo just because \\
+		vcsh rename zsh zshrc \\
+		\# delete repo \\
+		vcsh delete zshrc
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{run vs enter}
+	\texttt{ \\
+		\# do everything from outside \\
+		vcsh run zsh git add .zshrc \\
+		vcsh run zsh git commit \\
+		vcsh run zsh git push \\
+		\# the same, but from within\\
+		vcsh enter zsh \\
+		git add .zshrc \\
+		git commit \\
+		git push \\
+		exit
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Playing nice with others}
+	\begin{itemize}
+		\item shells can display exported \texttt{ENV} in \texttt{\$PROMPT}
+		\item vcs\_info
+		\item mr via plugin, mainline soon
+		\item git-annex to manage non-configuration files
+		\item Simple but powerful hook system
+	\end{itemize}
+\end{frame}
+
+
+\section{Outlook}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Future work}
+	\begin{itemize}
+		\item More unit tests
+		\item Get vcsh into more distributions
+		\item Spread awareness to reach critical mass
+		\item Maybe extend support to subversion, mercurial, etc
+	\end{itemize}
+\end{frame}
+
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Where to get it}
+	\begin{itemize}
+		\item \texttt{git clone git://github.com/RichiH/vcsh.git}
+		\item Native packages for
+		\begin{itemize}
+			\item Debian
+			\item Ubuntu
+			\item Arch Linux (AUR)
+		\end{itemize}
+		\item Small bug in README.md, use v0.20120203 or git
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions? Follow me outside when my time-slot is over.
+			\vfill
+			See slide footer for further contact Information.
+			\vfill
+		\end{center}
+\end{frame}
+
+
+
+
+\end{document}
+
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}

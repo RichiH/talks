@@ -1,0 +1,256 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{git-annex}
+\subtitle{manage files with git, without checking their contents in}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih.mailinglist@gmail.com}
+\date{2012-02-05}
+
+
+
+\begin{document}
+
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+
+\section{Intro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Who am I?}
+	\begin{itemize}
+		\item Project \& Network Operations Manager at Globalways AG
+		\item freenode \& OFTC staff
+		\item Passionate about FLOSS
+		\item I am not the author of git-annex, but an interested early adopter
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is git?}
+	\begin{itemize}
+		\item Version control system
+		\item Distributed
+		\begin{itemize}
+			\item No need for central repository
+			\item Commit while offline
+		\end{itemize}
+		\item \textbf{Full} history of all files in every checkout
+		\item Best version control system available (imo...)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is git-annex?}
+	\begin{itemize}
+		\item Based on git
+		\item No need to check files into git
+		\item Still able to check files into git if you want
+		\item Able to maintain full history, but does not do so by default
+		\item Written with low bandwidth and flaky connections in mind
+		\item Various work-flows
+	\end{itemize}
+\end{frame}
+
+
+\section{Use cases}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Archivist}
+	\begin{itemize}
+		\item Put data into git-annex
+		\item Distribute data among any number of drives, tapes, remotes, etc
+		\item Store offline media in a safe place
+		\item Maintain full information about number and location of all copies
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Media consumption}
+	\begin{itemize}
+		\item Import podcasts, videos, and slides
+		\item Sync or export to consumption devices
+		\item Consume media
+		\item Drop consumed media from annex
+		\item Deletion propagates through all annexes over time
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Nomad}
+	\begin{itemize}
+		\item Keep copies of data on www
+		\item Optionally sync between several local devices for backup
+		\item Add data locally and/or remotely while on the road
+		\item Sync data between local and remote once at an Internet café or similar
+		\item Perfect for photos while travelling
+	\end{itemize}
+\end{frame}
+
+
+\section{Technical details}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Internal workings 1/2}
+	\begin{itemize}
+		\item Written in Haskell, so strong typing etc internally
+		\item Uses rsync to transfer data
+		\item Moves files into \texttt{.git/annex/objects}
+		\item Makes files read-only
+		\item Puts symlink in place of file
+		\item Stores location data in branch \texttt{git-annex}
+		\item User adds and commits symlinks to master branch
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Internal workings 2/2}
+	\begin{itemize}
+		\item Read-only files force you to \texttt{git annex unlock} prior to changing them
+		\item Ensures that you will \texttt{git annex add} all unlocked files
+		\item git-annex can then discard or keep old data, depending on setup
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Data integrity}
+	\begin{itemize}
+		\item Set minimal number of required copies per suffix, directory, etc
+		\item SHA1, SHA2-\{224,256,384,512\} for integrity
+		\item All remotes and special remotes can be verified
+		\begin{itemize}
+			\item remotes verify locally and transmit the result
+			\item special remotes transfer all data to verify
+		\end{itemize}
+		\item Verification takes required amount of copies into account
+		\item \texttt{git fsck; git annex fsck}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Special remotes 1/2}
+	\begin{itemize}
+		\item Stores data in non-git-annex remotes
+		\item Tracks all data stored in special remotes
+		\item Supports encryption for storage on untrusted machines/media
+		\item Hook system lets you write to and read from arbitrary remotes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Special remotes 2/2}
+	\begin{itemize}
+		\item bup
+		\item directory
+		\item rsync
+		\item S3, Swift, etc
+		\item Tahoe-LAFS
+		\item web (media.ccc.de, Project Gutenberg, archive.org, etc)
+	\end{itemize}
+\end{frame}
+
+
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Where to get it}
+	\begin{itemize}
+		\item \texttt{cabal install git-annex --bindir=\$HOME/bin}
+		\item Native packages for
+		\begin{itemize}
+			\item Debian
+			\item Ubuntu
+			\item FreeBSD
+			\item Arch Linux
+			\item NixOS
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Further reading}
+	\begin{itemize}
+		\item \url{https://github.com/RichiH/talks}
+		\item \url{http://git-annex.branchable.com/}
+		\item \url{http://www.slideshare.net/RichiH/}
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions? Follow me outside when my time-slot is over.
+			\vfill
+			See slide footer for further contact Information.
+			\vfill
+		\end{center}
+\end{frame}
+
+
+
+\end{document}
+
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
