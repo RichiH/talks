@@ -1,0 +1,294 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Routing 101}
+\subtitle{Eine Einf\"uhrung}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@debian.org}
+\date{2015-02-16}
+
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+
+\subsection{Personal stuff}
+
+\begin{frame}
+	\frametitle{Who am I?}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item Backbone and project manager at Globalways AG
+		\item freenode \& OFTC staff
+		\item FOSDEM, DebConf, DENOGx staff
+		\item Debian Developer
+		\item Author of vcsh
+%		\item Passionate about FLOSS
+	\end{itemize}
+\end{frame}
+
+\section{Intro}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{ISO/OSI}
+
+\begin{frame}
+	\frametitle{Layer 1}
+	\begin{itemize}
+		\item Physical Layer
+		\item Kabel
+		\item Kupfer, Wireless, Glas, etc
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layer 2}
+	\begin{itemize}
+		\item Data Link Layer
+		\item "Lokales Netzwerk"
+		\item Jeder kann mit jedem reden
+		\item Einfaches Setup
+		\item ...warum mehr?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layer 2}
+	\begin{itemize}
+		\item ...weil Ethernet nicht skaliert
+		\item Broadcasts
+		\item ARP
+		\item Loops (Spanning Tree)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layer 3}
+	\begin{itemize}
+		\item Network Layer
+		\item Hier: IP
+		\item Kleinster gemeinsamer Nenner im Internet
+		\item Skaliert
+		\item Versteckt die meiste Komplexit\"at
+		\item Heutiger Fokus
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layer 4-7}
+	\begin{itemize}
+		\item Layer 4: Transport Layer (TCP, UDP, etc)
+		\item Layer 5: Session Layer (hier: Sockets, etc)
+		\item Layer 6: Presentation Layer (hier: MIME, TLS, etc)
+		\item Layer 7: Application Layer (hier: HTTP, DNS, SMTP, etc)
+	\end{itemize}
+\end{frame}
+
+\section{Statisches Routing}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Laaaangweilig...}
+
+\begin{frame}
+	\frametitle{LAN}
+	\begin{itemize}
+		\item 192.168.0.x \& 255.255.255.0
+		\item CIDR: 192.168.0.x/24
+		\item Nur lokales Routing
+		\item Ziemlich langweilig
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{WAN}
+	\begin{itemize}
+		\item "Wohin mit meinem Traffic?"
+		\item Meistens: Default Gateway
+		\item 0.0.0.0/0 \& ::/0
+		\item Optional auch andere more specific Routen
+		\item Alles (meist) von Hand
+		\item Keine Ausfallsicherheit
+	\end{itemize}
+\end{frame}
+
+
+\section{Dynamisches Routing}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{\ }
+
+\begin{frame}
+	\frametitle{Grundlagen}
+	\begin{itemize}
+		\item "Das Netz" kann selbst entscheiden wo welcher Traffic entlang fliesst
+		\item Ausfallsicherheit
+		\item Automatisches Re-Routing
+		\item Darauf basiert das Internet
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{OSPF}
+	\begin{itemize}
+		\item Open Shortest Path First
+		\item Interior Gateway Protocol
+		\item Schnell
+		\item Alle Peers vertrauen einander (fast) komplett
+		\item Skaliert bedingt (Areas k\"onnen helfen)
+		\item Meistens gut genug
+		\item F\"ur echte Skalierung gleich IS-IS verwenden
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{BGP}
+	\begin{itemize}
+		\item Border Gateway Protocol
+		\item intern (IBGP) \& extern (EBGP) zu verwenden
+		\item Skaliert de facto beliebig
+		\item Ist erweiterbar; Implementierungen ignorieren was sie nicht verstehen
+		\item Filter etc einfach zu implementiern
+		\item Signalisierung via Communities mit eingebaut
+		\item Alle ASe verwenden BGP um miteinander Routen auszutauschen
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{AS was?}
+	\begin{itemize}
+		\item AS == Postleitzahl
+		\item Subnetz == Strasse
+		\item Ip Adresse == Hausnummer
+		\item Port == Wohnung/Klingelschild
+	\end{itemize}
+\end{frame}
+
+
+\section{Internet}
+
+\subsection{\ }
+
+\begin{frame}
+	\frametitle{Inter-AS Kommunikation}
+	\begin{itemize}
+		\item Upstream
+		\item Downstream
+		\item Peering
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Route-Objects}
+	\begin{itemize}
+		\item Wie k\"onnen sich die Teilnehmer vertrauen?
+		\begin{itemize}
+			\item Tun sie nicht, sie filtern
+		\end{itemize}
+		\item In der RIPE Region einigermassen sauber hinterlegt; Rest der Welt Chaos
+		\item Heute hat der shack: 93.231.162.148
+		\item route: 93.192.0.0/10AS3320
+		\item Die Route 93.192.0.0/10 darf von AS 3320 kommen
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Probleme 1/2}
+	\begin{itemize}
+		\item Konvergenzzeiten
+		\item Routing-Loops
+		\item Schlechte/falsche Filter
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Probleme 2/2: Route-Hijacking}
+	\begin{itemize}
+		\item FOSDEM15 hatte 151.216.128.0/17
+		\item 151.216.128.0/18 \& 151.216.192.0/18 wurden aus Russland von AS28840 announced
+		\item L\"osung: 151.216.128.0/19, 151.216.160.0/19, 151.216.192.0/19 \& 151.216.224.0/19 announced
+		\item YouTube Block 2008 in Pakistan
+		\item Regelm\"assige Hijacks aus China
+		\item Unter anderem darum End-to-End-Security!
+	\end{itemize}
+\end{frame}
+
+
+\section{Outro}
+
+\subsection{The End!}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thank you for listening!\\
+			\vfill
+			Questions? Ask now or catch me after this talk, both is fine.
+			\vfill
+			See slide footer for further contact information.\\
+			\vfill
+			\url{http://richardhartmann.de/talks/}
+			\vfill
+		\end{center}
+\end{frame}
+
+
+\end{document}
+
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
