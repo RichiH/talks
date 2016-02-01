@@ -1,0 +1,166 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{FOSDEM infrastructure review}
+\subtitle{Things work, and we got to sleep a few hours}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian\}.org}
+\date{2016-01-31}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\begin{frame}
+	\frametitle{`whoami`}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item System architect at SpaceNet AG
+		\item Always looking for nice co-workers in the Munich area ;)
+		\item FOSDEM, DebConf, DENOGx staff
+		\item Debian Developer
+		\item Author of \url{https://github.com/RichiH/vcsh}
+	\end{itemize}
+\end{frame}
+
+%\section{}
+
+\begin{frame}
+	\frametitle{Physical setup}
+	\vfill
+	\begin{itemize}
+		\item Access controller, pre-installed cabling, and Access Points are from ULB
+		\item Upstream sponsored by CoLT
+		\item ASR1006 and half a dozen switches sponsored by Cisco
+		\item All custom cabling for network and video is done on Friday
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{What's new?}
+	\vfill
+	\begin{itemize}
+		\item More people!
+		\item Existing team: Peter van Eynde,  Richard Hartmann, Irina Ilina-Sidorova, Wouter Simmons, Murali Suriar
+		\item New: Brian Brazil, Wilco Baan Hofman, Ben Kochie, Arjan Koopen, Fabian Reinartz, Julius Volz
+		\item Even more preparation in the weeks leading up to FOSDEM
+		\item We got to leave before 04:00 and we had sleep!
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Services on-site 1/2}
+	\vfill
+	\begin{itemize}
+		\item Most of this invisible to visitors, as it should be
+		\item We have a IPv4 /17 temp PI from RIPE NCC and our own IPv6 /48 PI
+		\item NAT64 on the ASR
+		\item DNS64 on Bind
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Services on site 2/2}
+	\vfill
+	\begin{itemize}
+		\item Cisco Backup: \\ \url{https://github.com/ytti/oxidized}
+		\item Config management \& deployment: \\ \url{https://github.com/ansible/ansible}
+		\item Monitoring, data collection and analysis: \\ \url{https://github.com/prometheus/prometheus}
+		\item Monitoring, visualization: \\ \url{http://grafana.org}
+		\item IP Management: \\ \url{http://spritelink.github.io/NIPAP/}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outlook}
+	\vfill
+	\begin{itemize}
+		\item Even more preparation over the year
+		\item Migrate all off-site infrastructure to the new model
+		\item We will become a LIR with RIPE NCC so we can get our own IPv4 /22 on top of the IPv6 space we have
+		\item Off-site infra with its own /24 and /48; and the same for on-site
+		\item Our goal is to have a conference-in-a-box
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conference-in-a-box?}
+	\vfill
+	\begin{itemize}
+		\item Everything prepared in advance
+		\begin{itemize}
+			\item Clone Ansible config
+			\item Deploy it onto a few bare-metal machines
+			\item All services spin up in their own VM/container
+			\item All config changes go through Ansible
+		\end{itemize}
+		\item We will refine this over the next year, poke me if you can sponsor some hardware
+		\item On site, we only spin this up and look at our dashboard to see what we need to fix
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{It's open}
+	\vfill
+	\begin{itemize}
+		\item If you know of a decent CMDB, let me know!
+		\item Try our monitoring: \\ \url{http://prometheus.conference.fosdem.net/}
+		\item Clone our conference: \\ \url{https://github.com/FOSDEM/infrastructure}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
