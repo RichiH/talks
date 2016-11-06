@@ -1,0 +1,128 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Adapting brownfield technology to cloud-native technology}
+\subtitle{One year of Prometheus}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian,richih\}.org}
+\date{2016-11-09}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+	\frametitle{`whoami`}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item System architect at SpaceNet AG
+		\item Always looking for nice co-workers in the Munich area ;)
+		\item FOSDEM, DebConf, DENOGx, PromCon staff
+		\item Debian Developer
+		\item Author of \url{https://github.com/RichiH/vcsh}
+	\end{itemize}
+\end{frame}
+
+\section{Background}
+
+\begin{frame}
+	\frametitle{`whowasi`}
+	\begin{itemize}
+		\item Solely responsible for a Germany-wide backbone 2009-2015
+		\begin{itemize}
+			\item Architecture
+			\item Operations
+			\item ...and On-Call 24 * 365 * 7 days...
+		\end{itemize}
+		\item ...so my sanity literally depended on aggressive yet correct monitoring \& alerting
+		\item Love monitoring, but hate (almost) all monitoring tools
+		\item Used Zabbix exclusively
+		\item (New guy pushed Cacti and got approval for it; a good time to leave)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{SpaceNet}
+	\begin{itemize}
+		\item SpaceNet is the oldest commercial ISP in Germany; operating since 1993
+		\item Lots of ancient, in-house solutions for monitoring, config management, orchestration, etc which predate everything else
+		\item One company-wide monitoring solution: watchdog \& watchcat
+		\item Yet, every team had its own custom tools on top
+		\item Islands of data; no APIs, no machine-readable export
+		\item Alerting done through B52-style email carpet bombing
+	\end{itemize}
+\end{frame}
+
+\section{Lightbringer}
+
+\begin{frame}
+	\frametitle{Seeing the light}
+	\begin{itemize}
+		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM
+		\item 2015-10-01: Inform FOSDEM team of planned migration
+		\item 2015-10-02: Murali Suriar suggests Prometheus instead
+		\item 2015-10-03: First patch
+		\item 
+		\item 
+		\item 
+	\end{itemize}
+\end{frame}
+
+%TODO murali
+% watchdog, watchcat, etc
+% https://cnkc16.sched.org/mobile/#session:9c50e61854e3ba8b9bbc5de3d1a5dbca
+%Dashboard
+%Perpetual greenfield
+%One tool fits all
+%Make your hammer fit your nails
+
+
+
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
