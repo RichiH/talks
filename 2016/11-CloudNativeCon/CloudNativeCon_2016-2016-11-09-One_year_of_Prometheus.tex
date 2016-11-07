@@ -98,13 +98,31 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM
 		\item 2015-10-01: Inform FOSDEM team of planned migration
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
-		\item 2015-10-03: First patch
+		\item 2015-10-03: First trivial patch
 		\item 
 		\item 
 		\item 
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	% TODO
+	\frametitle{Here, there be network}
+	\begin{itemize}
+		\item We are an ISP, remember?
+		\item ~1000 devices polled via SNMP
+		\item Python implementation of smnp_exporter had really bad system load
+		\begin{itemize}
+			\item It goes up to eleven...
+			\item ~100 devices were jittery
+	\end{itemize}
+		\item TODO go problems...
+		%  duplicates
+		% empty tables
+		% weird ASR CPU mapping
+		\item 
+	\end{itemize}
+\end{frame}
 %snmp_exporter in go
 % ~1k devices
 
