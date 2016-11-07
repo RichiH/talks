@@ -63,16 +63,17 @@ richih@\{fosdem,debian,richih\}.org}
 \begin{frame}
 	\frametitle{`whowasi`}
 	\begin{itemize}
-		\item Solely responsible for a Germany-wide backbone 2009-2015
+		\item 2009-2015: Solely responsible for a Germany-wide backbone's
 		\begin{itemize}
 			\item Architecture
+			\item Purchasing
 			\item Operations
-			\item ...and On-Call 24 * 365 * 7 days...
+			\item ...and On-Call for 24 * 365 * 7 hours
 		\end{itemize}
-		\item ...so my sanity literally depended on aggressive yet correct monitoring \& alerting
+		\item Literally, my sanity depended on aggressive yet correct monitoring \& alerting
 		\item Love monitoring, but hate (almost) all monitoring tools
 		\item Used Zabbix exclusively
-		\item (New guy pushed Cacti and got approval for it; a good time to leave)
+		\item (New guy pushed Cacti and got approval; a good time to leave)
 	\end{itemize}
 \end{frame}
 
@@ -82,13 +83,23 @@ richih@\{fosdem,debian,richih\}.org}
 		\item SpaceNet is the oldest commercial ISP in Germany; operating since 1993
 		\item Lots of ancient, in-house solutions for monitoring, config management, orchestration, etc which predate everything else
 		\item One company-wide monitoring solution: watchdog \& watchcat
-		\item Yet, every team had its own custom tools on top
+		\item Yet, every team has its own custom tools on top
 		\item Islands of data; no APIs, no machine-readable export
 		\item Alerting done through B52-style email carpet bombing
 	\end{itemize}
 \end{frame}
 			% technically sound except B52
 			% quality depending on team...
+% money is made with brownfield so you need to make sure there is no impact
+  % lots of overlap until new stuff gains trust
+  % mail server farm incident
+    % buy-in
+  % people's motivation is to resist change; and that's OK until the system can actually handle change
+  % most will readily agree that the new approach is better, but they fear the way there
+    % ideally, we should magic from zero to done without anyone noticing
+
+
+% 
 
 \section{Lightbringer}
 
@@ -128,10 +139,23 @@ richih@\{fosdem,debian,richih\}.org}
 		\item IOS XR uses non-standard mapping for CPU %TODO load/temp? and others; descriptive language of snmp\_exporter does not suffice
 	\end{itemize}
 \end{frame}
-		% weird ASR CPU mapping
-%snmp_exporter in go
-% ~1k devices
 
+
+\begin{frame}
+	\frametitle{That one mailserver incident...}
+	\begin{itemize}
+		\item Co-worker forgot a flag in our config management
+		\item One server started accepting outside mail
+		\item Spammers do a clean, staggered ramp-up of spam
+		\item Once they go all-in the mail gateways come under heavy load
+		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken 5-15 minutes"
+		\item ...and all of a sudden, you have buy-in from a few more people
+	\end{itemize}
+\end{frame}
+
+% operations stakeholders fear change
+  % they get paid to keep the current system up and running, not to increase change
+  % (yes, i know about SRE, thanks)
 %TODO murali
 % watchdog, watchcat, etc
 % https://cnkc16.sched.org/mobile/#session:9c50e61854e3ba8b9bbc5de3d1a5dbca
@@ -147,7 +171,23 @@ richih@\{fosdem,debian,richih\}.org}
 % power count
 
 % are we there yet? no!
+% highly fractured, remember? Still, kubernetes operators sound extremely nice
+% finding the correct balance can be tricky
 
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions?
+			\vfill
+			See slide footer for contact information.
+			\vfill
+		\end{center}
+\end{frame}
 
 \end{document}
 
