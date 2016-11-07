@@ -82,13 +82,13 @@ richih@\{fosdem,debian,richih\}.org}
 		\item SpaceNet is the oldest commercial ISP in Germany; operating since 1993
 		\item Lots of ancient, in-house solutions for monitoring, config management, orchestration, etc which predate everything else
 		\item One company-wide monitoring solution: watchdog \& watchcat
-			% technically sound except B52
 		\item Yet, every team had its own custom tools on top
-			% quality depending on team...
 		\item Islands of data; no APIs, no machine-readable export
 		\item Alerting done through B52-style email carpet bombing
 	\end{itemize}
 \end{frame}
+			% technically sound except B52
+			% quality depending on team...
 
 \section{Lightbringer}
 
@@ -99,9 +99,6 @@ richih@\{fosdem,debian,richih\}.org}
 		\item 2015-10-01: Inform FOSDEM team of planned migration
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
 		\item 2015-10-03: First trivial patch
-		\item 
-		\item 
-		\item 
 	\end{itemize}
 \end{frame}
 
@@ -111,18 +108,27 @@ richih@\{fosdem,debian,richih\}.org}
 	\begin{itemize}
 		\item We are an ISP, remember?
 		\item ~1000 devices polled via SNMP
-		\item Python implementation of smnp_exporter had really bad system load
+		\item Might be the world's largest snmp\_exporter installation
+		\item Python implementation of smnp\_exporter had really bad system load
 		\begin{itemize}
 			\item It goes up to eleven...
-			\item ~100 devices were jittery
+			\item ~60 devices outof ~300 at the time were up/down
+			\item The set of affected devices was stable
+		\end{itemize}
+		\item Contracted Brian Brazil to reimplement in Go
+		\item Go implementation hit some unexpected pitfalls of various SNMP implementations
+		\begin{itemize}
+			\item Some data structures returned repeatedly
+			\item Table indices returned repeatedly
+			\item Table indices emtpy
+		\end{itemize}
+		\item Go implementation errors out completely on such errors, thus using Python exporter for some machine sets for now
+		\item Caveat: Ip4Table %TODO broken in Python implementation
 	\end{itemize}
-		\item TODO go problems...
+\end{frame}
 		%  duplicates
 		% empty tables
 		% weird ASR CPU mapping
-		\item 
-	\end{itemize}
-\end{frame}
 %snmp_exporter in go
 % ~1k devices
 
