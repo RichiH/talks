@@ -81,15 +81,16 @@ richih@\{fosdem,debian,richih\}.org}
 	\frametitle{SpaceNet}
 	\begin{itemize}
 		\item SpaceNet is the oldest commercial ISP in Germany; operating since 1993
-		\item Lots of ancient, in-house solutions for monitoring, config management, orchestration, etc which predate everything else
+		\item Lots of legacy, in-house solutions for monitoring, config management, orchestration, etc which predate everything else
 		\item One company-wide monitoring solution: watchdog \& watchcat
+		\item Technically sound, but alerting done through B52-style email carpet bombing
 		\item Yet, every team has its own custom tools on top
+		\item Quality dependent on team
 		\item Islands of data; no APIs, no machine-readable export
-		\item Alerting done through B52-style email carpet bombing
 	\end{itemize}
 \end{frame}
-			% technically sound except B52
-			% quality depending on team...
+
+
 % money is made with brownfield so you need to make sure there is no impact
   % lots of overlap until new stuff gains trust
   % mail server farm incident
@@ -112,6 +113,8 @@ richih@\{fosdem,debian,richih\}.org}
 		\item 2015-10-03: First trivial patch
 	\end{itemize}
 \end{frame}
+
+\subsection{Technical}
 
 \begin{frame}
 	% TODO
@@ -144,20 +147,47 @@ richih@\{fosdem,debian,richih\}.org}
 \begin{frame}
 	\frametitle{That one mailserver incident...}
 	\begin{itemize}
-		\item Co-worker forgot a flag in our config management
-		\item One server started accepting outside mail
-		\item Spammers do a clean, staggered ramp-up of spam
+		\item Wrong flag in config
+		\item One server accepting outside mail
+		\item Spammers do a clean, staggered ramp-up
 		\item Once they go all-in the mail gateways come under heavy load
 		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken 5-15 minutes"
 		\item ...and all of a sudden, you have buy-in from a few more people
 	\end{itemize}
 \end{frame}
 
+\subsection{Money}
+
+\begin{frame}
+	\frametitle{The biggest challenge}
+	\begin{itemize}
+		\item In brownfield, revenue comes from legacy systems
+		\item 
+	\end{itemize}
+\end{frame}
+
+\subsection{Social}
+
+\begin{frame}
+	\frametitle{The biggest challenge}
+	\begin{itemize}
+		\item Incentives often run counter to change
+		\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Perspective}
+	\begin{itemize}
+		\item Tell everyone what they need to hear (but never lie)
+		\item Managers care about revenue and %TODO
+		\item 
+	\end{itemize}
+\end{frame}
+
 % operations stakeholders fear change
   % they get paid to keep the current system up and running, not to increase change
-  % (yes, i know about SRE, thanks)
-%TODO murali
-% watchdog, watchcat, etc
+  % error budgets
 % https://cnkc16.sched.org/mobile/#session:9c50e61854e3ba8b9bbc5de3d1a5dbca
 %Dashboard
 %Perpetual greenfield
@@ -173,6 +203,53 @@ richih@\{fosdem,debian,richih\}.org}
 % are we there yet? no!
 % highly fractured, remember? Still, kubernetes operators sound extremely nice
 % finding the correct balance can be tricky
+
+%Know of UPS / core link downtime within less than 30 seconds, but no false positives
+
+%Goals / that's obvious section?
+
+%Current state NOW, not five minutes ago (but info)
+%Important later, during daytime
+%Make sure tickets are opened so we can postmortem all the things
+
+%Push vs pull not a conceptual problem due to watchdog
+%  Concept of scraping new
+%Watchdog can do logic checks, regexp etc; not only metrics
+%
+
+%Snmp Kill wenn zu oft auf alte Devices
+%Wollen ewiges Storage
+%Immer noch zwei große Prom, Teams noch nicht so weit.
+%Want USV in seconds, Mail Accounting reicht täglich
+%Not invented here
+%  Anyone can Design Encryption they CAN'T Break; or Monitoring they CAN'T improve any more
+%Too much work to install agent as no central role-out(wollen wir das?)
+%Big Picture for management, button from top, middle management and key technical architects
+%  Different parts of the picture for different people and languages
+%  Anyone can talk to an engineer about a UPS for two hours, but management...
+%One tool fits all departments
+%Autogen PDF reports
+%  Buy-in from service management
+%Give them what they want/play to their intrinsic motivation
+%Do not lie
+%If no motivation, escalate
+
+%Error budgets as a long-term goal
+%Toil in too many places
+%Push vs pull not a conceptual problem due to watchdog
+%  Concept of scraping new
+%Watchdog can do logic checks, regexp etc; not only metrics
+
+%Too much "fix this now" and not learning aggressively from outages.
+%Not all teams tracked and compared KPIs over time
+%From plain uptime to service request success rate
+
+%Dashboard
+%Perpetual greenfield
+%One tool fits all
+%Make your hammer fit your nails
+
+
 
 \section{Outro}
 
