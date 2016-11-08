@@ -140,6 +140,7 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Go implementation errors out completely on such errors, thus using Python exporter for some machine sets for now
 		\item Caveat: Ip4Table %TODO broken in Python implementation
 		\item IOS XR uses non-standard mapping for CPU %TODO load/temp? and others; descriptive language of snmp\_exporter does not suffice
+%Snmp Kill wenn zu oft auf alte Devices
 	\end{itemize}
 \end{frame}
 
@@ -156,6 +157,15 @@ richih@\{fosdem,debian,richih\}.org}
 	\end{itemize}
 \end{frame}
 
+\subsection{Operational}
+
+\begin{frame}
+	\frametitle{The biggest challenge}
+	\begin{itemize}
+%Toil in too many places
+	\end{itemize}
+\end{frame}
+
 \subsection{Money}
 
 \begin{frame}
@@ -169,10 +179,16 @@ richih@\{fosdem,debian,richih\}.org}
 \subsection{Social}
 
 \begin{frame}
-	\frametitle{The biggest challenge}
+	\frametitle{Resistance to change}
 	\begin{itemize}
 		\item Incentives often run counter to change
 		\item 
+%Not invented here
+%  Anyone can Design Encryption they CAN'T Break; or Monitoring they CAN'T improve any more
+%Too much work to install agent as no central role-out(wollen wir das?)
+% operations stakeholders fear change
+  % they get paid to keep the current system up and running, not to increase change
+  % yes, yes, error budgets
 	\end{itemize}
 \end{frame}
 
@@ -182,29 +198,46 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Tell everyone what they need to hear (but never lie)
 		\item Managers care about revenue and %TODO
 		\item 
-	\end{itemize}
-\end{frame}
-
-% operations stakeholders fear change
-  % they get paid to keep the current system up and running, not to increase change
-  % error budgets
-% https://cnkc16.sched.org/mobile/#session:9c50e61854e3ba8b9bbc5de3d1a5dbca
-%Dashboard
-%Perpetual greenfield
-%One tool fits all
-%Make your hammer fit your nails
-
-% social (windows)
-
+%Big Picture for management, button from top, middle management and key technical architects
+%  Different parts of the picture for different people and languages
+%  Anyone can talk to an engineer about a UPS for two hours, but management...
 % sales
 % accounting
 % power count
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Give them what they want}
+	\begin{itemize}
+		\item 
+%Autogen PDF reports
+%One tool fits all departments
+%  Buy-in from service management
+%Give them what they want/play to their intrinsic motivation
+%%%%% dopplung zu persepcitve!
+% sales
+% accounting
+% power count
+%%%%%
+	\end{itemize}
+\end{frame}
+
+%ToDo / The future
+%Error budgets as a long-term goal
+
+
+% social (windows)
+%If no motivation, escalate
+
 
 % are we there yet? no!
 % highly fractured, remember? Still, kubernetes operators sound extremely nice
 % finding the correct balance can be tricky
 
 %Know of UPS / core link downtime within less than 30 seconds, but no false positives
+%Want USV in seconds, Mail Accounting reicht täglich
 
 %Goals / that's obvious section?
 
@@ -217,25 +250,9 @@ richih@\{fosdem,debian,richih\}.org}
 %Watchdog can do logic checks, regexp etc; not only metrics
 %
 
-%Snmp Kill wenn zu oft auf alte Devices
 %Wollen ewiges Storage
 %Immer noch zwei große Prom, Teams noch nicht so weit.
-%Want USV in seconds, Mail Accounting reicht täglich
-%Not invented here
-%  Anyone can Design Encryption they CAN'T Break; or Monitoring they CAN'T improve any more
-%Too much work to install agent as no central role-out(wollen wir das?)
-%Big Picture for management, button from top, middle management and key technical architects
-%  Different parts of the picture for different people and languages
-%  Anyone can talk to an engineer about a UPS for two hours, but management...
-%One tool fits all departments
-%Autogen PDF reports
-%  Buy-in from service management
-%Give them what they want/play to their intrinsic motivation
-%Do not lie
-%If no motivation, escalate
 
-%Error budgets as a long-term goal
-%Toil in too many places
 %Push vs pull not a conceptual problem due to watchdog
 %  Concept of scraping new
 %Watchdog can do logic checks, regexp etc; not only metrics
@@ -248,7 +265,6 @@ richih@\{fosdem,debian,richih\}.org}
 %Perpetual greenfield
 %One tool fits all
 %Make your hammer fit your nails
-
 
 
 \section{Outro}
