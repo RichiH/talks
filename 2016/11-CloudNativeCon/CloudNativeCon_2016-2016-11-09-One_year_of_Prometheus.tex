@@ -78,7 +78,6 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Literally, my sanity depended on aggressive yet correct monitoring \& alerting
 		\item Love monitoring, but hate (almost) all monitoring tools
 		\item Used Zabbix exclusively
-%TODO Keep that?		\item (New guy pushed Cacti and got approval; a good time to leave)
 	\end{itemize}
 \end{frame}
 
@@ -94,21 +93,33 @@ richih@\{fosdem,debian,richih\}.org}
 	\end{itemize}
 \end{frame}
 
-
-
-
-
-\section{Lightbringer}
-
 \begin{frame}
 	\frametitle{Seeing the light}
 	\begin{itemize}
 		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM
 		\item 2015-10-01: Inform FOSDEM team of planned migration
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
-		\item 2015-10-03: Run local test and submit first trivial patch
+		\item 2015-10-03: Submit first patch
 	\end{itemize}
 \end{frame}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Prometheus 101}
+	\begin{itemize}
+		\item Incredibly efficient
+		\item No hierarchical model, n-dimensional label set
+		\item PromQL: for graphing, alerting, and export
+		\item Delta-of-delta data storage
+		\item One binary; up and running in minutes
+	\end{itemize}
+\end{frame}
+
+
+
+
+\section{Lightbringer}
 
 \subsection{Technical challenges}
 
@@ -123,6 +134,7 @@ richih@\{fosdem,debian,richih\}.org}
 			\item It goes up to eleven...
 			\item About 60/300 devices flapping
 			\item Set of affected devices stable
+			\item Never found root cause
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -172,7 +184,7 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Change is hard
 		\item Unless processes embrace and automate change
 		\item Trade-off between delayed/disputed payoff during transition
-		\item Due diligence: Critical systems maintained in parallel
+		\item Due diligence: Critical systems run in parallel for some time
 	\end{itemize}
 \end{frame}
 
@@ -182,9 +194,10 @@ richih@\{fosdem,debian,richih\}.org}
 		\item If teams are busy firefighting, they don't have time to engineer
 		\item Keep legacy working, but have clean path forward
 		\item Keep extra effort on the team low, if possible
+		\item Strive for immediate benefits
+		\item Show that you free up time and reduce toil
 % operations stakeholders fear change
   % they get paid to keep the current system up and running, not to increase change
-  % yes, yes, error budgets
 % everyone wants to live in a SRE world with error budgets and caps on toil
 %Toil in too many places
 	\end{itemize}
@@ -204,24 +217,25 @@ richih@\{fosdem,debian,richih\}.org}
 
 \begin{frame}
 	\frametitle{Perspective \& Incentives}
+	"An engineer can talk for hours about a function; try that with the CEO"
+	\vfill
 	\begin{itemize}
-		\item Tell everyone what they need to hear (but never lie)
 		\item Managers: revenue, process execution
 		\item Architects: clean design, process defintion
 		\item Product/Service owners: Powerful dashboards
 		\item Team leads: morale, quick execution
 		\item Operators: reduce toil, increase sleep
-		\item "An engineer loves to talk for hours about a specific UPS model; try that with the CEO"
-%Big Picture for management, button from top, middle management and key technical architects
+		\item Tell everyone what they need to hear (but never lie)
 %  Different parts of the picture for different people and languages
 %  Anyone can talk to an engineer about a UPS for two hours, but management...
 	\end{itemize}
+	\vfill
 \end{frame}
 
 \begin{frame}
 	\frametitle{Big Picture}
 	\begin{itemize}
-		\item Put a big picture on the wall
+		\item Put a big picture on the (proverbial) wall
 		\item Show everyone the pieces they care about
 		\item Get buy-in
 		\item If in doubt, align steps with that picture
@@ -232,14 +246,6 @@ richih@\{fosdem,debian,richih\}.org}
   % people's motivation is to resist change; and that's OK until the system can actually handle change
   % most will readily agree that the new approach is better, but they fear the way there
     % ideally, we should magic from zero to done without anyone noticing
-
-\begin{frame}
-	\frametitle{It's all about the money}
-	\begin{itemize}
-		\item In brownfield, revenue comes from legacy systems
-		\item If you impact revenue, all buy-in is gone
-	\end{itemize}
-\end{frame}
 
 \begin{frame}
 	\frametitle{Leverage}
@@ -254,6 +260,7 @@ richih@\{fosdem,debian,richih\}.org}
 			\item Usage exports for accounting
 		\end{itemize}
 	\item If you only have a hammer... choose your hammer well
+	\item It's all part of 
 %Give them what they want/play to their intrinsic motivation
 %%%%% dopplung zu persepcitve!
 % sales
@@ -263,16 +270,35 @@ richih@\{fosdem,debian,richih\}.org}
 	\end{itemize}
 \end{frame}
 
-%ToDo / The future
-%Error budgets as a long-term goal
+\begin{frame}
+	\frametitle{It's all about the money}
+	\begin{itemize}
+		\item In brownfield, revenue comes from legacy systems
+		\item If you impact revenue, all buy-in is gone
+	\end{itemize}
+\end{frame}
+
+\subsection{Outlook}
+
+\begin{frame}
+	\frametitle{TODO}
+	\begin{itemize}
+		\item Merge all config management
+		\item Adapt machines and services to modern orchestration
+		\begin{itemize}
+			\item Highly fractured and specific customer setups
+			\item Finding the correct balance can be tricky
+		\end{itemize}
+		\item Adopt error budgets
+		\item Hire more people. Munich is beautiful
+	\end{itemize}
+\end{frame}
+
 
 
 %If no motivation, escalate
 
 
-% are we there yet? no!
-% highly fractured, remember?
-% finding the correct balance can be tricky
 
 %Know of UPS / core link downtime within less than 30 seconds, but no false positives
 %Want USV in seconds, Mail Accounting reicht täglich
