@@ -51,10 +51,10 @@ richih@\{fosdem,debian,richih\}.org}
 	\begin{itemize}
 		\item Richard "RichiH" Hartmann
 		\item System architect at SpaceNet AG
-		\item Always looking for nice co-workers in the Munich area ;)
 		\item FOSDEM, DebConf, DENOGx, PromCon staff
 		\item Debian Developer
 		\item Author of \url{https://github.com/RichiH/vcsh}
+		\item Always looking for nice co-workers in the Munich area
 	\end{itemize}
 \end{frame}
 
@@ -73,7 +73,7 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Literally, my sanity depended on aggressive yet correct monitoring \& alerting
 		\item Love monitoring, but hate (almost) all monitoring tools
 		\item Used Zabbix exclusively
-		\item (New guy pushed Cacti and got approval; a good time to leave)
+%TODO Keep that?		\item (New guy pushed Cacti and got approval; a good time to leave)
 	\end{itemize}
 \end{frame}
 
@@ -81,20 +81,20 @@ richih@\{fosdem,debian,richih\}.org}
 	\frametitle{SpaceNet}
 	\begin{itemize}
 		\item SpaceNet is the oldest commercial ISP in Germany; operating since 1993
-		\item Lots of legacy, in-house solutions for monitoring, config management, orchestration, etc which predate everything else
+		\item Legacy, in-house solutions which predate everything else
 		\item One company-wide monitoring solution: watchdog \& watchcat
 		\item Technically sound, but alerting done through B52-style email carpet bombing
-		\item Yet, every team has its own custom tools on top
-		\item Quality dependent on team
+		\item Every team has its own custom tools on top
 		\item Islands of data; no APIs, no machine-readable export
+%%		\item Quality dependent on team
+%Not invented here
+%  Anyone can Design Encryption they CAN'T Break; or Monitoring they CAN'T improve any more
 	\end{itemize}
 \end{frame}
 
 
 % money is made with brownfield so you need to make sure there is no impact
   % lots of overlap until new stuff gains trust
-  % mail server farm incident
-    % buy-in
   % people's motivation is to resist change; and that's OK until the system can actually handle change
   % most will readily agree that the new approach is better, but they fear the way there
     % ideally, we should magic from zero to done without anyone noticing
@@ -110,52 +110,51 @@ richih@\{fosdem,debian,richih\}.org}
 		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM
 		\item 2015-10-01: Inform FOSDEM team of planned migration
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
-		\item 2015-10-03: First trivial patch
+		\item 2015-10-03: Run local test and submit first trivial patch
 	\end{itemize}
 \end{frame}
 
-\subsection{Technical}
+\subsection{Technical challenges}
 
 \begin{frame}
-	% TODO
-	\frametitle{Here, there be network}
+	\frametitle{Here, there be networks}
 	\begin{itemize}
 		\item We are an ISP, remember?
-		\item ~1000 devices polled via SNMP
+		\item Roughly 1000 devices polled via SNMP
 		\item Might be the world's largest snmp\_exporter installation
-		\item Python implementation of smnp\_exporter had really bad system load
+		\item Python implementation at pathologic system load
 		\begin{itemize}
 			\item It goes up to eleven...
-			\item ~60 devices outof ~300 at the time were up/down
-			\item The set of affected devices was stable
+			\item About 60/300 devices flapping
+			\item Set of affected devices stable
 		\end{itemize}
-		\item Contracted Brian Brazil to reimplement in Go
-		\item Go implementation hit some unexpected pitfalls of various SNMP implementations
-		\begin{itemize}
-			\item Some data structures returned repeatedly
-			\item Table indices returned repeatedly
-			\item Table indices emtpy
-		\end{itemize}
-			% todo new page "open / todo"?
-		\item Go implementation errors out completely on such errors, thus using Python exporter for some machine sets for now
-		\item Caveat: Ip4Table %TODO broken in Python implementation
-		\item IOS XR uses non-standard mapping for CPU %TODO load/temp? and others; descriptive language of snmp\_exporter does not suffice
-%Snmp Kill wenn zu oft auf alte Devices
 	\end{itemize}
 \end{frame}
-
 
 \begin{frame}
-	\frametitle{That one mailserver incident...}
+	\frametitle{Solution}
 	\begin{itemize}
-		\item Wrong flag in config
-		\item One server accepting outside mail
-		\item Spammers do a clean, staggered ramp-up
-		\item Once they go all-in the mail gateways come under heavy load
-		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken 5-15 minutes"
-		\item ...and all of a sudden, you have buy-in from a few more people
+		\item Contracted Brian Brazil to reimplement in Go
+		\item Go implementation hit some unexpected pitfalls of real life SNMP
+		\begin{itemize}
+			\item Some data structures returned repeatedly
+			\item Duplicate identifiers
+			\item Table indices emtpy
+		\end{itemize}
+		\item Go implementation errors out completely, still using Python for some devices
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Caveats}
+	\begin{itemize}
+		\item InetAddress broken in Python
+		\item IOS XR non-standard layout not fully supported yet 
+		\item Some devices die when polled too often
+		\item and we're done?
+	\end{itemize}
+\end{frame}
+
 
 \subsection{Operational}
 
@@ -163,6 +162,7 @@ richih@\{fosdem,debian,richih\}.org}
 	\frametitle{The biggest challenge}
 	\begin{itemize}
 %Toil in too many places
+		\item %TODO
 	\end{itemize}
 \end{frame}
 
@@ -176,16 +176,16 @@ richih@\{fosdem,debian,richih\}.org}
 	\end{itemize}
 \end{frame}
 
-\subsection{Social}
+\subsection{Social Challenges}
 
 \begin{frame}
 	\frametitle{Resistance to change}
 	\begin{itemize}
 		\item Incentives often run counter to change
-		\item Because change is hard
+		\item Change is hard
 		\item Unless your processes embrace, and automate, change
-%Not invented here
-%  Anyone can Design Encryption they CAN'T Break; or Monitoring they CAN'T improve any more
+		\item Trade-off between delayed, or disputed, payoff during transistion
+		\item Critical systems maintained in parallel
 %Too much work to install agent as no central role-out(wollen wir das?)
 % operations stakeholders fear change
   % they get paid to keep the current system up and running, not to increase change
@@ -194,11 +194,26 @@ richih@\{fosdem,debian,richih\}.org}
 \end{frame}
 
 \begin{frame}
+	\frametitle{That one mailserver incident...}
+	\begin{itemize}
+		\item Wrong flag in config
+		\item One server accepting outside mail
+		\item Spammers do a clean, staggered ramp-up
+		\item Once they go all-in the mail gateways come under heavy load
+		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken 5-15 minutes"
+		\item ...and all of a sudden, you have buy-in from a few more people
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Perspective}
 	\begin{itemize}
 		\item Tell everyone what they need to hear (but never lie)
-		\item Managers care about revenue and %TODO
-		\item 
+		\item Managers care about revenue and smooth process execution
+		\item Architects care about clean design and smooth process defintions
+		\item Team leads care about keeping people motivated
+		\item Operators care about reducing workload
+		\item "An engineer loves to talk for hours about a specific UPS model; try that with the CEO"
 %Big Picture for management, button from top, middle management and key technical architects
 %  Different parts of the picture for different people and languages
 %  Anyone can talk to an engineer about a UPS for two hours, but management...
