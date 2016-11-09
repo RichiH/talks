@@ -68,15 +68,15 @@ richih@\{fosdem,debian,richih\}.org}
 \begin{frame}
 	\frametitle{`whowasi`}
 	\begin{itemize}
-		\item 2009-2015: Solely responsible for a Germany-wide backbone's
+		\item 2009 - 2015: Solely responsible for a Germany-wide backbone's
 		\begin{itemize}
 			\item Architecture
 			\item Purchasing
 			\item Operations
 			\item ...and On-Call for 24 * 365 * 7 hours
 		\end{itemize}
-		\item Literally, my sanity depended on aggressive yet correct monitoring \& alerting
-		\item Love monitoring, but hate (almost) all monitoring tools
+		\item Literally, my sanity depended on aggressive, yet correct, monitoring \& alerting
+		\item Love monitoring, but despise (almost) all monitoring tools
 		\item Used Zabbix exclusively
 	\end{itemize}
 \end{frame}
@@ -87,23 +87,24 @@ richih@\{fosdem,debian,richih\}.org}
 		\item SpaceNet is the oldest commercial ISP in Germany; operating since 1993
 		\item Legacy, in-house solutions which predate everything else
 		\item One company-wide monitoring solution: watchdog \& watchcat
-		\item Technically sound, but alerting done through B52-style email carpet bombing
+		\item Powerful and efficient, but alerting done through B52-style email carpet bombing
 		\item Every team has its own custom tools on top
 		\item Islands of data: no APIs, no machine-readable export
 	\end{itemize}
 \end{frame}
 
+\subsection{}
+
 \begin{frame}
 	\frametitle{Seeing the light}
 	\begin{itemize}
-		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM
+		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM 2016
 		\item 2015-10-01: Inform FOSDEM team of planned migration
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
 		\item 2015-10-03: Submit first patch
+		\item 2016-02-29: Redo all the things in one day
 	\end{itemize}
 \end{frame}
-
-\subsection{}
 
 \begin{frame}
 	\frametitle{Prometheus 101}
@@ -192,7 +193,7 @@ richih@\{fosdem,debian,richih\}.org}
 	\frametitle{Toil}
 	\begin{itemize}
 		\item If teams are busy firefighting, they don't have time to engineer
-		\item Keep legacy working, but have clean path forward
+%		\item Keep legacy working, but have clean path forward
 		\item Keep extra effort on the team low, if possible
 		\item Strive for immediate benefits
 		\item Show that you free up time and reduce toil
@@ -204,13 +205,25 @@ richih@\{fosdem,debian,richih\}.org}
 \end{frame}
 
 \begin{frame}
+	\frametitle{Sanity \& sleep}
+	\begin{itemize}
+		\item If it's not actionable, it's not an alert
+		\item If it's not urgent, it's not an alert
+		\item Important, but not urgent, stuff is handled during business hours
+		\item Predict your usage so you add capacity during business hours
+		\item If there's no playbook, it does not go into production
+		\item If a service does not have proper SLOs and alerts, it does not go into production
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{That one mailserver incident...}
 	\begin{itemize}
 		\item Wrong flag in config
 		\item One server accepting outside mail
 		\item Spammers do a clean, staggered ramp-up
 		\item Once they go all-in the mail gateways come under heavy load
-		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken 5-15 minutes"
+		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken at least 15 minutes"
 		\item ...and all of a sudden, you have buy-in from a few more people
 	\end{itemize}
 \end{frame}
@@ -237,8 +250,10 @@ richih@\{fosdem,debian,richih\}.org}
 	\begin{itemize}
 		\item Put a big picture on the (proverbial) wall
 		\item Show everyone the pieces they care about
+		\item Make sure to play to their intrinsic motivation
 		\item Get buy-in
-		\item If in doubt, align steps with that picture
+		\item Going forward, align steps with that picture
+		\item Distributed alignment with goals across teams
 	\end{itemize}
 \end{frame}
 % money is made with brownfield so you need to make sure there is no impact
@@ -251,7 +266,17 @@ richih@\{fosdem,debian,richih\}.org}
 	\frametitle{Leverage}
 	\begin{itemize}
 		\item One combined system allows for correlation and combination
-		\item All from one source
+		\item Power usage against service load
+		\item Optical networks against outside temperature
+		\item Datacenter power feed load against new deployments
+		\item ...and lots more
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Leverage}
+	\begin{itemize}
+		\item One source of truth
 		\begin{itemize}
 			\item Tactical overview for current state
 			\item Dashboards for drill-down
@@ -259,8 +284,7 @@ richih@\{fosdem,debian,richih\}.org}
 			\item Global SLO statements for sales
 			\item Usage exports for accounting
 		\end{itemize}
-	\item If you only have a hammer... choose your hammer well
-	\item It's all part of 
+	\item If all you have is a hammer... choose your hammer well
 %Give them what they want/play to their intrinsic motivation
 %%%%% dopplung zu persepcitve!
 % sales
@@ -270,20 +294,23 @@ richih@\{fosdem,debian,richih\}.org}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{It's all about the money}
-	\begin{itemize}
-		\item In brownfield, revenue comes from legacy systems
-		\item If you impact revenue, all buy-in is gone
-	\end{itemize}
-\end{frame}
+%\begin{frame}
+%	\frametitle{Caveat}
+%	\begin{itemize}
+%		\item In brownfield, revenue comes from legacy systems
+%		\item If you impact revenue, all buy-in is gone
+%	\end{itemize}
+%\end{frame}
+
+
+\section{Outro}
 
 \subsection{Outlook}
 
 \begin{frame}
 	\frametitle{TODO}
 	\begin{itemize}
-		\item Merge all config management
+		\item Merge config management across teams
 		\item Adapt machines and services to modern orchestration
 		\begin{itemize}
 			\item Highly fractured and specific customer setups
@@ -326,8 +353,6 @@ richih@\{fosdem,debian,richih\}.org}
 %One tool fits all
 %Make your hammer fit your nails
 
-
-\section{Outro}
 
 \subsection{}
 
