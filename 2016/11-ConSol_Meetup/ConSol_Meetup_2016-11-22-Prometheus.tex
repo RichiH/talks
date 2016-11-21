@@ -22,7 +22,7 @@
 \usepackage{wrapfig}
 
 
-\title{Adapting brownfield technology to cloud-native technology}
+\title{Monitoring with Prometheus \& Grafana}
 \subtitle{One year of Prometheus}
 \author{Richard Hartmann,\\
 RichiH@\{freenode,OFTC,IRCnet\},\\
@@ -99,13 +99,7 @@ richard.hartmann@space.net}
 \subsection{}
 
 % TODO
-%dynamic
-% four main seling points
-%   dimensional data model
-%   powerful query language
-%   efficiency
-%   operational simplicity
-% TSDB
+%		\item Delta-of-delta data storage
 % instrumentation, metrics collection (flaoat64 only), querying, alerting, dashboarding, graphing, trending
 %   float64; precision until 2^53 network devices -> snmp_exporter reset
 %   storage efficiency
@@ -131,11 +125,20 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{Prometheus 101}
 	\begin{itemize}
-		\item Incredibly efficient
+		\item Inspired by Google's Borgmon
+		\item Time series database
+		\item No event logging
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Prometheus 101}
+	\begin{itemize}
+		\item Highly dynamic, built-in service discovery
 		\item No hierarchical model, n-dimensional label set
-		\item PromQL: for graphing, alerting, and export
-		\item Delta-of-delta data storage
-		\item One binary; up and running in minutes
+		\item PromQL: for processing, graphing, alerting, and export
+		\item Simple operation
+		\item Highly efficient
 	\end{itemize}
 \end{frame}
 
