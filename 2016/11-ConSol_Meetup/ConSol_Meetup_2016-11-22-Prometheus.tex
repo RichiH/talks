@@ -123,6 +123,18 @@ richard.hartmann@space.net}
 %SELECT errors.job, errors.instance, […more labels…], rate(errors.value, 5m) / rate(total.value, 5m) FROM errors JOIN total ON […all the label equalities…] WHERE errors.job=”foo” AND total.job=”foo”
 
 \begin{frame}
+	\frametitle{Seeing the light}
+	\begin{itemize}
+		\item Ran DebConf15 on LibreNMS, wanted to do the same for SpaceNet \& FOSDEM 2016
+		\item 2015-10-01: Inform FOSDEM team of planned migration
+		\item 2015-10-02: Murali Suriar suggests Prometheus instead
+		\item 2015-10-03: PoC at SpaceNet and submit first patch
+		\item 2016-01-29: Hackday to migrate FOSDEM
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
 	\frametitle{Prometheus 101}
 	\begin{itemize}
 		\item Inspired by Google's Borgmon
@@ -139,16 +151,6 @@ richard.hartmann@space.net}
 		\item PromQL: for processing, graphing, alerting, and export
 		\item Simple operation
 		\item Highly efficient
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Seeing the light}
-	\begin{itemize}
-		\item Ran DebConf15 on LibreNMS, wanted to do the same for FOSDEM 2016
-		\item 2015-10-01: Inform FOSDEM team of planned migration
-		\item 2015-10-02: Murali Suriar suggests Prometheus instead
-		\item 2015-10-03: PoC at SpaceNet and submit first patch
 	\end{itemize}
 \end{frame}
 
