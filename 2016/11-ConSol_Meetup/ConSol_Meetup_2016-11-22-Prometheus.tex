@@ -163,9 +163,15 @@ richard.hartmann@space.net}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{PromQL}
+	\frametitle{Exposition format}
+	\fontsize{10pt}{12}\selectfont
 	\begin{verbatim}
-	%TODO
+http_requests_total{env="prod",method="post",code="200"} 1027
+http_requests_total{env="prod",method="post",code="400"} 3
+http_requests_total{env="prod",method="post",code="500"} 12
+http_requests_total{env="prod",method="get",code="200"} 20
+http_requests_total{env="test",method="post",code="200"} 372
+http_requests_total{env="test",method="post",code="400"} 75
 	\end{verbatim}
 \end{frame}
 
@@ -175,14 +181,14 @@ richard.hartmann@space.net}
 avg by(city) (temperature_celsius{country=”germany”})
 
 SELECT city, AVG(value) FROM temperature_celsius WHERE \
-  country=”germany” GROUP BY city
+ country=”germany” GROUP BY city
 
 rate(errors{job=”foo”}[5m]) / rate(total{job=”foo”}[5m])
 
 SELECT errors.job, errors.instance, […more labels…], \
-  rate(errors.value, 5m) / rate(total.value, 5m) FROM \
-  errors JOIN total ON […all label equalities…] WHERE \
-  errors.job=”foo” AND total.job=”foo”
+ rate(errors.value, 5m) / rate(total.value, 5m) FROM \
+ errors JOIN total ON […all label equalities…] WHERE \
+ errors.job=”foo” AND total.job=”foo”
 	\end{verbatim}
 \end{frame}
 
