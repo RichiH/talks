@@ -112,22 +112,6 @@ richard.hartmann@space.net}
 % HA? run two
 % federation
 % kein auth/encryption -> reverse proxy
-%PromQL: avg by(city) (temperature_celsius{country=”germany”})
-%SQL: SELECT city, AVG(value) FROM temperature_celsius WHERE country=”germany” GROUP BY city
-%PromQL: rate(errors{job=”foo”}[5m]) / rate(total{job=”foo”}[5m])
-%SQL:
-%SELECT errors.job, errors.instance, […more labels…], rate(errors.value, 5m) / rate(total.value, 5m) FROM errors JOIN total ON […all the label equalities…] WHERE errors.job=”foo” AND total.job=”foo”
-
-\begin{frame}
-	\frametitle{Seeing the light}
-	\begin{itemize}
-		\item Ran DebConf15 on LibreNMS, wanted to do the same for SpaceNet \& FOSDEM 2016
-		\item 2015-10-01: Inform FOSDEM team of planned migration
-		\item 2015-10-02: Murali Suriar suggests Prometheus instead
-		\item 2015-10-03: PoC at SpaceNet and submit first patch
-		\item 2016-01-29: Hackday to migrate FOSDEM
-	\end{itemize}
-\end{frame}
 
 
 \begin{frame}
@@ -138,6 +122,7 @@ richard.hartmann@space.net}
 		\item float64 timestamp, float64 value
 		\item Instrumentation \& exporters
 		\item No event logging
+		\item Dashboarding via Grafana
 	\end{itemize}
 \end{frame}
 
@@ -194,6 +179,17 @@ SELECT errors.job, errors.instance, […more labels…], \
 
 
 \section{Lightbringer}
+
+\begin{frame}
+	\frametitle{Seeing the light}
+	\begin{itemize}
+		\item Ran DebConf15 on LibreNMS, wanted to do the same for SpaceNet \& FOSDEM 2016
+		\item 2015-10-01: Inform FOSDEM team of planned migration
+		\item 2015-10-02: Murali Suriar suggests Prometheus instead
+		\item 2015-10-03: PoC at SpaceNet and submit first patch
+		\item 2016-01-29: Hackday to migrate FOSDEM
+	\end{itemize}
+\end{frame}
 
 \subsection{Technical challenges}
 
