@@ -101,7 +101,6 @@ richard.hartmann@space.net}
 % TODO
 %		\item Delta-of-delta data storage
 % instrumentation, metrics collection (flaoat64 only), querying, alerting, dashboarding, graphing, trending
-%   float64; precision until 2^53 network devices -> snmp_exporter reset
 %   storage efficiency
 
 % one exporter per service
@@ -109,9 +108,6 @@ richard.hartmann@space.net}
 % failures happen at scale
 % automates away toil
 
-% Service disvoery
-% keine events
-% samples?
 % SQL vs PromQL von jrv? - vector math wie R
 % HA? run two
 % federation
@@ -139,12 +135,14 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item Inspired by Google's Borgmon
 		\item Time series database
+		\item float64 timestamp, float64 value
+		\item Instrumentation \& exporters
 		\item No event logging
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Prometheus 101}
+	\frametitle{Main selling points}
 	\begin{itemize}
 		\item Highly dynamic, built-in service discovery
 		\item No hierarchical model, n-dimensional label set
@@ -154,7 +152,39 @@ richard.hartmann@space.net}
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Efficiency}
+	\begin{itemize}
+		\item 64 GiB RAM, 32 cores, 525,000 samples/second
+		\item 0.066 bit/sample real world best case
+		\item 1.28 byte/sample average at SoundCloud
+		\item Cheap ingestion \& storage means more data for you
+	\end{itemize}
+\end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{PromQL}
+	\begin{verbatim}
+	%TODO
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{PromQL}
+	\begin{verbatim}
+avg by(city) (temperature_celsius{country=”germany”})
+
+SELECT city, AVG(value) FROM temperature_celsius WHERE \
+  country=”germany” GROUP BY city
+
+rate(errors{job=”foo”}[5m]) / rate(total{job=”foo”}[5m])
+
+SELECT errors.job, errors.instance, […more labels…], \
+  rate(errors.value, 5m) / rate(total.value, 5m) FROM \
+  errors JOIN total ON […all label equalities…] WHERE \
+  errors.job=”foo” AND total.job=”foo”
+	\end{verbatim}
+\end{frame}
 
 
 \section{Lightbringer}
@@ -261,7 +291,7 @@ richard.hartmann@space.net}
 		\item One server accepting outside mail
 		\item Spammers do a clean, staggered ramp-up
 		\item Once they go all-in the mail gateways come under heavy load
-		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken at least 15 minutes"
+		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken at least 60 minutes"
 		\item ...and all of a sudden, you have buy-in from a few more people
 	\end{itemize}
 \end{frame}
