@@ -36,6 +36,10 @@ richard.hartmann@space.net}
 % hide all subsections
 \setcounter{tocdepth}{1}
 
+\section{Introduction}
+
+\subsection{}
+
 \begin{frame}
 	\titlepage
 \end{frame}
@@ -44,8 +48,6 @@ richard.hartmann@space.net}
 %	\frametitle{Statistics}
 %	\tableofcontents
 %\end{frame}
-
-\section{Introduction}
 
 \subsection{}
 
@@ -74,9 +76,8 @@ richard.hartmann@space.net}
 		\begin{itemize}
 			\item Architecture
 			\item Purchasing
-			\item Operations
-			\item Architecture
-			\item ...and On-Call for 24 * 365 * 7 hours
+			\item Maintenance
+			\item ...and On-Call for 24 hours, 365 days, 7 years
 		\end{itemize}
 		\item Literally, my sanity depended on aggressive, yet correct, monitoring \& alerting
 		\item Love monitoring, but despise (almost) all monitoring tools
@@ -117,7 +118,7 @@ richard.hartmann@space.net}
 		\item Time series database
 		\item float64 timestamp, float64 value
 		\item Instrumentation \& exporters
-		\item No event logging
+		\item Not for event logging
 		\item Dashboarding via Grafana
 	\end{itemize}
 \end{frame}
@@ -137,11 +138,11 @@ richard.hartmann@space.net}
 	\frametitle{Efficiency}
 	\begin{itemize}
 		\item 64 GiB RAM, 32 cores, 525,000 samples/second
-		\item 16 byte/sample raw size, but after varbit encoding:
+		\item 16 \textbf{bytes}/sample raw size, but after varbit encoding:
 		\begin{itemize}
-			\item 0.066 bit/sample real world best case \\
-				3 weeks @ 15 seconds
-			\item 1.28 byte/sample average at SoundCloud
+			\item 0.066 \textbf{bits}/sample real world best case \\
+				(3 weeks @ 15 seconds; 124,547 samples)
+			\item 1.28 \textbf{bytes}/sample average across billions of samples
 		\end{itemize}
 		\item Cheap ingestion \& storage means more data for you
 	\end{itemize}
@@ -161,7 +162,8 @@ http_requests_total{env="test",method="post",code="400"} 75
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{PromQL}
+	\frametitle{PromQL vs SQL}
+	\fontsize{10pt}{12}\selectfont
 	\begin{verbatim}
 avg by(city) (temperature_celsius{country=”germany”})
 
@@ -171,9 +173,9 @@ SELECT city, AVG(value) FROM temperature_celsius WHERE \
 rate(errors{job=”foo”}[5m]) / rate(total{job=”foo”}[5m])
 
 SELECT errors.job, errors.instance, […more labels…], \
- rate(errors.value, 5m) / rate(total.value, 5m) FROM \
- errors JOIN total ON […all label equalities…] WHERE \
- errors.job=”foo” AND total.job=”foo”
+ rate(errors.value, 5m) / rate(total.value, 5m) \
+ FROM errors JOIN total ON […all label equalities…] \
+ WHERE errors.job=”foo” AND total.job=”foo”
 	\end{verbatim}
 \end{frame}
 
@@ -182,7 +184,7 @@ SELECT errors.job, errors.instance, […more labels…], \
 	\begin{itemize}
 		\item Dozens of data sources
 		\item Modern UI
-		\item Allows for complex data manipulation
+		\item Allows for complex data manipulation and visualization
 		\item Native Prometheus support
 		\item Clear cache often while changing dashboards!
 	\end{itemize}
@@ -192,7 +194,8 @@ SELECT errors.job, errors.instance, […more labels…], \
 	\frametitle{Seeing the light}
 	\begin{itemize}
 		\item Ran DebConf15 on LibreNMS, wanted to do the same for SpaceNet \& FOSDEM 2016
-		\item 2015-10-01: Inform FOSDEM team of planned migration
+		\item 2015-10-01: Inform FOSDEM team of planned migration \\
+			\qquad \qquad First day at SpaceNet
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
 		\item 2015-10-03: PoC at SpaceNet and submit first patch
 		\item 2016-01-29: Hackday to migrate FOSDEM
