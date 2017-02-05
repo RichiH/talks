@@ -1,0 +1,327 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Social aspects of change}
+\subtitle{A tale of Prometheus \& Grafana}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian,richih\}.org,\\
+richard.hartmann@space.net}
+\date{2017-02-24}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\section{Introduction}
+
+\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{`whoami`}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item System architect at SpaceNet AG
+		\item FOSDEM, DebConf, DENOGx, PromCon staff
+		\item Debian Developer
+		\item Author of \url{https://github.com/RichiH/vcsh}
+		\item Always looking for nice co-workers in the Munich area
+	\end{itemize}
+\end{frame}
+
+
+\section{Background}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Social stuff in a monitoring devroom?}
+	\begin{itemize}
+		\item Changed jobs middle of 2015
+		\item Very heterogenic environment
+		\item Many old, self-built, well-established solutions
+		\item Islands of data
+		\item Even single teams had several tools in parallel use
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Prometheus main selling points}
+	\begin{itemize}
+		\item Highly dynamic, built-in service discovery
+		\item No hierarchical model, n-dimensional label set
+		\item PromQL: for processing, graphing, alerting, and export
+		\item Simple operation
+		\item Highly efficient
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Seeing the light}
+	\begin{itemize}
+		\item Ran DebConf15 on LibreNMS, wanted to do the same for SpaceNet \& FOSDEM 2016
+		\item 2015-10-01: Inform FOSDEM team of planned migration \\
+			\qquad \qquad First day at SpaceNet
+		\item 2015-10-02: Murali Suriar suggests Prometheus instead
+		\item 2015-10-03: PoC at SpaceNet and submit first patch
+		\item 2016-01-29: Hackday to migrate FOSDEM
+		\item 2016/2017: Migrate SpaceNet to Prometheus
+	\end{itemize}
+\end{frame}
+
+
+\section{Social Challenges}
+
+
+\begin{frame}
+	\frametitle{The biggest challenge}
+		\begin{center}
+			\vfill
+			The hardest problems to solve are the social ones.
+			\vfill
+		\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Resistance to change}
+	\begin{itemize}
+		\item Incentives often run counter to change
+		\item Change is hard
+		\item Unless processes embrace and automate change
+		\item Trade-off between delayed/disputed payoff during transition
+		\item Due diligence: Critical systems run in parallel for some time
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Toil}
+	"Toil is manual, repeated work with no lasting benefit which scales linearly with your service"
+	\vfill
+	\begin{itemize}
+		\item If teams are busy firefighting, they don't have time to engineer
+		\item Keep legacy working, but have clean path forward
+		\item Keep extra effort on the team low, if possible
+		\item Strive for immediate benefits
+		\item Focus on removing repeated, manual tasks of no lasting benefit
+		\item Show that you free up time and reduce toil
+% operations stakeholders fear change
+  % they get paid to keep the current system up and running, not to increase change
+% everyone wants to live in a SRE world with error budgets and caps on toil
+%Toil in too many places
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sanity \& sleep}
+	\begin{itemize}
+		\item If it's not actionable, it's not an alert
+		\item If it's not urgent, it's not an alert
+		\item Important, but not urgent, stuff is handled during business hours
+		\item Predict your usage so you add capacity during business hours
+		\item If there's no playbook, it does not go into production
+		\item If a service does not have proper SLOs and alerts, it does not go into production
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{That one mailserver incident...}
+	\begin{itemize}
+		\item Wrong flag in config
+		\item One server accepting outside mail
+		\item Spammers do a clean, staggered ramp-up
+		\item Once they go all-in the mail gateways come under heavy load
+		\item Quote from On-Call "It took me less than 30 seconds to figure out the problem; with our old system it would have taken at least 60 minutes"
+		\item ...and all of a sudden, you have buy-in from a few more people
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Perspective \& Incentives}
+	"An engineer can talk for hours about a function; try that with the CEO"
+	\vfill
+	\begin{itemize}
+		\item Managers: revenue, process execution
+		\item Architects: clean design, process defintion
+		\item Product/Service owners: Powerful dashboards
+		\item Team leads: morale, quick execution
+		\item Operators: reduce toil, increase sleep
+%  Different parts of the picture for different people and languages
+%  Anyone can talk to an engineer about a UPS for two hours, but management...
+	\end{itemize}
+	\vfill
+	Tell everyone what they need to hear (but never lie)
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Big Picture}
+	\begin{itemize}
+		\item Put a big picture on the (proverbial) wall
+		\item Show everyone the pieces they care about
+		\item Make sure to play to their intrinsic motivation
+		\item Get buy-in
+		\item Going forward, align steps with that picture
+		\item Distributed alignment with goals across teams
+	\end{itemize}
+\end{frame}
+% money is made with brownfield so you need to make sure there is no impact
+  % lots of overlap until new stuff gains trust
+  % people's motivation is to resist change; and that's OK until the system can actually handle change
+  % most will readily agree that the new approach is better, but they fear the way there
+    % ideally, we should magic from zero to done without anyone noticing
+
+\begin{frame}
+	\frametitle{Leverage}
+	\begin{itemize}
+		\item One combined system allows for correlation and combination
+		\item Power usage against service load
+		\item Optical networks against outside temperature
+		\item Datacenter power feed load against new deployments
+		\item ...and lots more
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Oracle}
+	\begin{itemize}
+		\item One source of truth for
+		\begin{itemize}
+			\item Tactical overview for current state
+			\item Dashboards for drill-down
+			\item Auto-generated PDFs for customers
+			\item Global SLO statements for sales
+			\item Usage exports for accounting
+		\end{itemize}
+	\item If all you have is a hammer... choose your hammer well
+%Give them what they want/play to their intrinsic motivation
+%%%%% dopplung zu persepcitve!
+% sales
+% accounting
+% power count
+%%%%%
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Caveat}
+%	\begin{itemize}
+%		\item In brownfield, revenue comes from legacy systems
+%		\item If you impact revenue, all buy-in is gone
+%	\end{itemize}
+%\end{frame}
+
+
+\section{Outro}
+
+\subsection{Outlook}
+
+\begin{frame}
+	\frametitle{TODO}
+	\begin{itemize}
+		\item Merge config management across teams
+		\item Adapt machines and services to modern orchestration
+		\begin{itemize}
+			\item Highly fractured and specific customer setups
+			\item Revenue comes from those brownfield installation
+			\item Finding the correct balance will be tricky
+		\end{itemize}
+		\item Adopt error budgets
+		\item Hire more people. Munich is beautiful!
+	\end{itemize}
+\end{frame}
+
+
+
+%If no motivation, escalate
+
+
+
+%Know of UPS / core link downtime within less than 30 seconds, but no false positives
+%Want USV in seconds, Mail Accounting reicht täglich
+
+%Goals / that's obvious section?
+
+%Current state NOW, not five minutes ago (but info)
+%Important later, during daytime
+%Make sure tickets are opened so we can postmortem all the things
+
+%Push vs pull not a conceptual problem due to watchdog
+%  Concept of scraping new
+%Watchdog can do logic checks, regexp etc; not only metrics
+%
+
+%Wollen ewiges Storage
+%Immer noch zwei große Prom, Teams noch nicht so weit.
+
+%Too much "fix this now" and not learning aggressively from outages.
+%Not all teams tracked and compared KPIs over time
+%From plain uptime to service request success rate
+
+%Dashboard
+%Perpetual greenfield
+%One tool fits all
+%Make your hammer fit your nails
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions?
+			\vfill
+			See slide footer for contact info.
+			\vfill
+		\end{center}
+\end{frame}
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
