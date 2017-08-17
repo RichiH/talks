@@ -72,6 +72,7 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{Social stuff at a monitoring conference?}
 	\begin{itemize}
+		\item This about about enacting change in a company or project
 		\item I learned all this recently; the hard way
 		\item 11 years at the last job
 		\begin{itemize}
@@ -83,7 +84,7 @@ richard.hartmann@space.net}
 			\item Very heterogenic environment
 			\item Many old, self-built, well-established solutions
 			\item Islands of data
-			\item Even single teams had several tools in parallel use
+			\item Even single teams used several tools in parallel
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -104,7 +105,7 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item Ran DebConf15 on LibreNMS, wanted to do the same for SpaceNet \& FOSDEM 2016
 		\item 2015-10-01: Inform FOSDEM team of planned migration \\
-			\qquad \qquad First day at SpaceNet
+			\qquad \qquad \qquad First day at SpaceNet
 		\item 2015-10-02: Murali Suriar suggests Prometheus instead
 		\item 2015-10-03: PoC at SpaceNet and submit first patch
 		\item 2016-01-29: Hackday to migrate FOSDEM
@@ -115,18 +116,19 @@ richard.hartmann@space.net}
 \subsection{}
 
 \begin{frame}
-	\frametitle{Formula for change}
+	\frametitle{Calculating change}
 	\begin{itemize}
-		\item Gleicher version: C = (ABD) gt X
+		\item Gleicher version: C if (ABD) gt X
 		\begin{itemize}
-			\item C = change
+			\item C = change happens
 			\item A = status quo dissatisfaction
 			\item B = desired state
 			\item D = steps to the desired state
 			\item X = cost of change
 		\end{itemize}
-		\item Dannemiller version: D x V x F gt R
+		\item Dannemiller version: C if D x V x F gt R
 		\begin{itemize}
+			\item C = change happens
 			\item D = Dissatisfaction with how things are now;
 			\item V = Vision of what is possible;
 			\item F = First, concrete steps that can be taken towards the vision;
@@ -148,7 +150,7 @@ richard.hartmann@space.net}
 
 \section{Social Challenges}
 
-\subsection{The Bad}
+\subsection{Caveats}
 
 \begin{frame}
 	\frametitle{The biggest challenge}
@@ -157,6 +159,19 @@ richard.hartmann@space.net}
 			The hardest problems to solve are the social ones.
 			\vfill
 		\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Resistance to change}
+	\begin{itemize}
+		\item Incentives often run counter to change
+		\item Change is hard
+		\item ..unless processes embrace and automate change
+		\item Trade-off between delayed/disputed payoff during transition
+		\item Due diligence: Critical systems must run in parallel for some time
+		\item If you are right, others must be 'wrong'
+		\item Hidden motivations
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -181,30 +196,19 @@ richard.hartmann@space.net}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Resistance to change}
+	\frametitle{Killer issues}
 	\begin{itemize}
-		\item Incentives often run counter to change
-		\item Change is hard
-		\item ..unless processes embrace and automate change
-		\item Trade-off between delayed/disputed payoff during transition
-		\item Due diligence: Critical systems must run in parallel for some time
-		\item If you are right, others must be 'wrong'
-		\item Hidden motivations
+		\item If you impact revenue, you lose all support
+		\item If you bring essential systems down, you lose all support
+		\item If you wake people without reason, you lose all support
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Caveats}
 	\vfill
-	\begin{itemize}
-		\item If you impact revenue, you will lose all support
-		\item If you bring essential systems down, you will lose all support
-		\item If you wake people without reason, you will lose all support
-	\end{itemize}
+	Again, keep this in mind!
 	\vfill
 \end{frame}
 
-\subsection{The Good}
+
+\subsection{Approaches}
 
 
 \begin{frame}
@@ -213,7 +217,7 @@ richard.hartmann@space.net}
 		\item Put a big picture on the (proverbial) wall
 		\item Show everyone the pieces they care about
 		\item Make sure to play to their intrinsic motivation
-		\item Get buy-in
+		\item Get buy-in from key players
 		\item Going forward, align steps with that picture
 		\item Distributed alignment with goals across teams
 	\end{itemize}
@@ -226,7 +230,7 @@ richard.hartmann@space.net}
 
 \begin{frame}
 	\frametitle{Perspective \& Incentives}
-	"An engineer will talk hours about a function; try that with the CEO"
+	"An engineer will talk for hours about a function; try that with the CEO"
 	\vfill
 	\begin{itemize}
 		\item Managers: revenue, process execution
@@ -254,25 +258,9 @@ richard.hartmann@space.net}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Toil}
-	"Toil is manual, repeated work with no lasting benefit and scales linearly with your service"
-	\vfill
-	\begin{itemize}
-		\item Teams busy firefighting don't have time to engineer
-			\vfill
-		\item Keep legacy working, but have clear path forward
-		\item ..but keep extra effort on the team low, if possible
-		\item Strive for immediate benefits
-		\item Focus on removing repeated, manual tasks with no lasting benefit
-		\item Show that you free up time and reduce toil
-% operations stakeholders fear change
-  % they get paid to keep the current system up and running, not to increase change
-% everyone wants to live in a SRE world with error budgets and caps on toil
-%Toil in too many places
-	\end{itemize}
-	\vfill
-\end{frame}
+
+\subsection{Possible carrots}
+
 
 \begin{frame}
 	\frametitle{Sanity \& sleep}
@@ -284,7 +272,29 @@ richard.hartmann@space.net}
 		\item If there's no playbook, it does not go into production
 		\item If a service does not have proper SLOs and alerts, it does not go into production
 	\end{itemize}
+	\vfill
+	Show that you increase sleep
 \end{frame}
+
+\begin{frame}
+	\frametitle{Toil}
+	"Toil is manual, repeated work with no lasting benefit and scales linearly with your service"
+	\vfill
+	\begin{itemize}
+		\item Teams busy firefighting don't have time to engineer
+		\item Keep legacy working, but have clear path forward
+		\item ..but keep extra effort on the team low, if possible
+		\item Strive for immediate benefits
+		\item Focus on removing repeated, manual tasks with no lasting benefit
+% operations stakeholders fear change
+  % they get paid to keep the current system up and running, not to increase change
+% everyone wants to live in a SRE world with error budgets and caps on toil
+%Toil in too many places
+	\end{itemize}
+	Show that you free up time and reduce toil
+	\vfill
+\end{frame}
+
 \begin{frame}
 	\frametitle{Leverage}
 	\begin{itemize}
@@ -292,7 +302,8 @@ richard.hartmann@space.net}
 		\item Power usage against service load
 		\item Optical networks against outside temperature
 		\item Datacenter power feed load against new deployments
-		\item ...and lots more
+		\item ..and lots more
+		\item ..with only PromQL
 	\end{itemize}
 \end{frame}
 
@@ -307,7 +318,7 @@ richard.hartmann@space.net}
 			\item Global SLO statements for sales
 			\item Usage exports for accounting
 		\end{itemize}
-	\item If all you have is a hammer... choose your hammer well
+	\item If all you will have is a hammer... choose your hammer well
 %Give them what they want/play to their intrinsic motivation
 %%%%% dopplung zu persepcitve!
 % sales
