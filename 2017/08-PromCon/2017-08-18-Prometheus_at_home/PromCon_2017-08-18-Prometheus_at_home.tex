@@ -1,0 +1,305 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Prometheus @ Home}
+%\subtitle{}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian,richih\}.org,\\
+richard.hartmann@space.net}
+\date{2017-08-18}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+%\section{Introduction}
+
+%\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\subsection{}
+
+%\begin{frame}
+%	\frametitle{`whoami`}
+%	\begin{itemize}
+%		\item Richard "RichiH" Hartmann
+%		\item System architect at SpaceNet
+%		\item FOSDEM, DENOGx, PromCon staff
+%		\item Prometheus team
+%		\item Debian Developer
+%		\item Author of \url{https://github.com/RichiH/vcsh}
+%		\item Always looking for nice co-workers in the Munich area
+%	\end{itemize}
+%\end{frame}
+
+
+%\section{Background}
+
+%\subsection{}
+
+\begin{frame}
+	\frametitle{Pop quiz}
+	\vfill
+	\centerline{Did you know that it's near impossible to}
+	\centerline{make backups of Prometheus data?}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pop quiz}
+	\vfill
+	\centerline{(..no, I didn't know what Goutham would talk about..)}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pop quiz}
+	\vfill
+	\centerline{So what happens if your home server dies}
+	\centerline{and you don't have time to rebuild it?}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pop quiz}
+	\vfill
+	\centerline{Did you expect pretty graphs?}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pop quiz}
+	\vfill
+	\centerline{Well.. no.}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Actual content?}
+	\vfill
+	\centerline{I am here simply to whet your appetite.}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{OCD}
+	\vfill
+	\centerline{I get easily annoyed with inefficiency;}
+	\centerline{if something works, I will use it in ALL the places}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{OCD}
+	\vfill
+	\centerline{(backups seem to be an exception)}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{OCD}
+	\vfill
+	\centerline{..same label printer}
+	\centerline{..same screwdrivers}
+	\centerline{..same keyboard \& mouse}
+	\centerline{..same type of (colour-coded) notebook}
+	\vfill
+	\centerline{..and I flooded every place with literally 100+ pens of the same type}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Word of warning...}
+	\vfill
+	\centerline{..that includes having the}
+	\centerline{same red Swingline stapler and home and at work}
+	\vfill
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Hmmmm...}
+	\vfill
+	\centerline{What if I could re-use Prometheus for useful and,}
+	\centerline{more importantly, useless things?}
+	\vfill
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Home temperature, humidity, etc}
+	\vfill
+	\centerline{\url{github.com/prometheus/node_exporter}}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home temperature, humidity, etc}
+	\vfill
+	\centerline{(..no, I didn't know what Nicolai would talk about..)}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home temperature, humidity, etc}
+	\vfill
+	\centerline{..but whatever, here you go:}
+	\vfill
+	\centerline{\url{github.com/vonneudeck/mouldy}}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home automation}
+	\vfill
+	\centerline{\url{github.com/RichiH/knxd_exporter}}
+	\vfill
+	\centerline{Please write MOAR!}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home network}
+	\vfill
+	\centerline{\url{github.com/prometheus/snmp_exporter}}
+	\vfill
+	\centerline{\url{github.com/mdlayher/unifi_exporter}}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home upstream; because those 2 Mbit/s are horrible}
+	\vfill
+	\centerline{\url{github.com/stefanwalther/speedtest-exporter}}
+	\vfill
+	\centerline{\url{github.com/RichiH/speedtest_exporter}}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home upstream; because those 2 Mbit/s are horrible}
+	\vfill
+	\centerline{Have you ever had some refuse your WiFi password?}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gas prices}
+	\vfill
+	\centerline{\url{github.com/lukasmalkmus/tankerkoenig_exporter}}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Weather data}
+	\vfill
+	\centerline{\url{github.com/RichiH/openweathermap_exporter}}
+	\vfill
+	\centerline{since February 2016}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Weather data}
+	\vfill
+	\centerline{I am soooo going to sue PromFlux}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Groundwater measurements}
+	\vfill
+	\centerline{\url{nid.bayern.de/grundwasser}}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Groundwater measurements}
+	\vfill
+	\centerline{Yes, I will correlate rain and groundwater}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Brian's special}
+	\vfill
+	\centerline{Have you ever argued with Brian?}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Brian's axiom}
+	\vfill
+	\centerline{"There is no use for weight or mass in a time series database"}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Brian's knowledge gap}
+	\vfill
+	\centerline{My co-workers have problems with stairs}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Brian's wrong}
+	\vfill
+	\centerline{USB scales exporting coffee grinder fill state}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Brian's surprise}
+	\vfill
+	\centerline{..and alerting when it's empty}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{RichiH's revenge}
+	\vfill
+	\centerline{..because it takes me less than ten seconds to reach the coffee grinder.}
+	\vfill
+\end{frame}
+
+
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
