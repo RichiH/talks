@@ -68,7 +68,7 @@ richard.hartmann@space.net}
 
 \section{Quick intro}
 
-\subsection{}
+\subsection{Do we even need this section?}
 
 % API commitments
 % one exporter per service
@@ -154,7 +154,7 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{Three main features}
 	\begin{itemize}
-		\item Storage backend (caveat: Prometheus 2.0 comes with storage v3)
+		\item Storage backend
 		\begin{itemize}
 			\item Caveat: Prometheus 2.0 comes with storage v3
 		\end{itemize}
@@ -196,7 +196,7 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item Fabian Reinartz had an idea about new storage
 		\item This POC turned out to be so good, we decided to cut a major release for it
-		\item How does it works?
+		\item How does it work?
 	\end{itemize}
 \end{frame}
 
@@ -252,9 +252,12 @@ richard.hartmann@space.net}
 	\frametitle{Downside of handling churn}
 	\begin{itemize}
 		\item So now we can handle extreme churn
-		\item ...and suddenly, five minutes timeouts for time series seem awfully long
-		\item Down alerts continue to fire for five minutes
-		\item Double counting
+		\item ...and suddenly, five minutes staleness timeouts seem awfully long
+		\begin{itemize}
+			\item Down alerts continue to fire
+			\item Double counting
+			\item Other icky corner cases
+		\end{itemize}
 		\item ...and what if you need more than five minutes scrape interval?
 	\end{itemize}
 \end{frame}
@@ -271,7 +274,7 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{The way there}
 	\begin{itemize}
-		\item The actual technical background is too complex for this talks
+		\item The actual technical background is too complex for this talk
 		\item Find recording and slides by Brian Brazil at the end of this talk
 	\end{itemize}
 \end{frame}
@@ -295,7 +298,7 @@ richard.hartmann@space.net}
 	\frametitle{So, about backfill and explicit timestamps...}
 	\begin{itemize}
 		\item If explicit timestamps were icky before, this has now become worse
-		\item You can not write data older than the age of the current storage block, nor data much newer
+		\item You can not ingest data older than the age of the current storage block, nor data much newer
 		\item Staleness vs timestamps is non-trivial
 	\end{itemize}
 \end{frame}
@@ -310,20 +313,20 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{ACID databases...}
 	\begin{itemize}
-		\item Atomicity - we have that
-		\item Consistency - we have that
-		\item Isolation - here, there be 2.1 features
-		\item Durability - we have that since 2.0
+		\item A tomicity - we have that
+		\item C onsistency - we have that
+		\item I solation - here, there be 2.1 features
+		\item D urability - we have that since 2.0
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Isolation}
 	\begin{itemize}
-		\item Each append action gets a write id from a 64 bit monotonic counter
-		\item Every sample's write id is noted along with value and timestamp
+		\item Each append action gets a write ID (64 bit monotonic counter)
+		\item Every sample's write ID is noted along with value and timestamp
 		\item Any append action which has not yet committed or rolled back is ignored at query time
-		\item We keep this in memory; if we restart or crash, the atomicity of the write ahead log will protect us
+		\item We keep write IDs in memory; if we restart or crash, the atomicity of the write ahead log will protect us
 	\end{itemize}
 \end{frame}
 
@@ -348,14 +351,14 @@ richard.hartmann@space.net}
 		\item One of our most powerful features are labels
 		\item Labels are encoded in our exposition format
 		\item Some third-party projects and vendors have an issue with supporting a "competing" project
-		\item (Big shout-out to Paul Dix and InfluxData for supporting Prometheus concepts!)
+		\item Big shout-out to Paul Dix and InfluxData for adopting Prometheus concepts!
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{OpenMetrics}
 	\begin{itemize}
-		\item We are spinning out Prometheus exposition format
+		\item We are spinning out Prometheus' exposition format
 		\item It will join CNCF as a full project
 		\item We will submit an ID and try to get an IETF RFC published
 		\item ...so you can sneak this random RFC into the requirements of your next tender ;)
@@ -385,7 +388,7 @@ richard.hartmann@space.net}
 		\item Current plan is to do it in Munich or Dublin
 		\item We will continue to run the conference ourselves, but CNCF is handling money for us
 		\item If you want to sponsor a venue, do let us know
-		\item We can only accept a venue of a team member is living nearby and is willing to invest the time
+		\item We can only accept a venue if a team member is living nearby and is willing to invest the time
 	\end{itemize}
 \end{frame}
 
