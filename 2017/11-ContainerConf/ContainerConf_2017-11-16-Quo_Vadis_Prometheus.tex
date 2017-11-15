@@ -192,6 +192,15 @@ richard.hartmann@space.net}
 \end{frame}
 
 \begin{frame}
+	\frametitle{Storage v3}
+	\begin{itemize}
+		\item Fabian Reinartz had an idea about new storage
+		\item This POC turned out to be so good, we decided to cut a major release for it
+		\item How does it works?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{One file per series}
 	\includegraphics[width=\textwidth]{storage--file_per_series.png}
 \end{frame}
@@ -236,17 +245,17 @@ richard.hartmann@space.net}
 \end{frame}
 
 
-\subsection{Storage}
+\subsection{Staleness}
 
 
 \begin{frame}
 	\frametitle{Downside of handling churn}
 	\begin{itemize}
-		\item So now we can handle churn
+		\item So now we can handle extreme churn
 		\item ...and suddenly, five minutes timeouts for time series seem awfully long
 		\item Down alerts continue to fire for five minutes
 		\item Double counting
-		\item ...and what if you need more than five minutes?
+		\item ...and what if you need more than five minutes scrape interval?
 	\end{itemize}
 \end{frame}
 
@@ -255,7 +264,15 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item When a target goes away, its time series are considered stale
 		\item When a target no longer returns a time series, it is considered stale
-		\item Longer eval/scrape intervals are now possible
+		\item Longer eval/scrape intervals are now easier to handle
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The way there}
+	\begin{itemize}
+		\item The actual technical background is too complex for this talks
+		\item Find recording and slides by Brian Brazil at the end of this talk
 	\end{itemize}
 \end{frame}
 
@@ -272,7 +289,7 @@ richard.hartmann@space.net}
 \end{frame}
 
 
-\subsection{Downsides}
+\subsection{Downsides..}
 
 \begin{frame}
 	\frametitle{So, about backfill and explicit timestamps...}
