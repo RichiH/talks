@@ -28,7 +28,7 @@
 RichiH@\{freenode,OFTC,IRCnet\},\\
 richih@\{fosdem,debian,richih\}.org,\\
 richard.hartmann@space.net}
-\date{2017-11-15}
+\date{2017-11-16}
 
 
 \begin{document}
@@ -95,9 +95,14 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item Inspired by Google's Borgmon
 		\item Time series database
-		\item float64 timestamp, float64 value
+		\item int64 timestamp, float64 value
 		\item Instrumentation \& exporters
-		\item Not for event logging
+		\item Not for events
+		\begin{itemize}
+			\item Logging
+			\item Tracing
+			\item etc.
+		\end{itemize}
 		\item Dashboarding via Grafana
 	\end{itemize}
 \end{frame}
@@ -128,9 +133,11 @@ richard.hartmann@space.net}
 	\frametitle{Resilience, resilience, and also resilience}
 	\begin{itemize}
 		\item What do you need for operations?
-		\item Power and cooling
-		\item Network connectivity
-		\item Monitoring
+		\begin{itemize}
+			\item Power and cooling
+			\item Network connectivity
+			\item Monitoring
+		\end{itemize}
 		\item The rest you can fix
 	\end{itemize}
 \end{frame}
@@ -175,7 +182,7 @@ richard.hartmann@space.net}
 		\begin{itemize}
 			\item Look up label set
 			\item Map files directly to RAM
-			\item Let the OS figure out caching etc
+			\item Let the OS figure out caching etc.
 			\item Use data
 		\end{itemize}
 		\item Why change?
@@ -223,6 +230,7 @@ richard.hartmann@space.net}
 		\item 120k samples/sec
 		\item 300k active time series
 		\item Swap out 50\% of all pods every 10 minutes
+		\item Want to reproduce? \url{https://github.com/prometheus/prombench}
 	\end{itemize}
 \end{frame}
 
@@ -285,7 +293,7 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{Playing nicely with others}
 	\begin{itemize}
-		\item We now have a stable remote read/write API
+		\item We now have a stable-ish remote read/write API
 		\item Which we're already using ourselves; it's the recommended upgrade path from 1.x
 		\item You need to upgrade to 1.8.2 to get the correct version in 1.x
 	\end{itemize}
@@ -337,9 +345,13 @@ richard.hartmann@space.net}
 	\frametitle{True HA}
 	\begin{itemize}
 		\item So now all our storage is in self-contained blocks
-		\item ...this sounds a lot like objects
+		\begin{itemize}
+			\item ...this sounds a lot like objects
+		\end{itemize}
 		\item There's a working test implementation which uses local disk as a hot cache
-		\item ...and pulls the rest of that data from S3
+		\begin{itemize}
+			\item ...and pulls the rest of that data from S3
+		\end{itemize}
 		\item In theory, we could use this to splice data from different Prometheus storages together
 	\end{itemize}
 \end{frame}
@@ -355,6 +367,9 @@ richard.hartmann@space.net}
 	\end{itemize}
 \end{frame}
 
+
+\subsection{OpenMetrics}
+
 \begin{frame}
 	\frametitle{OpenMetrics}
 	\begin{itemize}
@@ -362,6 +377,7 @@ richard.hartmann@space.net}
 		\item It will join CNCF as a full project
 		\item We will submit an ID and try to get an IETF RFC published
 		\item ...so you can sneak this random RFC into the requirements of your next tender ;)
+		\item \url{https://github.com/RichiH/OpenMetrics}
 	\end{itemize}
 \end{frame}
 
@@ -378,12 +394,14 @@ richard.hartmann@space.net}
 		\item RobustPerception
 		\item SpaceNet
 		\item Uber
-		\item \url{https://github.com/richih/OpenMetrics}
 	\end{itemize}
 \end{frame}
 
+
+\subsection{Face-to-face}
+
 \begin{frame}
-	\frametitle{PromcCon 2018}
+	\frametitle{PromCon 2018}
 	\begin{itemize}
 		\item Current plan is to do it in Munich or Dublin
 		\item We will continue to run the conference ourselves, but CNCF is handling money for us
@@ -391,6 +409,9 @@ richard.hartmann@space.net}
 		\item We can only accept a venue if a team member is living nearby and is willing to invest the time
 	\end{itemize}
 \end{frame}
+
+
+\subsection{Long term promises}
 
 \begin{frame}
 	\frametitle{Generally speaking...}
@@ -416,10 +437,16 @@ richard.hartmann@space.net}
 		\item Prometheus 2017 Dev Summit: \url{https://docs.google.com/document/d/1DaHFao0saZ3MDt9yuuxLaCQg8WGadO8s44i3cxSARcM/edit}
 		\item Storing 16 Bytes at Scale: \url{https://promcon.io/2017-munich/talks/staleness-in-prometheus-2-0/}
 		\item Staleness and Isolation in Prometheus 2.0: \url{https://promcon.io/2017-munich/talks/staleness-in-prometheus-2-0/}
-		\item OpenMetrics: \url{https://github.com/richih/OpenMetrics}
+		\item OpenMetrics: \url{https://github.com/RichiH/OpenMetrics}
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Suggested talk}
+	\vfill
+	Max Inden: End-to-end Monitoring with the Prometheus Operator, today @ 16:00
+	\vfill
+\end{frame}
 
 \begin{frame}
 	\frametitle{Thanks!}
