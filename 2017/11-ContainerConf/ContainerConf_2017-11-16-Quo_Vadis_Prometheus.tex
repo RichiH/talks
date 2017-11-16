@@ -54,14 +54,16 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{`whoami`}
 	\begin{itemize}
-%		\item Richard "RichiH" Hartmann
+		\item Richard "RichiH" Hartmann
 		\item Swiss army chainsaw at SpaceNet
+		\begin{itemize}
+			\item Currently responsible for building one of the most modern datacenters in Europe
+			\item ...and always looking for nice co-workers in the Munich area
+		\end{itemize}
 		\item FOSDEM, DebConf, DENOGx, PromCon staff
 		\item Author of \url{https://github.com/RichiH/vcsh}
 		\item Debian Developer
 		\item Prometheus team member
-		\item Currently responsible for building one of the most modern datacenters in Europe
-		\item ...and always looking for nice co-workers in the Munich area
 	\end{itemize}
 \end{frame}
 
@@ -166,8 +168,8 @@ richard.hartmann@space.net}
 			\item Caveat: Prometheus 2.0 comes with storage v3
 		\end{itemize}
 		\item Staleness handling
-		\item Remote read \& write API is now stable
-		\item Links to in-depth talks about these features are at the end of these slides
+		\item Remote read \& write API is now stable-ish
+		\item Links to in-depth talks about these features are at the end
 	\end{itemize}
 \end{frame}
 
@@ -178,13 +180,8 @@ richard.hartmann@space.net}
 	\frametitle{Prometheus 1.x}
 	\begin{itemize}
 		\item We used to have one file per time series
-		\item Easy to implement
-		\begin{itemize}
-			\item Look up label set
-			\item Map files directly to RAM
-			\item Let the OS figure out caching etc.
-			\item Use data
-		\end{itemize}
+		\item Relatively easy to implement
+		\item Pretty efficient
 		\item Why change?
 	\end{itemize}
 \end{frame}
@@ -223,6 +220,15 @@ richard.hartmann@space.net}
 \end{frame}
 
 \begin{frame}
+	\frametitle{Storage v3}
+	\begin{itemize}
+		\item Deletions set tombstones
+		\item Actual deletion done via compaction runs, or triggered by large tombstone ratio
+		\item Oh, and we now simply mmap storage blocks into RAM and let the OS handle the rest
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Test setup}
 	\begin{itemize}
 		\item Kubernetes cluster with dedicated Prometheus nodes
@@ -230,7 +236,6 @@ richard.hartmann@space.net}
 		\item 120k samples/sec
 		\item 300k active time series
 		\item Swap out 50\% of all pods every 10 minutes
-		\item Want to reproduce? \url{https://github.com/prometheus/prombench}
 	\end{itemize}
 \end{frame}
 
@@ -242,6 +247,7 @@ richard.hartmann@space.net}
 		\item 80-100x reduction in disk writes
 		\item 5x reduction in on-disk size
 		\item 4x reduction in query latency on expensive queries
+		\item Want to reproduce? \url{https://github.com/prometheus/prombench}
 	\end{itemize}
 \end{frame}
 
@@ -295,7 +301,9 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item We now have a stable-ish remote read/write API
 		\item Which we're already using ourselves; it's the recommended upgrade path from 1.x
-		\item You need to upgrade to 1.8.2 to get the correct version in 1.x
+		\begin{itemize}
+			\item You need to upgrade to 1.8.2 or later for this to work
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -321,10 +329,10 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{ACID databases...}
 	\begin{itemize}
-		\item A tomicity - we have that
-		\item C onsistency - we have that
-		\item I solation - here, there be 2.1 features
-		\item D urability - we have that since 2.0
+		\item \textbf{A}tomicity - we have that
+		\item \textbf{C}onsistency - we have that
+		\item \textbf{I}solation - here, there be 2.1 features
+		\item \textbf{D}urability - we have that since 2.0
 	\end{itemize}
 \end{frame}
 
@@ -342,17 +350,21 @@ richard.hartmann@space.net}
 \subsection{And beyond}
 
 \begin{frame}
-	\frametitle{True HA}
+	\frametitle{Object storage \& true HA}
 	\begin{itemize}
 		\item So now all our storage is in self-contained blocks
 		\begin{itemize}
 			\item ...this sounds a lot like objects
+			\item ...so you store them in a S3 interface
+			\item And suddenly, your local disk is merely a hot cache
 		\end{itemize}
-		\item There's a working test implementation which uses local disk as a hot cache
+		\item Two implementations
 		\begin{itemize}
-			\item ...and pulls the rest of that data from S3
+			\item \url{https://github.com/gouthamve/agni}
+			\item \url{https://github.com/improbable-eng/thanos}
 		\end{itemize}
-		\item In theory, we could use this to splice data from different Prometheus storages together
+		\item Yes, this is a nice way to do long term storage
+		\item Yes, you will be able to splice data from different Prometheus instances together
 	\end{itemize}
 \end{frame}
 
@@ -432,20 +444,34 @@ richard.hartmann@space.net}
 
 
 \begin{frame}
-	\frametitle{Further reading, and listening}
+	\frametitle{Suggested talk}
 	\begin{itemize}
-		\item Prometheus 2017 Dev Summit: \url{https://docs.google.com/document/d/1DaHFao0saZ3MDt9yuuxLaCQg8WGadO8s44i3cxSARcM/edit}
-		\item Storing 16 Bytes at Scale: \url{https://promcon.io/2017-munich/talks/staleness-in-prometheus-2-0/}
-		\item Staleness and Isolation in Prometheus 2.0: \url{https://promcon.io/2017-munich/talks/staleness-in-prometheus-2-0/}
-		\item OpenMetrics: \url{https://github.com/RichiH/OpenMetrics}
+		\item For a more in-depth intro to Prometheus, visit this talk
+		\begin{itemize}
+			\item Max Inden
+			\item End-to-end Monitoring with the Prometheus Operator
+			\item today @ 16:00
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Suggested talk}
-	\vfill
-	Max Inden: End-to-end Monitoring with the Prometheus Operator, today @ 16:00
-	\vfill
+	\frametitle{Recorded talks}
+	\begin{itemize}
+		\item Storing 16 Bytes at Scale: \url{https://promcon.io/2017-munich/talks/staleness-in-prometheus-2-0/}
+		\item Staleness and Isolation in Prometheus 2.0: \url{https://promcon.io/2017-munich/talks/staleness-in-prometheus-2-0/}
+		\item Social aspects of change: \url{https://promcon.io/2017-munich/talks/social-aspects-of-change/}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Further reading}
+	\begin{itemize}
+		\item Prometheus 2017 Dev Summit: \url{https://docs.google.com/document/d/1DaHFao0saZ3MDt9yuuxLaCQg8WGadO8s44i3cxSARcM/edit}
+		\item My other talks: \url{https://github.com/RichiH/talks/}
+		\item OpenMetrics: \url{https://github.com/RichiH/OpenMetrics}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
