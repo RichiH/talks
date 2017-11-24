@@ -1,0 +1,86 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Long term storage with Prometheus}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian,richih\}.org,\\
+richard.hartmann@space.net}
+\date{2017-11-24}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\section{}
+
+\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Official answer}
+	\begin{itemize}
+		\item "Don't do it"
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Unofficial answer}
+	\begin{itemize}
+		\item It works
+		\item Our oldest time series are ~1.5 years old
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How? (for 1.x)}
+	\begin{itemize}
+		\item You need lots of disk space
+		\item Putting SSDs in front of spinning rust is fine
+		\item You need RAM according to what queries you run
+		\item If you do something really stupid, you can kill Prometheus 1.x with expensive queries
+		\item Set your retention accordingly
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How? (for 2.x)}
+	\begin{itemize}
+		\item You're already done
+	\end{itemize}
+\end{frame}
+
+\end{document}
