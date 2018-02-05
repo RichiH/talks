@@ -1,0 +1,146 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{OpenMetrics}
+\subtitle{Standing on the shoulders of titans}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian,richih\}.org,\\
+richard.hartmann@space.net}
+\date{2018-02-03}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+
+\section{Prometheus}
+
+\begin{frame}
+	\frametitle{What's Prometheus?}
+	\begin{itemize}
+		\item Prometheus has been taking the monitoring world by storm
+		\item It's how you do metrics in the cloud-native space
+		\item Many libraries, direct integrations, and exporters can feed into Prometheus
+		\item Comes with a highly efficient format to transmit metrics
+		\begin{itemize}
+			\item Labels create n-dimensional matrix as opposed to the traditional hierarchical tree
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{It's political}
+	\begin{itemize}
+		\item Other projects, and especially established companies, are wary of picking up someone else's standard
+		\item Notable exception: InfluxData
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{It's collaborative}
+	\begin{itemize}
+		\item We want to change how the world does monitoring, nothing more, nothing less
+		\item We also want to make sure we are covering other projects and companies' needs
+	\end{itemize}
+\end{frame}
+
+
+\section{OpenMetrics}
+
+\begin{frame}
+	\frametitle{OpenMetrics}
+	\begin{itemize}
+		\item We are spinning out Prometheus' exposition format into OpenMetrics
+		\item It will join CNCF as a full project
+		\item We will submit an Internet Draft and try to get an IETF RFC published
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Already on board}
+	\begin{itemize}
+		\item Cloudflare
+		\item GitLab
+		\item Google
+		\item Grafana
+		\item InfluxData
+		\item Kausal.co
+		\item Oath.com / Yahoo / Verizon
+		\item RobustPerception
+		\item Solarwinds
+		\item SpaceNet
+		\item Uber
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{When?}
+	\begin{itemize}
+		\item We are currently finalizing the specs
+		\item First published version in Q1 2018
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Sounds good!}
+	\begin{itemize}
+		\item OpenMetrics: \url{https://github.com/RichiH/OpenMetrics}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions?
+			\vfill
+			Email me if you want a job in Munich.
+			\vfill
+			See slide footer for contact info.
+			\vfill
+		\end{center}
+\end{frame}
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
