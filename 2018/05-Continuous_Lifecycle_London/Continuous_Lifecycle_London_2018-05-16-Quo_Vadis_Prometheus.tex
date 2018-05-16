@@ -86,7 +86,7 @@ richard.hartmann@space.net}
 	\frametitle{Show of hands}
 	\begin{itemize}
 		\item Who has heard of Prometheus?
-		\item Who is considering to use Prometheus?
+		\item Who is considering using Prometheus?
 		\item Who is POCing Prometheus?
 		\item Who uses Prometheus in production?
 	\end{itemize}
@@ -263,7 +263,6 @@ richard.hartmann@space.net}
 			\item Double counting
 			\item Other icky corner cases
 		\end{itemize}
-		\item ...and what if you need more than five minutes scrape interval?
 	\end{itemize}
 \end{frame}
 
@@ -337,6 +336,17 @@ richard.hartmann@space.net}
 	\end{itemize}
 \end{frame}
 
+\subsection{PromQL}
+
+\begin{frame}
+	\frametitle{Quick is not quick enough}
+	\begin{itemize}
+		\item Brian Brazil is currently working on optimizing PromQL
+		\item 5x faster for time vector functions
+		\item 100x reduction in garbage to collect
+		\item \url{https://github.com/prometheus/prometheus/pull/3966}
+	\end{itemize}
+\end{frame}
 
 \subsection{Stability}
 
