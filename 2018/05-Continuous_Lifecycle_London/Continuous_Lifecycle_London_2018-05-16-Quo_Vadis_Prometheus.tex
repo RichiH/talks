@@ -140,7 +140,7 @@ richard.hartmann@space.net}
 		\begin{itemize}
 			\item Power and cooling
 			\item Network connectivity
-			\item Monitoring
+			\item Observability, a.k.a. Monitoring
 		\end{itemize}
 		\item The rest you can fix
 	\end{itemize}
@@ -269,9 +269,10 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{Results}
 	\begin{itemize}
-		\item When a target goes away, its time series are considered stale
-		\item When a target no longer returns a time series, it is considered stale
-		\item Longer eval/scrape intervals are now easier to handle
+		\item When a target goes away, all its time series are considered stale
+		\item When a target no longer returns any specific time series, this time seires is considered stale
+		\item It's a lot more complicated than that under the hood
+%		\item Longer eval/scrape intervals are now easier to handle
 	\end{itemize}
 \end{frame}
 
@@ -331,7 +332,7 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item Each append action gets a write ID (64 bit monotonic counter)
 		\item Every sample's write ID is noted along with value and timestamp
-		\item Any append action which has not yet committed or rolled back is ignored at query time
+		\item Any append action which has not yet been committed, or has been rolled back, is ignored at query time
 		\item We keep write IDs in memory; if we restart or crash, the atomicity of the write ahead log will protect us
 	\end{itemize}
 \end{frame}
@@ -344,7 +345,7 @@ richard.hartmann@space.net}
 		\item Brian Brazil is currently working on optimizing PromQL
 		\item 5x faster for time vector functions
 		\item 100x reduction in garbage to collect
-		\item \url{https://github.com/prometheus/prometheus/pull/3966}
+		\item \url{github.com/prometheus/prometheus/pull/3966}
 	\end{itemize}
 \end{frame}
 
@@ -364,10 +365,11 @@ richard.hartmann@space.net}
 \begin{frame}
 	\frametitle{Security \& quality}
 	\begin{itemize}
-		\item CNCF is sponsoring external code review for all member projects
+		\item CNCF is sponsoring external code review by Cure53
 		\item Focussed on security, but this always means looking at stability as well
 		\item Keep in mind that Prometheus willfully ignores most security considerations
-		\item Encryption, authentication, and authorization should be handled via reverse proxies etc
+		\item Encryption, authentication, and authorization should be handled via reverse proxies
+		\item Review starts next Monday; actually had the kick-off call before this talk
 	\end{itemize}
 \end{frame}
 
@@ -412,7 +414,7 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item We are spinning out Prometheus' exposition format
 		\item Face-to-face kick-off last August at Google London
-		\item Independent CNCF member project, including IETF RFC, etc
+		\item Independent CNCF member project, IETF RFC, test suite, etc
 		\item We finished our technical discussions last week and I am currently writing the Internet Draft
 		\item \url{https://github.com/RichiH/OpenMetrics}
 	\end{itemize}
@@ -469,7 +471,8 @@ richard.hartmann@space.net}
 		\item Organized by the Prometheus community, mainly be me
 		\item Sponsorship still open
 		\item CfP still open for two weeks
-		\item Diversity funding available: for both ticket and travel
+		\item Diversity funding available; from just the ticket to travel \& accomodation
+		\item \url{promcon.io}
 	\end{itemize}
 \end{frame}
 
@@ -481,6 +484,7 @@ richard.hartmann@space.net}
 	\begin{itemize}
 		\item Yes, we want to change the world
 		\item Simple and resilient operation of Prometheus remains a core goal
+		\item The path from raw data to reliable alerts is the single most important user contract we have
 		\item More project and software integrations... and we're talking to hardware vendors as well
 		\item Supporting tomorrow's 10x scale today
 	\end{itemize}
@@ -507,8 +511,8 @@ richard.hartmann@space.net}
 	\frametitle{Further reading}
 	\begin{itemize}
 		\item Prometheus 2017 Dev Summit: \url{https://docs.google.com/document/d/1DaHFao0saZ3MDt9yuuxLaCQg8WGadO8s44i3cxSARcM/edit}
-		\item My other talks: \url{https://github.com/RichiH/talks/}
 		\item OpenMetrics: \url{https://github.com/RichiH/OpenMetrics}
+		\item This and other talks: \url{https://github.com/RichiH/talks/}
 	\end{itemize}
 \end{frame}
 
