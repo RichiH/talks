@@ -1,0 +1,402 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{On Observability}
+\subtitle{}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{debian,fosdem,richih\}.org,\\
+@TwitchiH}
+\date{2018-11-XX}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\section{Introduction}
+
+\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{`whoami`}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item Swiss army chainsaw at SpaceNet
+		\begin{itemize}
+			\item Leading the build of one of the most modern datacenters in Europe
+			\item ...and always looking for nice co-workers in the Munich area
+		\end{itemize}
+		\item FOSDEM, DebConf, DENOGx, PromCon staff
+		\item Author of \url{https://github.com/RichiH/vcsh}
+		\item Debian Developer
+		\item Prometheus team member
+		\item OpenMetrics founder
+	\end{itemize}
+\end{frame}
+
+
+\section{Intro}
+
+\subsection{Definitions}
+
+\begin{frame}
+	\frametitle{Buzzword}
+	\begin{center}
+		\vfill
+		buzzword, n:\\
+		A useful concept which has been picked up by everyone without understanding its deeper meaning and used so often that it's devoid of its original context and defintion.
+		May revert to usefulness in the same or different meaning, or die off.
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cargo culting}
+	\begin{center}
+		\vfill
+		cargo culting, v\\
+		Villagers on remote Pacific islands observed U.S. soldiers building marker fires and runways during WWII; this made planes come and bring gifts from the heavens.
+		Cults emerged which builit bonfires and runways in the hopes of getting more gifts.\\
+		Also see: copy \& paste
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Monitoring}
+	\begin{center}
+		\vfill
+		monitoring, n\\
+		Old buzzword\\
+		Too often: focus is put on collecting, persisting, and alerting on just any data, as long as its data
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Observability}
+	\begin{center}
+		\vfill
+		observability, n\\
+		Function of a system in which humans and machines can observe, understand, and act on the state of said system
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+	\begin{center}
+		\vfill
+		Thanks for listening!\\
+		\vfill
+		Questions?
+		\vfill
+		Email me if you want a job in Munich.
+		\vfill
+		See slide footer for contact info.
+		\vfill
+	\end{center}
+\end{frame}
+
+
+\subsection{Outlook}
+
+\begin{frame}
+	\frametitle{Learnings}
+	\vfill
+	\begin{itemize}
+		\item TODO enumerate %% TODO enumerate
+
+		\item Baseline of monitoring
+		\item Types of monitoring data and when to use them
+
+		\item Service, contracts, SL\{I,O,A\}, etc
+		\item Services upon services
+
+		\item Layers upon layers, containing complexity, types of completixy
+		\item Bringing it all together
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+
+\section{Monitoring}
+
+
+\subsection{Baseline of monitoring}
+
+\begin{frame}
+	\frametitle{Recap}
+	\begin{center}
+		\vfill
+		Monitoring is the bedrock of everything (in IT)
+		\vfill
+		Hope is not a strategy
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Claim}
+	\begin{center}
+		\vfill
+		Uninformed, or cargo culted, monitoring equals hope\\
+		(see: ISO 9001 \& 27001)
+		\vfill
+		So we need informated decisions, made on a factual basis
+		\vfill
+	\end{center}
+\end{frame}
+
+
+\subsection{Types of monitoring data}
+
+\begin{frame}
+	\frametitle{50:50}
+	\begin{center}
+		\vfill
+		Broadly speaking, there are metrics and events
+		\vfill
+		Metrics: Changes over time
+		\vfill
+		Events: Specific points in time
+		\vfill
+	\end{center}
+\end{frame}
+
+
+\subsection{Metrics}
+
+\begin{frame}
+	\frametitle{Metrics}
+	\begin{itemize}
+		\item Numerical data
+		\begin{itemize}
+			\item Counters: Things going up monotinically, e.g. total transmitted bytes
+			\item Gauges: Things going up and down, e.g. tempratures
+			\item Histograms aka percentiles: Things going into buckets, e.g. latency
+		\end{itemize}
+		\item Counters and histograms lose, or compress, data (in the common case)
+		\item Easy to handle at scale
+		\item You can do math with them!
+	\end{itemize}
+\end{frame}
+
+
+\subsection{Events}
+
+\begin{frame}
+	\frametitle{Logs}
+	\begin{itemize}
+		\item Text items
+		\item Usually with inlined metadata
+		\item Scale linearly with service load
+		\item Can be summarized into counters
+		\item Special case: compliance \& due dilligence
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Traces}
+	\begin{itemize}
+		\item Execution path along the, hopefully annotated, code
+		\item Impacts code runtime, aka expensive
+		\item Can hide race conditions and other timing-dependent issues
+		\item Usually disabled or sampled
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dumps}
+	\begin{itemize}
+		\item Thrown when program aborts abnormally
+		\item Execution path along the code
+		\item Not annotated unless compiler artefacts of the exact same program are available
+		\item You want to avoid them, but you also want to collect them if they happen
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Services}
+
+
+\subsection{Baseline of services}
+
+\begin{frame}
+	\frametitle{What's a service?}
+	\begin{center}
+		\vfill
+		A service is anything a different entity relies upon
+		\vfill
+		This entity might be another team, a customer, or yourself
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Handover}
+	\begin{center}
+		\vfill
+		Service delinations have many names: interface, API, contract
+		\vfill
+		I like to think of all of them as contracts, but why?
+		\vfill
+	\end{center}
+\end{frame}
+
+
+\subsection{Pop culture references}
+
+\begin{frame}
+	\frametitle{Tetris}
+	\begin{center}
+		\vfill
+		Services build on top of each other
+		\vfill
+		(Network * x + machine/container/kubelet * y + daemon/microservice * z) * n = HTTP service
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Jenga}
+	\begin{center}
+		\vfill
+		This tower can topple if the underlying building blocks are removed without due consideration
+		\vfill
+		Contract implies a firm commitment, which is why I like this term
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bowling}
+	\begin{center}
+		\vfill
+		This tower can topple if the underlying building blocks are removed 
+		\vfill
+		"Contract" implies a firm commitment which can only be changed if all parties agree.\\
+		This is why I like this term
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Networking}
+	\begin{center}
+		\vfill
+		There's another common term for contract: layer
+		\vfill
+		Imagine if someone simply changed how IP works
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Trolling}
+	\begin{center}
+		\vfill
+		For example, someone could simply claim that IP addresses have 128 instead of 32 bits all of sudden...
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Recap}
+	\begin{center}
+		\vfill
+		So we agree that layering makes sense, but why do we agree?
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{It's complicated}
+	\begin{center}
+		\vfill
+		We do this to contain system-inherent complexity
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{It's complicated}
+	\begin{center}
+		\vfill
+		A CPU is highly complex, but we are happy to trust their hidden complexity because there's a well-defined service boundary %%%%TODO
+		\vfill
+	\end{center}
+\end{frame}
+
+%		\item Service, contracts, SL\{I,O,A\}, etc
+%		\item Services upon services
+%		\item Layers upon layers, containing complexity, types of completixy
+%		\item Bringing it all together
+% TODO what monitoring data is useful for what?
+%TODO every time you consider to use a DEBUG statement, toss a counter in there
+
+\section{Outro}
+
+\begin{frame}
+	\frametitle{Thanks!}
+	\begin{center}
+		\vfill
+		Thanks for listening!\\
+		\vfill
+		Questions?
+		\vfill
+		Email me if you want a job in Munich.
+		\vfill
+		See slide footer for contact info.
+		\vfill
+	\end{center}
+\end{frame}
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
