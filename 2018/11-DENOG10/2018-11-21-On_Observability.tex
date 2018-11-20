@@ -77,7 +77,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Buzzword}
 	\begin{center}
 		\vfill
-		buzzword, n:\\
+		\textit{buzzword}, n:\\
 		A useful concept which has been picked up by everyone without understanding its deeper meaning and used so often that it's devoid of its original context and definition.\\
 		May revert to usefulness in the same or different meaning, or die off.
 		\vfill
@@ -88,10 +88,10 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Cargo culting}
 	\begin{center}
 		\vfill
-		cargo culting, v\\
+		\textit{cargo culting}, v:\\
 		Villagers on remote Pacific islands observed U.S. soldiers building marker fires and runways during WWII; this made planes come and bring gifts from the heavens.
 		Cults emerged which built bonfires and runways in the hopes of getting more gifts.\\
-		Also see: copy \& paste
+		Also see: \textit{copy \& paste}
 		\vfill
 	\end{center}
 \end{frame}
@@ -100,11 +100,11 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Monitoring}
 	\begin{center}
 		\vfill
-		monitoring, n\\
+		\textit{monitoring}, n:\\
 		Old buzzword.\\
 		Too often: focus is put on collecting, persisting, and alerting on just any data, as long as its data.\\
 		It might also be garbage.\\
-		Also see: data lake
+		Also see: \textit{data lake}
 		\vfill
 	\end{center}
 \end{frame}
@@ -113,8 +113,8 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Observability}
 	\begin{center}
 		\vfill
-		observability, n\\
-		Function of a system with which humans and machines can observe, understand, and act on the state of said system
+		\textit{observability}, n:\\
+		Function of a system with which humans and machines can observe, understand, and act on the state of said system.
 		\vfill
 	\end{center}
 \end{frame}
@@ -168,9 +168,9 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Recap}
 	\begin{center}
 		\vfill
-		Monitoring is the bedrock of everything (in IT)
+		Monitoring is the bedrock of everything (in IT).
 		\vfill
-		Hope is not a strategy
+		Hope is not a strategy.
 		\vfill
 	\end{center}
 \end{frame}
@@ -180,9 +180,9 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\begin{center}
 		\vfill
 		Uninformed, or cargo culted, monitoring equals hope\\
-		(see: ISO 9001 \& 27001)
+		Also see: ISO 9001 \& 27001
 		\vfill
-		So we need informed decisions, made on a factual basis
+		So we need informed decisions, made on a factual basis.
 		\vfill
 	\end{center}
 \end{frame}
@@ -228,7 +228,6 @@ richih@\{debian,fosdem,richih\}.org,\\
 		\item Usually with inlined metadata
 		\item Scale linearly with service load
 		\item Can be summarized into counters
-		\item Special case: compliance \& due diligence
 	\end{itemize}
 \end{frame}
 
@@ -268,7 +267,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 			\item ..for detailed information
 			\item ..for access control, due diligence, etc
 		\end{itemize}
-		\item Traces and dumps are useful to understand why a system behaves in a certain way
+		\item Traces and dumps are useful to understand why individual system components behave in a certain way
 	\end{itemize}
 \end{frame}
 
@@ -332,7 +331,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Handover}
 	\begin{center}
 		\vfill
-		Service delinations have many names: interface, API, contract
+		Service delineations have many names: interface, API, contract
 		\vfill
 		I like to think of all of them as contracts. Why?
 		\vfill
@@ -357,9 +356,9 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Jenga}
 	\begin{center}
 		\vfill
-		This tower can topple if the underlying building blocks are removed without due consideration
+		This tower can topple if the underlying building blocks are removed without due consideration.
 		\vfill
-		"Contract" implies a firm commitment, which is why I like this term
+		"Contract" implies a firm commitment, which is why I like this term.
 		\vfill
 	\end{center}
 \end{frame}
@@ -368,9 +367,9 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Chinese whispers}
 	\begin{center}
 		\vfill
-		There's another common term for contract: layer
+		There's another common term for contract: layer.
 		\vfill
-		Imagine if someone simply changed how IP works
+		Imagine if someone simply changed how IP works.
 		\vfill
 	\end{center}
 \end{frame}
@@ -379,7 +378,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Trolling}
 	\begin{center}
 		\vfill
-		For example, someone could simply claim that IP addresses have 128 instead of 32 bits all of sudden...
+		For example, imagine someone would claim that IP addresses have 128 instead of 32 bits all of sudden...
 		\vfill
 	\end{center}
 \end{frame}
@@ -397,7 +396,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{It's complicated}
 	\begin{center}
 		\vfill
-		We do this to contain system-inherent complexity
+		Because we internalized that it's good practice to contain and compartmentalize system-inherent complexity.
 		\vfill
 	\end{center}
 \end{frame}
@@ -440,39 +439,82 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\end{center}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Dependence}
-	\begin{center}
-		\vfill
-		One services' primary SLI is the depending services' secondary SLI
-		\vfill
-	\end{center}
-\end{frame}
+%\begin{frame}
+%	\frametitle{Dependence}
+%	\begin{center}
+%		\vfill
+%		One services' primary SLI is the depending services' secondary SLI
+%		\vfill
+%	\end{center}
+%\end{frame}
 
 
 \subsection{Bringing it all together}
 
 \begin{frame}
-	\frametitle{}
+	\frametitle{What's all this, now?}
 	\begin{center}
 		\vfill
-		Observability is not a constant state, it's a goal you always work towards
+		Monitoring tells you whether the system works.\\
+		Observability lets you ask why it’s not working.\\
+		-\\
+		\textit{Baron Schwartz}
 		\vfill
 	\end{center}
 \end{frame}
 
 \begin{frame}
+	\frametitle{}
+	\begin{center}
+		\vfill
+		Observability is not something you ever achieve, you can always improve on it.\\
+		\vfill
+		As such there's not the One True Thing to do, it's about establishing the correct mindset.
+		\vfill
+	\end{center}
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{center}
+%		\vfill
+%		Monitoring tells you whether the system works. Observability lets you ask why it’s not working.\\
+%		Baron Schwartz
+%		\vfill
+%	\end{center}
+%\end{frame}
+
+\begin{frame}
 	\frametitle{BCPs}
 	\begin{itemize}
 		\item Every outage gets a blame-free(!) post-mortem; and this includes a review of all relevant SLI \& SLO
-		\item Practices
-		\item Not annotated unless compiler artefacts of the exact same program are available
-		\item You want to avoid them, but you also want to collect them if they happen
+		\begin{itemize}
+			\item ..are they still useful?
+			\item ..would you have been quicker if you would have had different/more data?
+			\item ..should you retire some data collection?
+		\end{itemize}
+		\item Link services together in your dashboards, etc
+		\begin{itemize}
+			\item Make jumping into underlying services and their data as fluent as possible
+			\item Surface important insights from underlying services as context
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-% TODO what monitoring data is useful for what? // when to use what monitoring type
-%TODO every time you consider to use a DEBUG statement, toss a counter in there
+\begin{frame}
+	\frametitle{BCPs}
+	\begin{itemize}
+		\item Avoid relying only on blackbox data where possible; you need to get into your systems and extract fine-grained and meaningful data
+		\begin{itemize}
+			\item Best case, this means instrumenting your code to extract metrics and traces\\
+				Every time you are even considering to place a DEBUG statement into a codepath, put a counter
+			\item In the networking space, this often means requiring better data from your vendors.\\
+				Explain what and why you need it, then force them via conditional POs, etc.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% low-effort data collection with modern tools
 
 \section{Outro}
 
