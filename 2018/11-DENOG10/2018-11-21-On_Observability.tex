@@ -1,4 +1,5 @@
-\documentclass[t]{beamer}
+%\documentclass[t]{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usepackage{helvet}
 \usepackage{calc}
 \usepackage[utf8]{inputenc}
@@ -28,7 +29,7 @@
 RichiH@\{freenode,OFTC,IRCnet\},\\
 richih@\{debian,fosdem,richih\}.org,\\
 @TwitchiH}
-\date{2018-11-XX}
+\date{2018-11-21}
 
 
 \begin{document}
@@ -141,7 +142,6 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Learnings}
 	\vfill
 	\begin{itemize}
-		%% TODO enumerate
 
 		\item Baseline of monitoring
 		\item Types of monitoring data and when to use them
@@ -179,8 +179,8 @@ richih@\{debian,fosdem,richih\}.org,\\
 	\frametitle{Claim}
 	\begin{center}
 		\vfill
-		Uninformed, or cargo culted, monitoring equals hope\\
-		Also see: ISO 9001 \& 27001
+		Uninformed, or cargo culted, monitoring equals hope.\\
+		Also see: \textit{ISO 9001 \& 27001}
 		\vfill
 		So we need informed decisions, made on a factual basis.
 		\vfill
@@ -212,7 +212,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 			\item Counters: Things going up monotonically, e.g. total transmitted bytes
 			\item Gauges: Things going up and down, e.g. temperatures
 			\item Bool/ENUM: Special case of gauges indicating a changing state or a singular event
-			\item Histograms aka percentiles: Things going into buckets, e.g. latency
+			\item Histograms and percentiles: Things going into buckets or being in a specific percentage band, e.g. latency
 		\end{itemize}
 		\item Counters and histograms lose, or compress, data (in the common case)
 		\item Easy to handle at scale
@@ -227,7 +227,7 @@ richih@\{debian,fosdem,richih\}.org,\\
 		\item Most likely text items
 		\item Usually with inlined metadata
 		\item Scale linearly with service load
-		\item Can be summarized into counters
+		\item Can be summarized into counters, histograms, and quantiles
 	\end{itemize}
 \end{frame}
 
@@ -259,7 +259,6 @@ richih@\{debian,fosdem,richih\}.org,\\
 			\item ..for alerts
 			\item ..for dashboards
 			\item ..for data exploration
-			\item ..for debugging
 		\end{itemize}
 		\item Logs are usually the second step
 		\begin{itemize}
@@ -511,6 +510,29 @@ richih@\{debian,fosdem,richih\}.org,\\
 			\item In the networking space, this often means requiring better data from your vendors.\\
 				Explain what and why you need it, then force them via conditional POs, etc.
 		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{BCPs}
+	\begin{itemize}
+		\item You (hopefully) know your services best, so create debugging stories in advance
+		\begin{itemize}
+			\item What are common and/or critical paths while getting visibility into issues?
+			\item Which parts of these paths can you automate (more)?
+			\item Does it makes sense to introduce new (internal) service boundaries and/or contracts to create new compartments?
+		\end{itemize}
+		\item ELI5: Find an non-expert and explain your services to them
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{BCPs}
+	\begin{itemize}
+		\item Collecting 10x or 100x more data means you have more substance to work with
+		\item Avoid data lakes, attach meaningful metadata as early as possible
+		\item Your tools must be able to handle this load
+		\item Even more important, they must make handling the amounts of data manageable, and support automation
 	\end{itemize}
 \end{frame}
 
