@@ -57,8 +57,15 @@
 			\item Project lead for building one of the most modern datacenters in Europe
 			\item Debian Developer
 			\item FOSDEM, DebConf, DENOGx, PromCon staff
+			\item Prometheus team member
 		\end{itemize}
 		\item Frederic Branczyk
+		\begin{itemize}
+			\item Red Hat (previously CoreOS)
+			\item All things Prometheus / Kubernetes
+			\item Kubernetes SIG-Instrumentation lead
+			\item Prometheus team member
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -287,8 +294,7 @@
 \end{frame}
 
 
-%% TODO Start at 2.4, correct?
-\section{2.4 \& 2.5}
+\section{2.4 - 2.6}
 
 
 \subsection{Release cycle}
@@ -321,7 +327,7 @@
 \begin{frame}
 	\frametitle{Problem statement}
 	\begin{itemize}
-		\item Long-term storage is the last remaining major feature left untackled
+		\item Long-term storage is one of the last remaining major features left untackled
 		\item Fundamentally, Prometheus operates as distinct data islands
 		\item As there's no backfill, data dies along with its instance by default
 	\end{itemize}
@@ -336,6 +342,14 @@
 		\item Remote API can now send WAL over the wire to fill gaps in data
 		\item There are twelve different systems which are able to ingest Proemtheus data this way
 		\item We deliberately do no endorse any particular approach or solution; this might change over time
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Testing}
+	\begin{itemize}
+		\item Unit tests for alerts
+		\item Our goal is to allow end-to-end testing of not only Prometheus as software, but also of any individual deployment
 	\end{itemize}
 \end{frame}
 
@@ -381,8 +395,8 @@
 		\item We are spinning out Prometheus' exposition format
 		\item Face-to-face kick-off last August at Google London
 		\item Independent CNCF member project, IETF RFC, test suite, etc
-		\item We finished our technical discussions and I am currently writing the Internet Draft
-		\item \url{https://github.com/RichiH/OpenMetrics}
+		\item We are writing code in Prometheus and the Python client library
+		\item \url{https://github.com/OpenObservability/OpenMetrics}
 		\item Prometheus 2.5 has experimental OpenMetrics support
 	\end{itemize}
 \end{frame}
@@ -402,7 +416,6 @@
 	\frametitle{Bringing observability together}
 	\begin{itemize}
 		\item OpenTracing already on board with this effort
-		\item Will hammer out more details and have a face-to-face during CloudNativeCon Seattle this December
 		\item There will be an observability sidetrack
 		\item Long-term goal is one common, modular, well-engineered standard under a new name
 	\end{itemize}

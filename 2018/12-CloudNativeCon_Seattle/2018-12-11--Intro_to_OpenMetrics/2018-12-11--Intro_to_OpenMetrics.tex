@@ -70,7 +70,16 @@ richih@\{fosdem,debian,richih\}.org,\\
 
 \section{Quick intro}
 
-\subsection{Intro to Prometheus}
+\subsection{Prometheus}
+
+\begin{frame}
+	\frametitle{What's Prometheus?}
+		\begin{center}
+			\vfill
+			You can't talk about OpenMetrics without mentioning Prometheus
+			\vfill
+		\end{center}
+\end{frame}
 
 \begin{frame}
 	\frametitle{What's Prometheus?}
@@ -129,13 +138,17 @@ richih@\{fosdem,debian,richih\}.org,\\
 		\item Cloud native is in the buzz phase
 		\item Explosive growth always equals goldrush and stake claiming, aka fragmentation
 		\item I don't have a profit motive, so I can easily decide to try and consolidate this space without profit loss
-		\item ..so that's what I decided to do
+		\begin{itemize}
+			\item ..so that's what I decided to do
+		\end{itemize}
 	\end{itemize}
 	\vfill
 \end{frame}
 
 
+
 \section{OpenMetrics}
+
 
 \subsection{People}
 
@@ -184,7 +197,104 @@ richih@\{fosdem,debian,richih\}.org,\\
 \end{frame}
 
 
-\subsection{Tech}
+\subsection{Plans}
+
+\begin{frame}
+	\frametitle{Approach}
+	\vfill
+	\begin{itemize}
+		\item Spin out Prometheus exposition format into its own standard
+		\begin{itemize}
+			\item Neutral brand
+			\item Umbrella for wider cooperation in FLOSS and industry
+		\end{itemize}
+		\item Broadening designer base ensures covering of many/all use cases
+		\item Official standard (work in progress)
+		\begin{itemize}
+			\item IETF RFC
+			\item Registered content-type/MIME-type
+			\item Maybe IANA port assignment
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Current status}
+	\vfill
+	\begin{itemize}
+		\item We finished the discussion phase and moved into implementation
+		\begin{itemize}
+			\item Still finding minor bugs during implementation
+		\end{itemize}
+		\item RFC currently blocked on me finding time
+		\item Prometheus: experimental support since 2.5.0
+		\item Python client library: experimental support since 0.4.0
+		\item Test your own OM output: \url{robustperception.io/checking-openmetrics-output-is-valid}
+		\begin{itemize}
+			\item Google and Uber want to create another reference parser to weed out bugs
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Next steps}
+	\vfill
+	\begin{itemize}
+		\item Full OpenMetrics support in Prometheus, InfluxDB, OpenCensus, M3DB, etc
+		\item Spreading the word
+		\item CNCF sandbox to incubating
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Beyond cloud}
+	\vfill
+	\begin{itemize}
+		\item OpenMetrics is intended to go beyond "just" cloud-native fields
+		\item Want to get more traditional projects and vendors on board
+		\begin{itemize}
+			\item Arista already on board
+			\item Vertiv very interested
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Beyond metrics}
+	\vfill
+	\begin{itemize}
+		\item OpenMetrics supports more than just metrics
+		\item Every single data point in a time series can point to one single event
+		\item Especially useful if you emit one trace id per histogram bucket, i.e. exemplars
+		\item Some integrations already support this concept, e.g. OpenCensus
+		\item Ingestors are free to discard this optional data, e.g. Prometheus
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bringing observability back together}
+	\vfill
+	\begin{itemize}
+		\item IT architectures breathe
+		\item Out/Insourcing, Mainframe/client-server/containers, etc
+		\item You solve the current problem, and then face another
+		\item By focussing on Metrics, Prometheus breathed in
+		\item OpenMetrics intends to breathe out by creating one consistent user story encompassing all events in the next version
+		\begin{itemize}
+			\item OpenStats - OpenMetrics for push
+			\item Events - Logs, Traces, Coredumps, whatever
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+\subsection{Looks}
 
 \begin{frame}[fragile]
         \frametitle{Prometheus}
@@ -230,92 +340,6 @@ histogram_bucket{le="3"} 345 1544554800 # {foo="bar"} 11 1544554799
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Approach}
-	\vfill
-	\begin{itemize}
-		\item Spin out Prometheus exposition format into its own standard
-		\begin{itemize}
-			\item Neutral brand
-			\item Umbrella for wider cooperation in FLOSS and industry
-		\end{itemize}
-		\item Broadening designer base ensures covering of many/all use cases
-		\item Official standard (work in progress)
-		\begin{itemize}
-			\item IETF RFC
-			\item Registered content-type/MIME-type
-			\item Maybe IANA port assignment
-		\end{itemize}
-	\end{itemize}
-	\vfill
-\end{frame}
-
-\begin{frame}
-	\frametitle{Current status}
-	\vfill
-	\begin{itemize}
-		\item We finished the discussion phase and moved into implementation
-		\item RFC currently blocked on me finding time
-%		\item \URL{https://github.com/prometheus/client\_python} has had EXPERIMENTAL OpenMetrics support since 0.4.0
-		\item Prometheus has supported OpenMetrics as EXPERIMENTAL since 2.5.0
-		\item Google and Uber want to create another reference parser to weed out bugs
-	\end{itemize}
-	\vfill
-\end{frame}
-
-\begin{frame}
-	\frametitle{Next steps}
-	\vfill
-	\begin{itemize}
-		\item Full OpenMetrics support in Prometheus, InfluxDB, OpenCensus, M3DB, etc
-		\item Spreading the word
-		\item CNCF sandbox -> incubating
-	\end{itemize}
-	\vfill
-\end{frame}
-
-\begin{frame}
-	\frametitle{Beyond}
-	\vfill
-	\begin{itemize}
-		\item OpenMetrics is intended to go beyond "just" cloud-native fields
-		\item Want to get more traditional projects and vendors on board
-	\end{itemize}
-	\vfill
-\end{frame}
-
-\begin{frame}
-	\frametitle{Beyond metrics}
-	\vfill
-	\begin{itemize}
-		\item OpenMetrics supports more than just metrics
-		\item Every single data point in a time series can point to one single event
-		\item Especially useful if you emit one trace id per histogram bucket, i.e. exemplars
-		\item Some integrations already support this concept, e.g. OpenCensus
-		\item Ingestors are free to discard this optional data, e.g. Prometheus
-	\end{itemize}
-	\vfill
-\end{frame}
-
-\begin{frame}
-	\frametitle{Bringing observability back together}
-	\vfill
-	\begin{itemize}
-		\item IT architectures breathe
-		\item Out/Insourcing, Mainframe/client-server/containers, etc
-		\item You solve the current problem, and then face another
-		\item By focussing on Metrics, Prometheus breathed in
-		\item OpenMetrics intends to breathe out by creating one consistent user story encompassing all events in the next version
-		\begin{itemize}
-			\item OpenStats - OpenMetrics for push
-			\item Events - Logs, Traces, Coredumps, whatever
-		\end{itemize}
-	\end{itemize}
-	\vfill
-\end{frame}
-
-
-
 
 \section{Outro}
 
@@ -328,7 +352,6 @@ histogram_bucket{le="3"} 345 1544554800 # {foo="bar"} 11 1544554799
 		\item Prometheus 2017 Dev Summit: \url{https://docs.google.com/document/d/1DaHFao0saZ3MDt9yuuxLaCQg8WGadO8s44i3cxSARcM/edit}
 		\item OpenMetrics: \url{https://github.com/OpenObservability/OpenMetrics}
 		\item OpenMetrics mailing list: \url{https://groups.google.com/forum/\#\!forum/openmetrics}
-		\item WIP branch for Python library \url{https://github.com/prometheus/client\_python/tree/openmetrics}
 		\item This and other talks: \url{https://github.com/RichiH/talks/}
 	\end{itemize}
 	\vfill
