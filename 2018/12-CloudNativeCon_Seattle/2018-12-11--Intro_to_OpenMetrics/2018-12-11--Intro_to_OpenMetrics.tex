@@ -1,0 +1,386 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{OpenMetrics}
+\subtitle{Standing on the shoulders of Titans}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian,richih\}.org,\\
+@TwitchiH}
+\date{2018-12-11}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\section{Introduction}
+
+\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{`whoami`}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item Swiss army chainsaw at SpaceNet
+		\begin{itemize}
+			\item Currently responsible for building one of the most modern datacenters in Europe
+			\item ...and always looking for nice co-workers in the Munich area
+		\end{itemize}
+		\item FOSDEM, DebConf, DENOGx, PromCon staff
+		\item Author of \url{https://github.com/RichiH/vcsh}
+		\item Debian Developer
+		\item Prometheus team member
+	\end{itemize}
+\end{frame}
+
+
+\section{Quick intro}
+
+\subsection{Prometheus}
+
+\begin{frame}
+	\frametitle{What's Prometheus?}
+		\begin{center}
+			\vfill
+			You can't talk about OpenMetrics without mentioning Prometheus
+			\vfill
+		\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What's Prometheus?}
+		\begin{center}
+			\vfill
+			Show of hands: Who has heard of Prometheus?
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Problem statement}
+
+\begin{frame}
+	\frametitle{Before Prometheus}
+	\vfill
+	\begin{itemize}
+		\item Historically, the monitoring landscape has been highly fragmented
+		\item Many solutions based on ancient technology
+		\item Most data formats are proprietary, hard to implement, or both
+		\item ..and most with hierarchical data models
+		\item Almost none with a focus on metrics
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Before Prometheus}
+	\vfill
+	\begin{itemize}
+		\item Only thing approaching a standard: SNMP
+		\item Who has heard of SNMP?
+		\item Who likes SNMP?
+		\item XKCD 927 applies
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{After Prometheus}
+	\vfill
+	\begin{itemize}
+		\item Prometheus has become a de-facto standard in cloud-native metric monitoring
+		\item Ease of exposing data has lead to an explosion in compatible metrics endpoints
+		\item Prometheus’ exposition format is based on a lot of operational experience, but has been designed between few people
+		\item Some other projects \& vendors are torn about adopting something from a “competing” product
+		\item Especially traditional vendor prefer to support official standards
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goldrush}
+	\vfill
+	\begin{itemize}
+		\item So about fragmentation...
+		\item Cloud native is in the buzz phase
+		\item Explosive growth always equals goldrush and stake claiming, aka fragmentation
+		\item I don't have a profit motive, so I can easily decide to try and consolidate this space without profit loss
+		\begin{itemize}
+			\item ..so that's what I decided to do
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+
+\section{OpenMetrics}
+
+
+\subsection{People}
+
+\begin{frame}
+	\frametitle{Acknowledgements}
+	\vfill
+	\begin{itemize}
+		\item Main work has been done by
+		\begin{itemize}
+			\item Prometheus team
+			\begin{itemize}
+				\item Ben Kochie
+				\item Brian Brazil
+				\item myself
+			\end{itemize}
+			\item Google
+			\begin{itemize}
+				\item Sumeer Bhola
+			\end{itemize}
+			\item Uber
+			\begin{itemize}
+				\item Jerome Froelich
+				\item Rob Skillington
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{First commitments, too many for full list}
+	\vfill
+	\begin{itemize}
+		\item Cloudflare
+		\item CNCF at large
+		\item GitLab
+		\item Google
+		\item Grafana
+		\item InfluxData
+		\item Prometheus ;)
+		\item RobustPerception
+		\item SpaceNet
+		\item Uber
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+\subsection{Plans}
+
+\begin{frame}
+	\frametitle{Approach}
+	\vfill
+	\begin{itemize}
+		\item Spin out Prometheus exposition format into its own standard
+		\begin{itemize}
+			\item Neutral brand
+			\item Umbrella for wider cooperation in FLOSS and industry
+		\end{itemize}
+		\item Broadening designer base ensures covering of many/all use cases
+		\item Official standard (work in progress)
+		\begin{itemize}
+			\item IETF RFC
+			\item Registered content-type/MIME-type
+			\item Maybe IANA port assignment
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Current status}
+	\vfill
+	\begin{itemize}
+		\item We finished the discussion phase and moved into implementation
+		\begin{itemize}
+			\item Still finding minor bugs during implementation
+		\end{itemize}
+		\item RFC currently blocked on me finding time
+		\item Prometheus: experimental support since 2.5.0
+		\item Python client library: experimental support since 0.4.0
+		\item Test your own OM output: \url{robustperception.io/checking-openmetrics-output-is-valid}
+		\begin{itemize}
+			\item Google and Uber want to create another reference parser to weed out bugs
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Next steps}
+	\vfill
+	\begin{itemize}
+		\item Full OpenMetrics support in Prometheus, InfluxDB, OpenCensus, M3DB, etc
+		\item Spreading the word
+		\item CNCF sandbox to incubating
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Beyond cloud}
+	\vfill
+	\begin{itemize}
+		\item OpenMetrics is intended to go beyond "just" cloud-native fields
+		\item Want to get more traditional projects and vendors on board
+		\begin{itemize}
+			\item Arista already on board
+			\item Vertiv very interested
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Beyond metrics}
+	\vfill
+	\begin{itemize}
+		\item OpenMetrics supports more than just metrics
+		\item Every single data point in a time series can point to one single event
+		\item Especially useful if you emit one trace id per histogram bucket, i.e. exemplars
+		\item Some integrations already support this concept, e.g. OpenCensus
+		\item Ingestors are free to discard this optional data, e.g. Prometheus
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bringing observability back together}
+	\vfill
+	\begin{itemize}
+		\item IT architectures breathe
+		\item Out/Insourcing, Mainframe/client-server/containers, etc
+		\item You solve the current problem, and then face another
+		\item By focussing on Metrics, Prometheus breathed in
+		\item OpenMetrics intends to breathe out by creating one consistent user story encompassing all events in the next version
+		\begin{itemize}
+			\item OpenStats - OpenMetrics for push
+			\item Events - Logs, Traces, Coredumps, whatever
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+\subsection{Looks}
+
+\begin{frame}[fragile]
+        \frametitle{Prometheus}
+        \fontsize{10pt}{12}\selectfont
+        \begin{verbatim}
+http_requests_total{env="prod",method="post",code="200"} 1027
+http_requests_total{env="prod",method="post",code="400"} 3
+http_requests_total{env="prod",method="post",code="500"} 12
+http_requests_total{env="prod",method="get",code="200"} 20
+http_requests_total{env="test",method="post",code="200"} 372
+http_requests_total{env="test",method="post",code="400"} 75
+        \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+        \frametitle{OpenMetrics}
+        \fontsize{10pt}{12}\selectfont
+        \begin{verbatim}
+http_requests_total{env="prod",method="post",code="200"} 1027
+http_requests_total{env="prod",method="post",code="400"} 3
+http_requests_total{env="prod",method="post",code="500"} 12
+http_requests_total{env="prod",method="get",code="200"} 20
+http_requests_total{env="test",method="post",code="200"} 372
+http_requests_total{env="test",method="post",code="400"} 75
+        \end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+        \frametitle{OpenMetrics}
+        \fontsize{10pt}{12}\selectfont
+Prometheus
+        \begin{verbatim}
+http_requests_total{env="prod",method="post",code="200"} 1027 1544554800000
+        \end{verbatim}
+OpenMetrics
+        \begin{verbatim}
+http_requests_total{env="prod",method="post",code="200"} 1027 1544554800
+
+histogram_bucket{le="1"} 123 # {foo="bar"} 42 1544554800
+histogram_bucket{le="2"} 234 # {foo="bar"} 23 1544554799.123
+histogram_bucket{le="3"} 345 1544554800 # {foo="bar"} 11 1544554799
+        \end{verbatim}
+\end{frame}
+
+
+
+\section{Outro}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Further reading}
+	\vfill
+	\begin{itemize}
+		\item Prometheus 2017 Dev Summit: \url{https://docs.google.com/document/d/1DaHFao0saZ3MDt9yuuxLaCQg8WGadO8s44i3cxSARcM/edit}
+		\item OpenMetrics: \url{https://github.com/OpenObservability/OpenMetrics}
+		\item OpenMetrics mailing list: \url{https://groups.google.com/forum/\#\!forum/openmetrics}
+		\item This and other talks: \url{https://github.com/RichiH/talks/}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions?
+			\vfill
+			Email me if you want a job in Munich.
+			\vfill
+			See slide footer for contact info.
+			\vfill
+		\end{center}
+\end{frame}
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}

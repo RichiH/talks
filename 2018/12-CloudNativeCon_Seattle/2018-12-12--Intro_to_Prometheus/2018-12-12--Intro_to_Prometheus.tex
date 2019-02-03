@@ -1,4 +1,4 @@
-\documentclass[t]{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usepackage{helvet}
 \usepackage{calc}
 \usepackage[utf8]{inputenc}
@@ -48,26 +48,26 @@
 			\item Project lead for building one of the most modern datacenters in Europe
 			\item Debian Developer
 			\item FOSDEM, DebConf, DENOGx, PromCon staff
+			\item Prometheus team member
 		\end{itemize}
 		\item Frederic Branczyk
+		\begin{itemize}
+			\item Red Hat (previously CoreOS)
+			\item All things Prometheus / Kubernetes
+			\item Kubernetes SIG-Instrumentation lead
+			\item Prometheus team member
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\subsection{}
-
-
-
-\section{Background}
-
-
-\subsection{}
-
-% TODO
-% focus on services
-
-% HA? run two
-% federation
-
+\begin{frame}
+	\frametitle{Time split}
+	\begin{enumerate}
+		\item 1/3 Prometheus
+		\item 1/3 Observability
+		\item 1/3 Questions
+	\end{enumerate}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Show of hands}
@@ -90,6 +90,71 @@
 		\item Dashboarding via Grafana
 	\end{itemize}
 \end{frame}
+
+
+\section{Prometheus}
+
+
+\subsection{}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{01-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{02-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{03-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{04-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{05-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{06-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{07-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{08-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{09-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{10-cropped.png}
+\end{frame}
+
+\begin{frame}
+        \frametitle{Generating, scraping, and persisting times series}
+        \includegraphics[width=\textwidth]{11-cropped.png}
+\end{frame}
+
+
+\subsection{}
+
 
 \begin{frame}
 	\frametitle{Main selling points}
@@ -133,7 +198,7 @@
 	\begin{itemize}
 		\item 1,000,000+ samples/second no problem on currect hardware
 		\item 200,000 samples/second/core
-		\item 16 bytes/sample compressed to 1.36 bit/sample
+		\item 16 bytes/sample compressed to 1.36 bytes/sample
 		\item Cheap ingestion \& storage means more data for you
 	\end{itemize}
 \end{frame}
