@@ -1,0 +1,288 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Prometheus}
+\subtitle{What the hype is about}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{debian,fosdem,richih\}.org,\\
+@TwitchiH}
+\date{2019-04-09}
+
+
+\begin{document}
+
+
+
+\section{Introduction}
+
+
+\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lucky me...}
+	\vfill
+	This was supposed to happen in a room, not on the show floor, sorry about the audio.
+	\vfill
+	...at least these are text slides...
+	\vfill
+	On the other hand, I always try to have some time for Q\&A; this might not work here...
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{whoami}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item Swiss army chainsaw at SpaceNet
+		\item Project lead for building one of the most modern datacenters in Europe
+		\item Debian Developer
+		\item FOSDEM, DebConf, DENOGx, PromCon staff
+		\item Prometheus team member
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Show of hands}
+	\begin{itemize}
+		\item Who has heard of Prometheus?
+		\item Who is considering to use Prometheus?
+		\item Who is POCing Prometheus?
+		\item Who uses Prometheus in production?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Prometheus 101}
+	\begin{itemize}
+		\item Inspired by Google's Borgmon
+		\item Time series database
+		\item unit64 millisecond timestamp, float64 value
+		\item Instrumentation \& exporters
+		\item Not for event logging
+		\item Dashboarding via Grafana
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Prometheus}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Main selling points}
+	\begin{itemize}
+		\item Highly dynamic, built-in service discovery
+		\item No hierarchical model, n-dimensional label set
+		\item PromQL: for processing, graphing, alerting, and export
+		\item Simple operation
+		\item Highly efficient
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Working assumptions \& concepts}
+	\begin{itemize}
+		\item Prometheus is a pull-based system
+		\item Black-box monitoring: Looking at a service from the outside (Does the server answer to HTTP requests?)
+		\item White-box monitoring: Instrumention code from the inside (How much time does this subroutine take?)
+		\item Every service should have its own metrics endpoint
+		\item Hard API commitments within major versions
+		\item No built-in TLS yet, use reverse proxies for now
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time series}
+	\begin{itemize}
+		\item Time series are recorded values which change over time
+		\item Individual events are usually merged into counters and/or histograms
+		\item Changing values are recorded as gauges
+		\item Typical examples
+		\begin{itemize}
+			\item Access rates to a webserver (counter)
+			\item Temperatures in a datacenter (gauge)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Efficiency}
+	\begin{itemize}
+		\item 1,000,000+ samples/second no problem on currect hardware
+		\item 200,000 samples/second/core
+		\item 16 bytes/sample compressed to 1.36 bytes/sample
+		\item Cheap ingestion \& storage means more data for you
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Exposition format}
+	\fontsize{10pt}{12}\selectfont
+	\begin{verbatim}
+http_requests_total{env="prod",method="post",code="200"} 1027
+http_requests_total{env="prod",method="post",code="400"} 3
+http_requests_total{env="prod",method="post",code="500"} 12
+http_requests_total{env="prod",method="get",code="200"} 20
+http_requests_total{env="test",method="post",code="200"} 372
+http_requests_total{env="test",method="post",code="400"} 75
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{PromQL vs SQL}
+	\fontsize{10pt}{12}\selectfont
+	\begin{verbatim}
+avg by(city) (temperature_celsius{country=”germany”})
+
+SELECT city, AVG(value) FROM temperature_celsius WHERE \
+ country=”germany” GROUP BY city
+
+rate(errors{job=”foo”}[5m]) / rate(total{job=”foo”}[5m])
+
+SELECT errors.job, errors.instance, […more labels…], \
+ rate(errors.value, 5m) / rate(total.value, 5m) \
+ FROM errors JOIN total ON […all label equalities…] \
+ WHERE errors.job=”foo” AND total.job=”foo”
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Grafana}
+	\begin{itemize}
+		\item Supports dozens of data sources
+		\item Modern UI
+		\item Allows for complex data manipulation and visualization
+		\item Native Prometheus support
+		\item New feature: Interactive exploration of Prometheus data
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Why the hype?}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Borg}
+	\vfill
+	\begin{itemize}
+		\item Kubernetes is Borg
+		\item Prometheus is Borgmon
+		\item Google couldn't have run Borg without Borgmon
+		\item (We will ignore Omega \& Monarch in the context of this talk)
+		\item Kubernetes \& Prometheus are designed and written with each other in mind
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cloud}
+	\vfill
+	\begin{itemize}
+		\item Metrics are a sweet spot in visibility and scalability
+		\begin{itemize}
+			\item Observability also means being able to handle the amounts of data
+		\end{itemize}
+		\item n-dimensional label sets are what enable cloud scale metrics collection
+		\begin{itemize}
+			\item Alternative: Have fun extracting knowledge from a monitoring data lake
+		\end{itemize}
+		\item Prometheus handles churn better than a lot of other monitoring software
+		\begin{itemize}
+			\item A nameless company has a pod lifetime of 15m; if they want to run analysis over the last two weeks...
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Anthos ;)}
+	\begin{itemize}
+		\item Running Prometheus is simple, but its HA story is very opinionated
+		\item Two friendly forks tackle this on different levels:
+		\begin{itemize}
+			\item Cortex: Horizontally scalable index
+			\item Thanos: Horizontally scalable storage
+			\item Ongoing to merge the two together: Corthanos
+			\item Might become a build-time flag in Prometheus proper at some point?
+		\end{itemize}
+		\item Running Cortex and Thanos is a bit like running K8s; consider aaS
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Scale}
+	\vfill
+	Modern workloads are impossible to handle without modern observability tooling
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Scale}
+	\vfill
+	And it's likely not your core business to handle metrics
+	\vfill
+\end{frame}
+
+
+
+\section{Outro}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!\\
+			\vfill
+			Questions?
+			\vfill
+			See slide footer for contact info.
+			\vfill
+		\end{center}
+\end{frame}
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
