@@ -1,0 +1,448 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Prometheus @ Datacenters}
+\subtitle{Why Modbus Is Even Worse than SNMP}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{debian,fosdem,richih\}.org,\\
+@TwitchiH}
+\date{2019-11-07}
+
+
+\begin{document}
+
+
+
+\section{Introduction}
+
+
+\subsection{}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{whoami}
+	\begin{itemize}
+		\item Richard "RichiH" Hartmann
+		\item Swiss army chainsaw at SpaceNet
+		\item Project lead for building one of the most modern datacenters in Europe
+		\begin{itemize}
+			\item First one world-wide to be certified under the new revision of EN 50600
+			\item One of less than a dozen with both security and availability class 4
+			\item There's no harsher non-military standard on Earth
+		\end{itemize}
+		\item FOSDEM, DENOGx, PromCon staff
+		\item Prometheus team member
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Show of hands}
+	\begin{itemize}
+		\item Who has heard of SNMP?
+		\item Who has heard of ModBus?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ModBus}
+	\centering
+	\vfill
+	ModBus is worse
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Relation}
+	\begin{itemize}
+		\item SNMPv1: 1988
+		\item ModBus release: 1979 (!)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{SNMP}
+	\centering
+	\vfill
+	Without SNMP, the Internet would break down within hours
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{ModBus}
+	\centering
+	\vfill
+	Without ModBus, society would break down within hours
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{ModBus}
+	\begin{itemize}
+		\item Without ModBus, you would have no power
+		\item Without ModBus, you would have no water
+		\item Without ModBus, you would have no ports, or trade
+		\item Without ModBus, you would have no processed food
+		\item Without ModBus, you would have no clothes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ModBus}
+	\centering
+	\vfill
+	Of course, ModBus has zero security built in
+	\vfill
+\end{frame}
+
+
+
+\section{Background}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Flavours of ModBus}
+	\begin{itemize}
+		\item Modbus RTU: Serial bus with binary data, most common. Hard real time
+		\item ModBus ASCII: Serial bus with ASCII. Just don't. Hard real time
+		\item Modbus TCP: Binary over TCP/IP. No hard real time requirements
+		\item Modbus over TCP: Slight differences, not commonly used
+		\item ModBus UDP, Modbus Plus, Pemex Modbus, Enron Modbus: Ignored
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Which to use?}
+	\centering
+	\vfill
+	You want to use ModBus TCP
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{What if I can't?}
+	\centering
+	\vfill
+	Bridging RTU into TCP is common and you can buy "master" units off the shelf
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Master \& slave}
+	\centering
+	\vfill
+	References to master \& slave in modbus\_exporter have been removed even though they are still part of the official standard
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Addressing scheme}
+	\begin{itemize}
+		\item 00001-09999: Read-Write, Discrete Output Coils
+		\item 10001-19999: Read-Only, Discrete Input Contacts
+		\item 30001-39999: Read-Only, Analog Input Registers
+		\item 40001-49999: Read-Write, Analog Output Holding Registers
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Addressing scheme}
+	\begin{itemize}
+		\item 00001-19999: Bit-wise addressing into a 2-byte block. So you need sub-addressing
+		\item 30001-49999: 2-byte block. Unless you need 16 bits, you need suba-ddressing or combination
+		\item You always get 2-byte blocks back
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Wat?}
+	\begin{itemize}
+		\item No other data types defined
+		\item Four ways to clobber a Float32 together:
+		\begin{itemize}
+			\item Big endian (1 2 3 4)
+			\item Little endian (4 3 2 1)
+			\item Mixed endian (2 1 4 3)
+			\item YOLO endian (3 4 1 2)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Waat?}
+	\centering
+	\vfill
+	At least I have not seen YOLO endian yet
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Waaat?}
+	\begin{itemize}
+		\item Yes, "Input" and "Output" are from the perspective of the sender, not the actual device
+		\item Yes, x0000 is skipped
+		\item Yes, the binary 0x0000 maps to decimal 00001
+		\item No, there's no rule if you start counting with 0 or 1, it's free for all
+		\item Addresses up to 65536, or 105536, is "extended range"
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Waaaat?}
+	\centering
+	\vfill
+	This standard is enforced by devices simply stopping to work
+	\vfill
+	Easy, reliable, horrible
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reminder}
+	\begin{itemize}
+		\item Without ModBus, you would have no power
+		\item Without ModBus, you would have no water
+		\item Without ModBus, you would have no ports, or trade
+		\item Without ModBus, you would have no processed food
+		\item Without ModBus, you would have no clothes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Maps}
+	\centering
+	\vfill
+	ModBus maps are roughly what SNMP MIBs are
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Maps}
+	\centering
+	\vfill
+	Only you can't unit test them and your production might stop working if you do something wrong
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Maps}
+	\centering
+	\vfill
+	I have seen maps which are scans of photocopied paper
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{How do you work with that?}
+	\centering
+	\vfill
+	Industry standard is to have a hex viewer, a map, an Excel sheet, and strong nerves
+	\vfill
+\end{frame}
+
+
+
+\section{Datacenters}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{What do I use this in datacenters for?}
+	\centering
+	\vfill
+	Everything
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{What do I use this in datacenters for?}
+	\centering
+	\vfill
+	Everything, except the cameras
+	\vfill
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{What do I use this in datacenters for?}
+	\centering
+	\vfill
+	Access control, intruder detection, glass breakage, fire detection, fire suppression, cooling set points, groundwater pump, groundwater filters, ion exchange pump, reverse osmosis system, water leakage, fan speed, doors opening and closing, fence gates, lighting, MCCB \& status, diesel engine status, diesel fuel tank levels, battery runtime, battery health, elevator access, elevator position, movement in secure areas, potential to ground, lightning strikes, microsecond events on power distribution, medium voltage, transformer load, transformer heat, floodlights, pressure release valves, airflow in office, temperature in office, temperature/humidity/pressure in data halls, smoke extraction fans, emergency exit status, LASER fence scanners, conductivity of cooling water, bullet-proof glass being shot at
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{What do I use this in datacenters for?}
+	\centering
+	\vfill
+	Not a complete list
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why?}
+	\centering
+	\vfill
+	Why?
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why?}
+	\centering
+	\vfill
+	I like pain
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why?}
+	\centering
+	\vfill
+	ModBus is the one standard supported by ALL industrial equipment
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why?}
+	\centering
+	\vfill
+	ModBus is horrible, but it's also extremely reliable
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why?}
+	\centering
+	\vfill
+	Because countless people would die if it wasn't
+	\vfill
+\end{frame}
+
+
+
+\section{Prometheus}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{How?}
+	\centering
+	\vfill
+	\url{https://github.com/RichiH/modbus_exporter}
+	\vfill
+	Max Inden did tons of work during a one-month networking \& ModBus stint at SpaceNet
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Caveats}
+	\centering
+	\vfill
+	If you have ModBus RTU, use a PLC as a gateway to expose ModBus TCP
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Caveats}
+	\centering
+	\vfill
+	Reading out ModBus registers takes several seconds
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Future work}
+	\centering
+	\vfill
+	Currently having my PLCs reprogrammed to expose seconds spent and might adapt exporter to calculate correct time
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Future work}
+	\centering
+	\vfill
+	There is a semi-standard way to write a ModBus map and I want to have a generator like snmp\_exporter's
+	\vfill
+\end{frame}
+
+
+
+\section{Outro}
+
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Reminder}
+	\begin{itemize}
+		\item Without ModBus, you would have no power
+		\item Without ModBus, you would have no water
+		\item Without ModBus, you would have no ports, or trade
+		\item Without ModBus, you would have no processed food
+		\item Without ModBus, you would have no clothes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ModBus}
+	\centering
+	\vfill
+	Without ModBus, society would break down within hours
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thanks for listening!
+			\vfill
+			Questions?
+			\vfill
+			Twitter: @TwitchiH
+			\vfill
+		\end{center}
+\end{frame}
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
