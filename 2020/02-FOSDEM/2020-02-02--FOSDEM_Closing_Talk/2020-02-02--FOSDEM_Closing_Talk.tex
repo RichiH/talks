@@ -1,0 +1,380 @@
+%\documentclass[t]{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{FOSDEM closing talk}
+\subtitle{Come to the dark side, we have cookies (and cake)}
+%\subtitle{Waffles, beer, and t-shirts}
+\author{Richard Hartmann,\\
+RichiH@\{freenode,OFTC,IRCnet\},\\
+richih@\{fosdem,debian\}.org}
+\date{2020-02-02}
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+
+
+%\begin{frame}
+%	\frametitle{Statistics}
+%	\tableofcontents
+%\end{frame}
+
+\begin{frame}
+	\frametitle{Palindrome day in all three major systems}
+	\vfill
+	\begin{itemize}
+		\item 02.02.2020
+		\item 02/02/2020
+		\item 2020-02-02
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Palindrome day in all three major systems}
+	\begin{center}
+	\vfill
+		Not that anything other than ISO dates matters
+	\vfill
+	\end{center}
+\end{frame}
+
+\section{Stats!}
+
+\subsection{...about us}
+
+\begin{frame}
+	\frametitle{World's largest conference}
+	\vfill
+	\begin{itemize}
+		\item 893 events
+		\item 449 hours 55 minutes of content
+		\item 836 speakers
+			% https://fosdem.org/2020/schedule/speakers/
+		\item 72 tracks, 67 of them devrooms
+		\item 63 stands
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\subsection{...about networks}
+
+\begin{frame}
+	\frametitle{Useless numbers...}
+	\vfill
+	\begin{itemize}
+		\item How many MAC addresses did we see?
+		\begin{itemize}
+			\item 2017: 11,614
+			\item 2018: 175,000+
+			\item 2019: 123,875
+			\item 2020: 10,957 - we are not counting the probes any more
+		\end{itemize}
+		\item Privacy extensions and other mechanisms actively hide and inflate those numbers
+		\item We have become better at filtering that out
+		\item And it seems some overzealous playchildren settled down a bit
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reminder}
+	\vfill
+	\begin{itemize}
+		\item 2017, we felt the need to inform about what networks we do and do not run
+		\item 2018, we felt the need to talk about MITM
+		\item 2019, we had some script kiddies try and ARP spoof our default gateway
+		\item 2020, we strengthed our defenses against ARP spoofing some more ;)
+		\item State actors gather a lot more data about you than anyone at FOSDEM ever could
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{What do!?}
+	\vfill
+	\begin{itemize}
+		\item Use encryption
+		\item Use VPNs
+		\item Use encrypted services
+		\item Did I mention encryption?
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{IPv6 is here}
+	\vfill
+	\begin{itemize}
+		\item Last IPv6 slide, I already skipped it in the infrastructure review
+		\item Other than for VPN applications, IPv6 has won
+	\end{itemize}
+	\vfill
+\end{frame}
+
+
+\subsection{Swag}
+
+\begin{frame}
+	\frametitle{Swag}
+	\vfill
+	\begin{itemize}
+		\item 490 hoodies
+		\item 2085 straight-cut t-shirts
+		\item 190 fitted t-shirts
+		\item First run-out: XXXL shirts Saturday at 14:12:00
+		\item We ran out of ALL the things again, even though we almost doubled many amounts...
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\subsection{...about food}
+
+\begin{frame}
+	\frametitle{Food}
+	\vfill
+	\begin{itemize}
+		\item 1200 pasta dishes
+		\item 1000 kg fries
+		\item 350 wraps
+		\item 450 kebaps
+		\item 550 vegan wraps
+		\item 200 brownies
+		\item 80 liters of soup
+		\item 2000 sugarwaffles
+		\item 500 bags of waffles
+		\item 1000 burgers
+		\item 800 wings
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\section{Sponsors}
+
+
+\subsection{Venue sponsor}
+
+
+\begin{frame}
+	\frametitle{ULB}
+		\includegraphics[scale=1.5]{images/logo_ulb.png}
+%		\includegraphics[width=\textwidth]{images/logo_ulb.png}
+\end{frame}
+
+
+\subsection{Cornerstone sponsors}
+
+
+\begin{frame}
+	\frametitle{Google}
+	\vfill
+		\includegraphics[scale=0.25]{images/google.png}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Red Hat}
+	\vfill
+		\includegraphics[scale=0.25]{images/red_hat.png}
+	\vfill
+\end{frame}
+
+
+\subsection{Main sponsors}
+
+\begin{frame}
+	\begin{columns}[t]
+	\column{.3\textwidth}
+	\centering
+		\includegraphics[scale=0.5]{images/arm.png}\\
+		\vspace{0.4cm}
+		\includegraphics[scale=0.5]{images/aws.png}\\
+		\vspace{0.4cm}
+		\includegraphics[scale=0.3]{images/backmarket.png}
+		\vspace{0.4cm}
+		\includegraphics[scale=0.5]{images/cisco.png}\\
+	\column{.3\textwidth}
+	\centering
+		\includegraphics[scale=0.5]{images/codethink.png}
+		\vspace{0.4cm}
+		\includegraphics[scale=0.4]{images/cncf.png}\\
+		\vspace{0.4cm}
+		\includegraphics[scale=0.2]{images/colt.png}\\
+		\vspace{0.4cm}
+		\includegraphics[scale=0.5]{images/drawio.png}\\
+	\column{.3\textwidth}
+	\centering
+		\vspace{0.5cm}
+		\includegraphics[scale=0.4]{images/facebook.png}\\
+		\vspace{0.5cm}
+		\includegraphics[scale=0.5]{images/github.png}\\
+		\vspace{0.5cm}
+		\includegraphics[scale=0.4]{images/infomaniak.png}
+		\vspace{0.5cm}
+		\includegraphics[scale=0.4]{images/opentap.png}
+	\end{columns}
+\end{frame}
+
+\section{Thank you!}
+
+\subsection{Volunteers \& Staff}
+
+\begin{frame}
+	\frametitle{Volunteers}
+	Ada Nduka Oyom, Adrien Kunysz, Aija Jaunteva, Akshit Gupta, Alejandro Castano, Aleksandar Tonchev, Aleksandr Dinu, Aleksandra Samonek, Alex A, Alex Howe, Alex Milanov, Alexander Chalikiopoulos, Alexander Matrunich, Allan Nordhøy, Alphonsos Pangas, Anastasia Mousa, Andrea Bernabei, Andreea Radu, Andrej Shadura, Andrew Howe, Andrii Zymohliad, Aniket Ashwin Samant, Anne van Ginneken, Anton Vorobiev, Apoorva Arora, Apostolos Kalovelonis, Ariel L, Arkadiusz Hiler, Armando Vega, Arnold Dechamps, Arsenijs Picugins, Belen Barros Pena, Bert Van de Poel, Bettina Rehberg, Birgit Huecking, Blagovest Petrov, Bolaji Ayodeji, Brian Richardson, Bruce Chastain, Bruno ., Carlos Eduardo Bonalume, Caroline Vo, Chanelfa Eetgerink, Charly Passemard, Cheuk Ho, Chris Heywood, Chris Iradukunda, Christian Arnsdorf, Christian Janssen
+\end{frame}
+
+\begin{frame}
+	\frametitle{Volunteers}
+	Christophe Van Reeth, Christopher Baines, Claudio Calvelli, Cristian Marin, Dan Clark, Daniele Baracchi, Dasara Shullani, David Huecking, David Ludovino, David Pinilla Caparrós, Dawid Wozniak, Delyan Lafchiev, Denis Zalevskiy, Dimitar Danailov, Dimitrios Petras, Dimitris Pliakos, Drew DeVault, Dries Michiels, ERIC GYESU, Edoardo Putti, Eggya Chiquita, Elli Stergiadou, Enkelena Haxhija, Erwin van den Bovenkamp, Eva Dovc, Eva Stöwe, Federica Di Lauro, Filipe Laíns, Florian Stanek, Florian Vanneroy, Francisco Blas Izquierdo Riera, Fredric Johansson, Friedger  Müffke , Geoffroy (Jeff) BAILLY, Georgi Zafirov, Georgina Leslie, Giorgos Apostolopoulos, Grant Haywood, Gregory Giapantzis, Guruprasad Hegde, Hans Ulli Kroll, Harihara Nagarajan, Henning Rohde, Håvard Syslak, Indrajith Janaka Ekanayake Ekanayake, Ivan Basamakov, Ivan Stefanov
+\end{frame}
+
+\begin{frame}
+	\frametitle{Volunteers}
+	Jacopo Girardi, Jafar Shayan, James Bishop, Jan Van Buggenhout, Jarek Lipski, Jeffrey Swerissen, Jeroen van Lent, Joana Trashlieva, Jonathan Magérus, Jonathan Schleußer, Jordi Nieuwenburg, Joris De Moor, Jose Rafael Romero Miret, Julia Rudnyk, Julien Detroz, Karsten Merker, Kaspar Versluis, Khashayar Danesh, Klaus Aigner, Koen Glotzbach, Lars Vierbergen, Laura Wilkinson, Leena Farhat, Lennard Indlekofer, Livia Takacs, Lizzie Stone, Louis Taylor, Luc Verhaegen, Lucas Declercq, Ludovic Gasc Lemaire, Luke Matthews, Luke Wybar, Luna Jernberg, Marc Bessières, Marcel van Duijvendijk, Marco Berta, Marek Szuba, Maria Gkitou, Marian Baychev, Marian Marinov, Marianna Vouraki, Markus Zarbock, Martin Leyrer, Martin Petracek, Martin Unzner, Mathieu Darse, Matthew Taylor, Matthias Michels, Matthieu De Beule, Matthieu Foré, Mehdi Hadjard
+\end{frame}
+
+\begin{frame}
+	\frametitle{Volunteers}
+	Michael Haak, Michael Richardson, Mihail Andreev, Mohammad Ariful Islam, Morgan Diepart, Moya Schiller, Nasia Samsouri, Nathan West, Nathan Williams, Nattie M-H, Naveen Chakravarthy, Nick Chernetskyi, Nicolas Petras, Oisín Brady, Olivier Dauby, Pablo de la Concepción, Pankaj Raghav Partha Sarathy, Paul Delafosse, Paulo Santana, Petar Petrovic, Peter Leemans, Peter van Ginneken, Philip Homburg, Philip Mottershead, Pierre Moreau, Pierre Spring, Piet Braat, PoroCYon, Preben Vangberg, Quentin Bontemps, Renato Ribeiro, Richard Kraaijenhagen, Rikkert Kooy, Rob Pickering, Rob van der Most, Robert Kujawa, Robert Marshall, Roberto Amabile, Rémi OUDIN, Samuel Jones, Sandra Rensman, Saptak Sengupta, Sebastian Grömcke, Sebastian Schubert, Sergei Nizovtsev, Shin Ice, Sietse Snel, Simon Maenaut, Simone Spinelli, Sophie Pinder
+\end{frame}
+
+\begin{frame}
+	\frametitle{Volunteers}
+	Sreeja Sahu, Sri Harsha Gajavalli, Sri Harsha PAGOLU, Stoyan Marinov, Suryansh Sharma, Sven Neuhaus, Theo van Hoesel, Thibaut Philippart, Thomas Daniels, Thomas Jouas, Thomas Kamerling, Tobias Dorra, Tom Mason, Trupti Raghvendra Kulkarni, Tzafrir Cohen, VIVEK JUNEJA, Vasil Kolev, Venera Sokolova, Vincent Vanlaer, Violeta Menendez Gonzalez, Vivien Venuti, Vladimir Garistov, Vladimir Vitkov, Wally Yuen, Wian Stienstra, Willow Meyer, Wolfram Sang, Wynke Stulemeijer, Yuliya Tenincheva, boris meggiorin, chris Dolan, dirk astrath, laszlo vl, luca petraglio, mikaël mukeba, nicolas caramelli, sebastian eggermont, thomascovenant thomascovenant, z chen, 
+\end{frame}
+
+\begin{frame}
+	\frametitle{Staff}
+	\vfill
+	Alasdair Kergon, Egbert De Vries, Emanuil Tolev, Geert Goossens, Gerry Demaret, Ieva Supjeva, inda Calders, Jan-Frederik Martens, Jan Gyselinck, Johan Van de Wauw, Johan van Selst, Jonas Scheers, Julien Detroz, Koen Vervloesem, Kristian Schuhmacher, Mark Van den Borre, Marthe Parada Delgado, Michael De Swert, Miguel Terol Espino, Murali Suriar, Peter Van Eynde, Philippe De Swert, Pieter De Praetere, Quint Daenen, Richard Hartmann, Sebastian Schauenburg, Stella Rouzi, Thomas Perale, Ulla Kem, Vasil Kolev, Wouter Simons, Wouter Verhelst
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Everyone!}
+	\vfill
+	\begin{center}
+	{\Huge You!}
+	\end{center}
+	\vfill
+\end{frame}
+
+
+\section{Help us}
+
+\subsection{Feedback}
+
+\begin{frame}
+	\frametitle{Feedback}
+	\vfill
+	\begin{itemize}
+		\item Please give feedback!
+		\item There's a feedback section in the booklet
+		\item Every talk on our website has a feedback link
+		\item \url{feedback@fosdem.org}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\subsection{Reviews}
+
+\begin{frame}
+	\frametitle{Review}
+	\vfill
+	\begin{itemize}
+		\item If you are a speaker or a devroom manager:
+		\begin{itemize}
+			\item Please review the talks we sent to you
+			\item If you find any errors on uploaded videos, let us know
+			\item If you don't receive a working link by email today, send email to \url{video@fosdem.org}
+		\end{itemize}
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\subsection{Cleanup}
+
+\begin{frame}
+	\frametitle{Please...}
+	\vfill
+	\begin{itemize}
+		\item FOSDEM is a lot of work and we are all tired
+		\item Please help with cleanup
+		\item If you help with network teardown, you can keep the cables for free
+		\item Rally point for Janson is here in the front
+	\end{itemize}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Style}
+	\begin{center}
+		\vfill
+			Meeting point for anyone wearing an old [F]OSDEM t-shirt:
+		\vfill
+			18:15, west side of Janson, main entrance
+		\vfill
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Until we meet again...}
+	\vfill
+	\begin{center}
+		{\Huge We have cake up front, and cupcakes on all four exits}
+	\end{center}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Until we meet again...}
+	\vfill
+	\begin{center}
+		{\Huge See you in 2021!}
+	\end{center}
+	\vfill
+\end{frame}
+
+
+\end{document}
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item
+%		\item
+%		\item
+%		\item
+%		\item
+%	\end{itemize}
+%\end{frame}
