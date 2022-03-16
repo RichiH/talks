@@ -1,6 +1,6 @@
 ## Social links
-* Twitter: @TwitchiH [https://twitter.com/TwitchiH](https://twitter.com/TwitchiH)
-* GitHub: @RichiH [https://github.com/RichiH](https://github.com/RichiH)
+* Twitter: @TwitchiH - [https://twitter.com/TwitchiH](https://twitter.com/TwitchiH)
+* GitHub: @RichiH - [https://github.com/RichiH](https://github.com/RichiH)
 * LinkedIn: [https://www.linkedin.com/in/%F0%9F%93%88-richard-hartmann-b71800107/](https://www.linkedin.com/in/%F0%9F%93%88-richard-hartmann-b71800107/)
 
 ## En
