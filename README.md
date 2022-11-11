@@ -1,4 +1,5 @@
 ## Social links
+* Mastdoon: @RichiH@chaos.social - [https://chaos.social/@RichiH](https://chaos.social/@RichiH)
 * Twitter: @TwitchiH - [https://twitter.com/TwitchiH](https://twitter.com/TwitchiH)
 * GitHub: @RichiH - [https://github.com/RichiH](https://github.com/RichiH)
 * LinkedIn: [https://www.linkedin.com/in/richih](https://www.linkedin.com/in/richih)
