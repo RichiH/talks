@@ -1,3 +1,3 @@
-* [Conference](https://eventyay.com/e/7cfe0771/session/8058)
-* [Slides](https://docs.google.com/presentation/d/1YrgKa8JdXQVSzAlYh1agddsl95JXcK1cJLIVKdux64s/)
-* [PDF](2023-04-13--How_Grafana_Labs_builds_and_sustains_communities.pdf)
+* [Conference](https://monitorama.com/2023/pdx.html#schedule)
+* [Slides](https://docs.google.com/presentation/d/15IUU6mle6KT4oNsNaWiYJlVNnkaU5SJwAgk252hXELk/)
+* [PDF](2023-06-29--Monitorama_Grafana_sponsored_talk.pdf)
