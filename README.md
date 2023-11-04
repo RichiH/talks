@@ -5,13 +5,13 @@
 * GitHub: @RichiH - [https://github.com/RichiH](https://github.com/RichiH)
 * LinkedIn: [https://www.linkedin.com/in/richih](https://www.linkedin.com/in/richih)
 
-## En
+## EN
 Richard "RichiH" Hartmann is the Director of Community at Grafana Labs, a member of the Office of the CTO of Grafana Labs, Prometheus team member, OpenMetrics founder, OpenTelemetry member, CNCF Technical Oversight Committee member, CNCF Governing Board member, and more.
 He also leads, organizes, or helps run various conferences from hundreds to 18,000 attendess, including KubeCon, PromCon, FOSDEM, DENOG, DebConf, and Chaos Communication Congress.
 In the past, he made mainframe databases work, ISP backbones run, kept the largest IRC network on Earth running, and designed and built a datacenter from scratch.
 Go through his talks, podcasts, interviews, and articles at https://github.com/RichiH/talks or follow him on Mastodon at https://chaos.social/@RichiH for musings on the intersection of technology and society.
 
-## De
+## DE
 Richard "RichiH" Hartmann ist Director of Community bei Grafana Labs und Mitglied des Office of the CTO. Er ist Mitglied von Prometheus, hat OpenMetrics gegründet, und ist Mitglied von OpenTelemetry.
 Er sitzt im CNCF Technical Oversight Committee und CNCF Governing Board.
 Er leitet, organisiert, und hilft bei diversen Konferenzen, unter Anderem KubeCon, PromCon, FOSDEM, DENOG, DebConf, und Chaos Communication Congress.
