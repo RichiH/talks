@@ -17,6 +17,6 @@ Er sitzt im CNCF Technical Oversight Committee und CNCF Governing Board.
 Er leitet, organisiert, und hilft bei diversen Konferenzen, unter Anderem KubeCon, PromCon, FOSDEM, DENOG, DebConf, und Chaos Communication Congress.
 In seiner Vergangenheit hat er Großrechnerdatenbanken programmiert, Internet Backbones am Laufen gehalten, freenode geleitet, und ein komplettes Rechenzentrum von der Konzeptphase bis zur Abnahme verantwortet.
 Seine öffentlichen Vorträge, Podcasts, Interviews, etc sind unter https://github.com/RichiH/talks zu finden.
-Auf Twitter geht es unter https://twitter.com/TwitchiH primär um die Intersektion von Gesellschaft und Technologie.
+Auf Mastodon https://chaos.social/@RichiH geht es primär um die Intersektion von Gesellschaft und Technologie.
 
 ![](richih.jpg)
