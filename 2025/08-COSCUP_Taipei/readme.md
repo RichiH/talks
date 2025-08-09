@@ -1,0 +1,5 @@
+* [Conference](https://coscup.org/2025/en/sessions/AGJVL8)
+* [Collective notes](https://hackmd.io/U7lo_IC6RGGi2bfpG-gpXQ)
+* [Slides](https://docs.google.com/presentation/d/1PbtsGEwfUB55fESISsPeG59FSr3Nvg64FfMFUiDkVY4/)
+* [PDF](2025-08-09--COSCUP--Philosophy_of_Observability.pdf)
+* [video]()
