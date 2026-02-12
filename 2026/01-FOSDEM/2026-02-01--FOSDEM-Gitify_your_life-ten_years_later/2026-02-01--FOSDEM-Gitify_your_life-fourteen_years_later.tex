@@ -1,0 +1,349 @@
+\documentclass[t]{beamer}
+\usepackage{helvet}
+\usepackage{calc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usetheme{Ilmenau}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{units}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{epsf}
+\usepackage{epsfig}
+\usepackage{fixmath}
+%\usepackage{pgfmath}
+\usepackage{wrapfig}
+
+
+\title{Gitify your life - 14 years later}
+\subtitle{web, blog, configs, data, and backups}
+\author{Richard Hartmann,\\
+@RichiH@chaos.social}
+\date{2026-02-01}
+
+
+
+\begin{document}
+
+% hide all subsections
+\setcounter{tocdepth}{1}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Outline}
+%	\tableofcontents
+%\end{frame}
+
+
+\section{Intro}
+
+%\subsection{Personal stuff}
+%
+%\begin{frame}
+%	\frametitle{Who am I?}
+%	\begin{itemize}
+%		\item Richard "RichiH" Hartmann
+%		\item Backbone and project manager at Globalways AG
+%		\item freenode \& OFTC staff
+%		\item Debian Developer
+%		\item Author of vcsh \& metamonger
+%%		\item Passionate about FLOSS
+%	\end{itemize}
+%\end{frame}
+
+\subsection{The basics}
+
+\begin{frame}
+	\frametitle{What is Git?}
+	\begin{itemize}
+		\item Version control system
+		\item Distributed
+		\begin{itemize}
+			\item No need for central repository
+			\item Allows you to commit while offline
+		\end{itemize}
+		\item Stores commits (parent commit reference, commit message, root tree object) and tree objects (blobs and other tree objects)
+		\item Light-weight branches
+		\item pre-/post-action hooks
+		\item Full history in every checkout
+	\end{itemize}
+\end{frame}
+
+
+\section{etckeeper}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{etckeeper}
+			\vfill
+			\textit{etckeeper is a collection of tools to let /etc be stored in a Git, Mercurial, Darcs, or Bazaar repository}
+			\vfill
+			\textit{\url{https://etckeeper.branchable.com}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Minimal, quick overview}
+
+\begin{frame}
+	\frametitle{In a word}
+	\begin{itemize}
+		\item Implemented in POSIX shell
+		\item Auto-commits /etc prior to and after all actions by package manager
+		\item Hooks into apt, yum, pacman-g2, and cron
+		\item Allows manual commits
+		\item Various back-ends
+		\begin{itemize}
+			\item Bazaar
+			\item Darcs
+			\item Git
+			\item Mercurial
+		\end{itemize}
+		\item Easy way to recover from failures, misconfiguration or to clone machines
+	\end{itemize}
+\end{frame}
+
+
+\section{bup}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{bup}
+			\vfill
+			\textit{Highly efficient file backup system based on the Git packfile format}
+			\vfill
+			\textit{\url{https://bup.github.io}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+
+\section{ikiwiki}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{ikiwiki}
+			\vfill
+			\textit{ikiwiki is a wiki compiler. It converts wiki pages into HTML pages suitable for publishing on a website}
+			\vfill
+			\textit{\url{https://ikiwiki.info}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{Hugo}
+			\vfill
+			\textit{Currently don't have a personal website, but if I did, it would be in Git still}
+			\vfill
+			\textit{\url{https://gohugo.io}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+
+\section{git-annex}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{git-annex}
+			\vfill
+			\textit{manage files with Git, without checking their contents in}
+			\vfill
+			\textit{\url{https://git-annex.branchable.com}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Background}
+
+\begin{frame}
+	\frametitle{What is git-annex?}
+	\begin{itemize}
+		\item Based on Git
+		\item Maintains metadata in Git, actual files in the annex
+		\item Still allows you to check files into Git if you want to
+		\item Written with low bandwidth and flaky connections in mind
+		\item Superb data integrity, tracking, verification, and copying
+		\item Supports special remotes such as HTTP, video hosting sites, S3, etc
+	\end{itemize}
+\end{frame}
+
+
+\section{metamonger}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{metamonger}
+			\vfill
+			\textit{Like metastore, but done right}
+			\vfill
+			\textit{\url{https://github.com/RichiH/metamonger}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+
+\section{vcsh}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{vcsh}
+			\vfill
+			\textit{Version Control System for \$HOME \\ (multiple Git repositories in \$HOME)}
+			\vfill
+			\textit{\url{https://github.com/RichiH/metamonger}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Technical details}
+
+\begin{frame}
+	\frametitle{What is vcsh?}
+	\begin{itemize}
+		\item Implemented in POSIX shell
+		\item Based on Git, but...
+		\begin{itemize}
+			\item Git is unable to maintain several working copies in one directory
+			\item This is a safety feature...
+			\item ...which sucks if you want to keep your configs in Git
+		\end{itemize}
+		\item vcsh uses fake bare Git repositories to work around this limitation
+		\item Think of it as an extension to, or a wrapper around, Git
+		\item Powerful and extensible hook system
+		\item \url{https://github.com/RichiH/vcsh}
+	\end{itemize}
+\end{frame}
+
+
+\section{mr}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{mr (now \textit{myrepos})}
+			\vfill
+			\textit{a tool to manage all your version control repos}
+			\vfill
+			\textit{\url{https://myrepos.branchable.com}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Too many repos...?}
+
+\begin{frame}
+	\frametitle{Tying it all together}
+	\begin{itemize}
+		\item Run bulk pull, push, and custom commands all, some, or one of your repositories
+		\item Supports Git, vcsh, Bazaar, CVS, Darcs, fossil, git-svn, Mercurial, Subversion, unison, and veracity
+		\item Trivial to extend to support more VCSs
+		\item If you want to try all this, why not \texttt{vcsh clone} my mr repository template and run \texttt{mr up} to pull my Zsh config via vcsh?
+	\end{itemize}
+\end{frame}
+
+
+\section{Zsh}
+
+\begin{frame}
+		\begin{center}
+			\vfill
+			\vfill
+			\textbf{Zsh}
+			\vfill
+			\textit{Best shell available. Period.}
+			\vfill
+			\textit{\url{https://www.zsh.org}}
+			\vfill
+			\vfill
+		\end{center}
+\end{frame}
+
+\subsection{Why is this in a Git talk?}
+
+\begin{frame}
+	\frametitle{Not based on Git, but makes your life easier}
+	\begin{itemize}
+		\item Extremely powerful tab completion for the tools in this talk (and others!)
+		\item Versatile left \emph{and right} prompts
+		\item \texttt{vcs\_info}
+		\begin{itemize}
+			\item Displays information about the current VCS working copy in prompt
+			\item Lots of customization options
+			\item Supports Git, vcsh, Bazaar, codeville, CVS, Darcs, fossil, GNU Arch, Mercurial, monotone, Perforce, Subversion, and svk
+		\end{itemize}
+		\item Can mimic Bash, Ksh, tcsh, etc.
+		\item Too many other reasons to list (literally...)
+	\end{itemize}
+\end{frame}
+
+
+
+\subsection{The End!}
+
+\begin{frame}
+	\frametitle{Thanks!}
+		\begin{center}
+			\vfill
+			Thank you for listening!\\
+			\vfill
+			Questions? Ask now or catch me after this talk, both is fine.
+			\vfill
+			See slide footer for further contact information.\\
+			\vfill
+			\url{https://github.com/richih/talks}
+			\vfill
+			@RichiH@chaos.social
+			\vfill
+		\end{center}
+\end{frame}
+
+
+\end{document}
+
+
+%\begin{frame}
+%	\frametitle{}
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{frame}
